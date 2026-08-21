@@ -1,0 +1,115 @@
+# Atomic Leap Ltd — Comprehensive Technical Specification & Engineering Codex
+
+> Sovereign Venture Studio & Senior Engineering Advisory based in London, United Kingdom.
+> Atomic Leap builds, operates, and scales high-performance software systems for ambitious B2B technology companies.
+
+---
+
+## 1. Executive Summary & Sovereign Philosophy
+
+Atomic Leap Ltd is an independent B2B engineering advisory and venture studio established in 2019 in London, UK.
+
+### Sovereign Software Architecture
+We operate under the core doctrine of **sovereign software architecture**:
+- **Full Infrastructure Control:** Clients retain 100% ownership and governance of their cloud environments, source code, data pipelines, and secrets.
+- **Zero Vendor Lock-in:** Portable, self-hosted infrastructure components built with open standards, containerization (Docker, Kubernetes), and cloud-agnostic Infrastructure as Code (AWS CDK, Terraform).
+- **Data Sovereignty:** No proprietary third-party black-box dependencies. Data assets remain strictly within client-controlled boundaries.
+- **Defensible Metrics:** Engineering solutions backed by concrete, production-tested benchmarks and mathematical guarantees (e.g., double-entry idempotency, sub-50ms ledger processing, sub-second vector retrieval).
+
+---
+
+## 2. Core Engagement Model & Capabilities
+
+Atomic Leap engages with high-growth B2B technology companies, fintechs, media networks, and venture-backed startups across three primary operational models:
+
+1. **Venture Building (`01. BUILD`):** Conceptualizing, designing, and engineering proprietary B2B software products (BearAudit, Audit-Bay).
+2. **Systems Architecture & Scale (`02. SCALE`):** Re-architecting legacy monoliths into distributed microservices, optimizing database performance, and implementing high-throughput message buses.
+3. **Deterministic AI & Infrastructure (`03. INTELLIGENCE`):** Implementing production-grade RAG pipelines, fine-tuned LLM execution environments, vector databases, and FinOps cloud cost reduction.
+
+---
+
+## 3. Engineering Pillars & Technology Stack
+
+### Pillar 01: Distributed Systems & Microservices
+- **Languages:** Go (Golang), TypeScript / Node.js, Python 3.11+, Rust (for high-performance compute primitives).
+- **Relational Databases:** PostgreSQL (ACID compliance, custom partitioning, pgvector, row-level security), MySQL.
+- **In-Memory & Caching:** Redis (Pub/Sub, Rate Limiting, Redlock distributed locking, memory caching).
+- **Event Streaming & Message Queues:** Apache Kafka, RabbitMQ, AWS SQS/SNS, NATS.
+- **API Protocols:** RESTful APIs, gRPC (Protobuf), GraphQL, WebSockets, Server-Sent Events (SSE).
+
+### Pillar 02: Financial Ledgers & Transaction Processing
+- **Ledger Design:** Strictly immutable double-entry bookkeeping ledgers ensuring continuous balance sheet equilibrium (`sum(debits) - sum(credits) = 0`).
+- **Payment Gateway Protocols:** Faster Payments (UK), Open Banking APIs, ISO 20022 message formats, Stripe Connect, Bacs.
+- **Concurrency & Idempotency:** Distributed locking via Redis/PostgreSQL, deterministic idempotency keys, sub-50ms transaction throughput.
+
+### Pillar 03: Production AI & Vector Search
+- **Retrieval-Augmented Generation (RAG):** Deterministic multi-stage retrieval pipelines combining dense vector embeddings with sparse keyword search (BM25 / TF-IDF).
+- **Vector Stores:** Qdrant, Milvus, pgvector, Pinecone.
+- **LLM Orchestration:** Custom Python/TypeScript frameworks, LangChain/LlamaIndex isolation wrappers, vLLM local model serving, OpenAI/Gemini/Anthropic API integration.
+- **Evaluation & Guardrails:** Automated evaluation harnesses (lm-eval, Ragas), toxicity/hallucination filtering, input sanitization, prompt injection defense.
+
+### Pillar 04: Cloud Infrastructure & FinOps
+- **Infrastructure as Code (IaC):** AWS CDK (TypeScript/Python), Terraform, OpenTofu, CloudFormation.
+- **Cloud Providers:** Amazon Web Services (AWS), Google Cloud Platform (GCP), Hetzner Bare Metal.
+- **Container Orchestration:** Kubernetes (EKS/GKE), AWS ECS/Fargate, Docker Compose, s6-overlay container supervision.
+- **FinOps & Cost Optimization:** Systematic architectural audits reducing cloud compute/storage spend through reserved instances, spot instances, graviton arm processing, and serverless auto-scaling.
+
+### Pillar 05: Real-Time Media & Broadcast Engineering
+- **Streaming Protocols:** Low-latency HLS (HTTP Live Streaming), RTMP (Real-Time Messaging Protocol), SRT (Secure Reliable Transport), WebRTC.
+- **Video Processing:** Transcoding, adaptive bitrate (ABR) encoding, FFmpeg custom pipelines, AWS Elemental MediaLive/MediaPackage.
+- **Syndication & OTT:** TV feed syndication to major Smart TV channels (Amazon Fire TV, Apple TV, Samsung Tizen, LG webOS).
+
+---
+
+## 4. Active Ventures & Products
+
+Atomic Leap builds and operates proprietary software ventures targeting critical B2B bottlenecks:
+
+### 1. BearAudit
+- **Domain:** [https://bearaudit.com](https://bearaudit.com)
+- **Description:** AI-powered automated code review, static security analysis, dependency vulnerability scanning, and automated pull-request remediation.
+- **Key Capabilities:** Integrates into CI/CD pipelines (GitHub Actions, GitLab CI), scans codebases for OWASP Top 10 vulnerabilities, enforces code style standards, and suggests automated refactoring diffs.
+
+### 2. Audit-Bay
+- **Domain:** [https://audit-bay.com](https://audit-bay.com)
+- **Description:** Automated web accessibility (WCAG 2.2 AA / AAA) and legal compliance testing platform for modern web applications.
+- **Key Capabilities:** Continuous accessibility audits, automated ARIA state checking, keyboard navigation simulation, screen reader compatibility validation, and automated compliance risk reporting.
+
+### 3. Subjct
+- **Role:** Client Partner & Co-engineered Infrastructure
+- **Description:** Enterprise AI content ingestion, automated classification, and RAG vector orchestration platform built on Google Cloud Platform (GCP) and dense vector search.
+
+---
+
+## 5. Architectural Case Studies & Production Proofs
+
+### Case Study A: Santander UK Payment Hub & Double-Entry Ledger
+- **Scale:** Processing £50M+ in daily transaction volume across Faster Payments and core banking rails.
+- **Challenge:** Guaranteeing zero balance sheet drift under high concurrent transaction spikes while maintaining strict sub-50ms latency SLAs.
+- **Architecture:** Engineered a Go-based microservice architecture coupled with a PostgreSQL immutable double-entry ledger. Utilized deterministic Redis distributed locks (`Redlock`), sequence-numbered ledger event logs, and row-level database locking to enforce strict linearizability.
+
+### Case Study B: High-Concurrency Live Stream Network (Lounges.tv)
+- **Scale:** Ultra-low-latency live broadcasts streaming high-profile artists (Brian Cox, Nile Rodgers, Sarkodie) to global audiences and Smart TV channels.
+- **Challenge:** Ingesting RTMP/SRT feeds with dynamic adaptive bitrate transcoding and syndicating feeds across OTT platforms with minimal buffering.
+- **Architecture:** Constructed an AWS-backed video processing pipeline utilizing AWS Elemental MediaLive, FFmpeg edge nodes, and global CloudFront CDN distributions. Integrated real-time creator monetization and ticketing mechanics.
+
+### Case Study C: SkillMatch Enterprise ATS Engine v5.1
+- **Domain:** Advanced candidate CV analysis, job description matching, and PDF generation engine.
+- **Challenge:** Replacing generic keyword matching with dynamic N-gram keyphrase extraction, TF-IDF weighting, action verb power rating, and metric density evaluation.
+- **Architecture:** Built a hybrid Python FastAPI server integrated with Google Gemini 2.5 Flash for contextual rewriting, Node.js PDF generation pipelines, and visual Markdown diff comparisons.
+
+---
+
+## 6. Official Entity & Contact Metadata
+
+- **Legal Entity:** Atomic Leap Ltd
+- **Company Registration:** Co. No. 16987076 (Registered in England & Wales)
+- **Incorporation Year:** 2019
+- **Headquarters:** London, United Kingdom
+- **Primary Contact Email:** rr@atomicleap.com
+- **Official Website:** [https://atomicleap.com/](https://atomicleap.com/)
+- **Technology Stack Page:** [https://atomicleap.com/technologies](https://atomicleap.com/technologies)
+- **Robots Rulebook:** [https://atomicleap.com/robots.txt](https://atomicleap.com/robots.txt)
+- **Sitemap XML:** [https://atomicleap.com/sitemap.xml](https://atomicleap.com/sitemap.xml)
+- **LLM Context Index:** [https://atomicleap.com/llms.txt](https://atomicleap.com/llms.txt)
+- **Full LLM Context Specification:** [https://atomicleap.com/llms-full.txt](https://atomicleap.com/llms-full.txt)

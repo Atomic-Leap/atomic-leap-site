@@ -8,6 +8,7 @@ Atomic Leap specializes in sovereign software architecture: full client infrastr
 ## Primary Pages
 - [/](https://atomicleap.com/): Sovereign venture studio overview, active ventures, client partner engagements, and foundational manifesto.
 - [/technologies](https://atomicleap.com/technologies): Systems built, engineering stack, and architectural pillars (Distributed Systems, Ledger Engineering, Production AI, Cloud FinOps, Real-Time Media).
+- [Full Specification](https://atomicleap.com/llms-full.txt): Comprehensive markdown codex including detailed architectural case studies, full technology stack teardown, and operational blueprints.
 
 ## Active Ventures & Products
 - [BearAudit](https://bearaudit.com): AI-powered automated code review, security scanning, and quality assurance engine.
