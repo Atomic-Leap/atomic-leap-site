@@ -1,0 +1,26 @@
+# Atomic Leap Ltd
+
+> Sovereign Venture Studio & Senior Engineering Advisory based in London, UK. Atomic Leap builds, operates, and scales high-performance software systems for ambitious B2B technology companies.
+
+## Core Philosophy
+Atomic Leap specializes in sovereign software architecture: full client infrastructure control, zero vendor lock-in, portable self-hosted components, and complete data ownership.
+
+## Primary Pages
+- [/](https://atomicleap.com/): Sovereign venture studio overview, active ventures, client partner engagements, and foundational manifesto.
+- [/technologies](https://atomicleap.com/technologies): Systems built, engineering stack, and architectural pillars (Distributed Systems, Ledger Engineering, Production AI, Cloud FinOps, Real-Time Media).
+
+## Active Ventures & Products
+- [BearAudit](https://bearaudit.com): AI-powered automated code review, security scanning, and quality assurance engine.
+- [Audit-Bay](https://audit-bay.com): Automated accessibility (WCAG 2.2) and compliance testing platform for modern web applications.
+
+## Key Technical Pillars
+- **Distributed Systems:** High-throughput backend services in Go, Node.js, and Python with PostgreSQL, Redis, and Kafka/RabbitMQ.
+- **Financial Ledgers:** Double-entry ledger systems, Faster Payments integration, and high-frequency transaction processing.
+- **AI & Vector Search:** Production RAG pipelines, fine-tuned LLMs, embedding search, and automated evaluation frameworks.
+- **Cloud Infrastructure & FinOps:** AWS CDK, Terraform, Kubernetes, serverless container orchestration, and FinOps cost optimization.
+- **Real-Time Streaming:** Low-latency HLS, RTMP, SRT video processing pipelines and TV syndication feeds.
+
+## Contact & Company Info
+- **Email:** rr@atomicleap.com
+- **Location:** London, United Kingdom
+- **Company Registration:** Co. No. 16987076 (Registered in England & Wales)

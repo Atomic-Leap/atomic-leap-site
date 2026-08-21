@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic Leap — Sovereign Venture Studio & Engineering Advisory</title>
+    <!-- Vercel Analytics Insights -->
+    <script defer src="/_vercel/insights/script.js"></script>
+    <!-- Google Fonts: Caveat for handwriting, Inter for crisp UI, JetBrains Mono for tech -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Dark Mode Defaults (Black & White) */
+            --bg-color: #000000;
+            --card-bg: #0a0a0a;
+            --border-color: #262626;
+            --border-hover: #ffffff;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --badge-bg: #171717;
+            --handwriting-font: 'Caveat', cursive;
+            --sans-font: 'Inter', -apple-system, sans-serif;
+            --mono-font: 'JetBrains Mono', monospace;
+        }
+
+        [data-theme="light"] {
+            /* Light Mode Defaults (White & Black) */
+            --bg-color: #ffffff;
+            --card-bg: #f9f9f9;
+            --border-color: #e5e5e5;
+            --border-hover: #000000;
+            --text-main: #000000;
+            --text-muted: #666666;
+            --badge-bg: #f0f0f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--sans-font);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Subtle Stark Monochrome Grid */
+        .bg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(to right, var(--border-color) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--border-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border-color);
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-main);
+            flex-shrink: 0;
+        }
+
+        .atom-icon {
+            width: 26px;
+            height: 26px;
+            stroke: var(--text-main);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .brand-text {
+            font-family: var(--handwriting-font);
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            white-space: nowrap;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-link {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-main);
+        }
+
+        .toggle-theme-btn {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-main);
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .toggle-theme-btn:hover {
+            border-color: var(--border-hover);
+        }
+
+        .contact-btn {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-main);
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: var(--card-bg);
+            white-space: nowrap;
+        }
+
+        .contact-btn:hover {
+            border-color: var(--border-hover);
+            background: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        /* Hero Single Proposition Section */
+        .hero {
+            margin: 50px 0;
+        }
+
+        .hero-headline {
+            font-family: var(--handwriting-font);
+            font-size: clamp(34px, 5vw, 52px);
+            line-height: 1.3;
+            color: var(--text-main);
+            font-weight: 700;
+            margin-bottom: 28px;
+        }
+
+        /* 3 Core Pillars List */
+        .capabilities-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            font-family: var(--sans-font);
+        }
+
+        .capability-item {
+            display: flex;
+            gap: 16px;
+            align-items: baseline;
+        }
+
+        .capability-tag {
+            font-family: var(--mono-font);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: var(--badge-bg);
+            border: 1px solid var(--border-color);
+            min-width: 120px;
+            text-align: center;
+            color: var(--text-main);
+        }
+
+        .capability-desc {
+            font-family: var(--handwriting-font);
+            font-size: 27px;
+            line-height: 1.4;
+            color: var(--text-main);
+        }
+
+        .sub-tag {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 36px;
+            line-height: 1.6;
+        }
+
+        /* Tech Stack Pill Bar */
+        .stack-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 24px;
+        }
+
+        .stack-pill {
+            font-family: var(--mono-font);
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+        }
+
+        /* Handwritten Pad Card (The Atomic Leap Codex) */
+        .pad-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 36px;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .pad-card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .pad-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .pad-title {
+            font-family: var(--mono-font);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+        }
+
+        .codex-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            font-family: var(--handwriting-font);
+            font-size: 26px;
+            line-height: 1.5;
+            color: var(--text-main);
+        }
+
+        .codex-intro {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-main);
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 14px;
+        }
+
+        .codex-item {
+            position: relative;
+            padding-left: 24px;
+        }
+
+        .codex-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+            font-size: 28px;
+            line-height: 1;
+            top: -2px;
+        }
+
+        .codex-item strong {
+            font-weight: 700;
+        }
+
+        .codex-outro {
+            font-size: 24px;
+            color: var(--text-muted);
+            padding-top: 12px;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        /* Portfolio Sections (VENTURES vs CLIENT PARTNERS) */
+        .portfolio-section {
+            margin-bottom: 50px;
+        }
+
+        .portfolio-category-title {
+            font-family: var(--mono-font);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            margin-top: 28px;
+        }
+
+        .portfolio-category-title:first-child {
+            margin-top: 0;
+        }
+
+        .ventures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .venture-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .venture-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+
+        .venture-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .venture-name {
+            font-family: var(--handwriting-font);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .venture-badge {
+            font-family: var(--mono-font);
+            font-size: 9px;
+            padding: 3px 8px;
+            border-radius: 10px;
+            background: var(--badge-bg);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            text-transform: uppercase;
+        }
+
+        .venture-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .venture-link {
+            font-family: var(--mono-font);
+            font-size: 11px;
+            color: var(--text-main);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 500;
+        }
+
+        .venture-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 32px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: var(--mono-font);
+        }
+
+        /* Ultra-Clean Mobile Responsive Styles */
+        @media (max-width: 640px) {
+            .container {
+                padding: 24px 16px;
+            }
+
+            header {
+                padding-bottom: 20px;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .brand-text {
+                font-size: 26px;
+            }
+
+            .nav-controls {
+                gap: 6px;
+            }
+
+            .nav-link {
+                padding: 4px 8px;
+                font-size: 11px;
+            }
+
+            .toggle-theme-btn {
+                padding: 4px 8px;
+                font-size: 11px;
+            }
+
+            .contact-btn {
+                padding: 4px 10px;
+                font-size: 11px;
+            }
+
+            .hero {
+                margin: 32px 0;
+            }
+
+            .hero-headline {
+                font-size: 30px;
+                margin-bottom: 20px;
+            }
+
+            .capability-item {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .capability-tag {
+                min-width: auto;
+                width: fit-content;
+            }
+
+            .capability-desc {
+                font-size: 22px;
+            }
+
+            .pad-card {
+                padding: 20px 16px;
+            }
+
+            .codex-grid {
+                font-size: 20px;
+            }
+
+            .codex-intro {
+                font-size: 22px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+
+    <div class="container">
+        <!-- Header Nav -->
+        <header>
+            <a href="/" class="brand">
+                <svg class="atom-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="3"/>
+                    <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(30 12 12)"/>
+                    <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-30 12 12)"/>
+                </svg>
+                <span class="brand-text">Atomic Leap</span>
+            </a>
+
+            <div class="nav-controls">
+                <a href="/" class="nav-link active">Home</a>
+                <a href="/technologies" class="nav-link">Stack</a>
+                <button class="toggle-theme-btn" onclick="toggleTheme()" id="themeToggleBtn">
+                    🌗
+                </button>
+                <a href="mailto:rr@atomicleap.com" class="contact-btn">get_in_touch()</a>
+            </div>
+        </header>
+
+        <!-- Main Overarching Proposition Hero -->
+        <section class="hero">
+            <div class="hero-headline">
+                Atomic Leap builds and scales high-performance software systems for ambitious B2B technology companies.
+            </div>
+
+            <div class="capabilities-list">
+                <div class="capability-item">
+                    <span class="capability-tag">01. BUILD</span>
+                    <span class="capability-desc">Software products & proprietary B2B ventures.</span>
+                </div>
+                <div class="capability-item">
+                    <span class="capability-tag">02. SCALE</span>
+                    <span class="capability-desc">Engineering architecture, cloud infrastructure & low-latency streaming.</span>
+                </div>
+                <div class="capability-item">
+                    <span class="capability-tag">03. INTELLIGENCE</span>
+                    <span class="capability-desc">Production AI systems, constrained retrieval & Cloud FinOps.</span>
+                </div>
+            </div>
+
+            <div class="stack-bar">
+                <span class="stack-pill">Live Streaming (HLS, RTMP, SRT)</span>
+                <span class="stack-pill">Cloud Cost Reduction (FinOps)</span>
+                <span class="stack-pill">AWS CDK & Terraform (IaC)</span>
+                <span class="stack-pill">PostgreSQL Ledgers</span>
+                <span class="stack-pill">Go & Python Microservices</span>
+                <span class="stack-pill">RAG & Vector Search</span>
+            </div>
+
+            <div class="sub-tag">
+                Atomic Leap Ltd • Senior Technical Consultancy & Venture Studio<br>
+                London, United Kingdom
+            </div>
+        </section>
+
+        <!-- Handwritten Pad Codex -->
+        <div class="pad-card">
+            <div class="pad-header">
+                <span class="pad-title">// THE ATOMIC LEAP CODEX</span>
+                <span class="pad-title">EST. 2019</span>
+            </div>
+
+            <div class="codex-grid">
+                <div class="codex-intro">
+                    Math over marketing. Architecture over hype. Sovereign software engineered to last.
+                </div>
+
+                <div class="codex-item">
+                    <strong>I. Precision Systems & Media:</strong> We engineer PostgreSQL double-entry ledgers that balance to the penny, and resilient live-streaming pipelines using HLS, RTMP, and SRT to syndicate real-time video feeds directly to major TV channels.
+                </div>
+
+                <div class="codex-item">
+                    <strong>II. Scalable Infrastructure & FinOps:</strong> We eliminate monolithic bottlenecks with low-latency Go & Python microservices, AWS CDK & Terraform IaC, and continuous cloud cost reduction.
+                </div>
+
+                <div class="codex-item">
+                    <strong>III. Deterministic AI Infrastructure:</strong> We engineer AI systems with deterministic infrastructure, constrained retrieval, structured outputs, and measurable performance.
+                </div>
+
+                <div class="codex-outro">
+                    Sovereign software: full client infrastructure control, zero vendor lock-in, portable self-hosted components, and complete data ownership.
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio Showcase (Differentiating VENTURES vs CLIENT PARTNERS) -->
+        <section class="portfolio-section">
+            <!-- Section 1: Ventures -->
+            <div class="portfolio-category-title">// VENTURES — Products built and operated by Atomic Leap</div>
+            <div class="ventures-grid">
+                <!-- BearAudit -->
+                <div class="venture-card">
+                    <div>
+                        <div class="venture-header">
+                            <a href="https://bearaudit.com" target="_blank" class="venture-name">BearAudit</a>
+                            <span class="venture-badge">VENTURE</span>
+                        </div>
+                        <div class="venture-desc">
+                            Automated AI website auditing and SEO optimization platform empowering agencies and enterprises.
+                        </div>
+                    </div>
+                    <a href="https://bearaudit.com" target="_blank" class="venture-link">bearaudit.com ↗</a>
+                </div>
+
+                <!-- Audit-Bay -->
+                <div class="venture-card">
+                    <div>
+                        <div class="venture-header">
+                            <a href="https://audit-bay.com" target="_blank" class="venture-name">Audit-Bay</a>
+                            <span class="venture-badge">VENTURE</span>
+                        </div>
+                        <div class="venture-desc">
+                            B2B accessibility & WCAG 2.2 compliance engine providing automated verification and legal shields.
+                        </div>
+                    </div>
+                    <a href="https://audit-bay.com" target="_blank" class="venture-link">audit-bay.com ↗</a>
+                </div>
+            </div>
+
+            <!-- Section 2: Client Partners -->
+            <div class="portfolio-category-title">// CLIENT PARTNERS — Companies where Atomic Leap provides engineering expertise</div>
+            <div class="ventures-grid">
+                <!-- Subjct -->
+                <div class="venture-card">
+                    <div>
+                        <div class="venture-header">
+                            <span class="venture-name">Subjct</span>
+                            <span class="venture-badge">CLIENT PARTNER</span>
+                        </div>
+                        <div class="venture-desc">
+                            High-throughput AI content ingestion and RAG vector orchestration platform servicing 50+ enterprise clients.
+                        </div>
+                    </div>
+                    <span class="venture-link" style="color: var(--text-muted);">GCP & Vector Search</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div>
+                © 2026 Atomic Leap Ltd. All rights reserved.
+            </div>
+            <div>
+                Co. No. 16987076 • London, United Kingdom • rr@atomicleap.com
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            document.getElementById('themeToggleBtn').innerText = newTheme === 'dark' ? '🌗' : '☀️';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic Leap — Systems We Build & Engineering Stack</title>
+    <!-- Vercel Analytics Insights -->
+    <script defer src="/_vercel/insights/script.js"></script>
+    <!-- Google Fonts: Caveat for handwriting, Inter for crisp UI, JetBrains Mono for tech -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Dark Mode Defaults (Black & White) */
+            --bg-color: #000000;
+            --card-bg: #0a0a0a;
+            --border-color: #262626;
+            --border-hover: #ffffff;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --badge-bg: #171717;
+            --handwriting-font: 'Caveat', cursive;
+            --sans-font: 'Inter', -apple-system, sans-serif;
+            --mono-font: 'JetBrains Mono', monospace;
+        }
+
+        [data-theme="light"] {
+            /* Light Mode Defaults (White & Black) */
+            --bg-color: #ffffff;
+            --card-bg: #f9f9f9;
+            --border-color: #e5e5e5;
+            --border-hover: #000000;
+            --text-main: #000000;
+            --text-muted: #666666;
+            --badge-bg: #f0f0f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--sans-font);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Subtle Stark Monochrome Grid */
+        .bg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(to right, var(--border-color) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--border-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border-color);
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-main);
+            flex-shrink: 0;
+        }
+
+        .atom-icon {
+            width: 26px;
+            height: 26px;
+            stroke: var(--text-main);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .brand-text {
+            font-family: var(--handwriting-font);
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            white-space: nowrap;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-link {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-main);
+        }
+
+        .toggle-theme-btn {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-main);
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .toggle-theme-btn:hover {
+            border-color: var(--border-hover);
+        }
+
+        .contact-btn {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-main);
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: var(--card-bg);
+            white-space: nowrap;
+        }
+
+        .contact-btn:hover {
+            border-color: var(--border-hover);
+            background: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        /* Hero Header */
+        .hero {
+            margin: 40px 0 32px 0;
+        }
+
+        .hero-title {
+            font-family: var(--handwriting-font);
+            font-size: clamp(36px, 5.5vw, 52px);
+            line-height: 1.25;
+            color: var(--text-main);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .hero-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 740px;
+        }
+
+        /* Proven Systems Built Block */
+        .systems-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 40px;
+        }
+
+        .systems-card-title {
+            font-family: var(--mono-font);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+        }
+
+        .system-proof-item {
+            border-left: 2px solid var(--text-main);
+            padding-left: 14px;
+        }
+
+        .system-proof-title {
+            font-family: var(--handwriting-font);
+            font-size: 25px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .system-proof-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Tech Category Grid */
+        .tech-categories {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            margin-bottom: 50px;
+        }
+
+        .tech-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 28px;
+            transition: border-color 0.2s ease;
+        }
+
+        .tech-card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .tech-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .tech-card-num {
+            font-family: var(--mono-font);
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .tech-card-title {
+            font-family: var(--handwriting-font);
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .tech-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .tech-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .tech-item-name {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .tech-item-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 32px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: var(--mono-font);
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 24px 16px;
+            }
+
+            header {
+                padding-bottom: 20px;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .brand-text {
+                font-size: 26px;
+            }
+
+            .nav-controls {
+                gap: 6px;
+            }
+
+            .nav-link {
+                padding: 4px 8px;
+                font-size: 11px;
+            }
+
+            .toggle-theme-btn {
+                padding: 4px 8px;
+                font-size: 11px;
+            }
+
+            .contact-btn {
+                padding: 4px 10px;
+                font-size: 11px;
+            }
+
+            .hero-title {
+                font-size: 30px;
+            }
+
+            .systems-card {
+                padding: 20px 16px;
+            }
+
+            .tech-card {
+                padding: 20px 16px;
+            }
+
+            .tech-card-title {
+                font-size: 24px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+
+    <div class="container">
+        <!-- Header Nav -->
+        <header>
+            <a href="/" class="brand">
+                <svg class="atom-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="3"/>
+                    <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(30 12 12)"/>
+                    <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-30 12 12)"/>
+                </svg>
+                <span class="brand-text">Atomic Leap</span>
+            </a>
+
+            <div class="nav-controls">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/technologies" class="nav-link active">Stack</a>
+                <button class="toggle-theme-btn" onclick="toggleTheme()" id="themeToggleBtn">
+                    🌗
+                </button>
+                <a href="mailto:rr@atomicleap.com" class="contact-btn">get_in_touch()</a>
+            </div>
+        </header>
+
+        <!-- Hero Header -->
+        <section class="hero">
+            <div class="hero-title">
+                Systems We Build & Engineering Stack
+            </div>
+            <div class="hero-desc">
+                We operate at the rare intersection of financial ledgers, distributed infrastructure, and production AI. Here is what we are exceptionally good at building for scaling software companies.
+            </div>
+        </section>
+
+        <!-- Systems We Have Built Proof Block -->
+        <div class="systems-card">
+            <div class="systems-card-title">// CONCRETE PRODUCTION SYSTEMS WE BUILD</div>
+            <div class="systems-grid">
+                <div class="system-proof-item">
+                    <div class="system-proof-title">Financial Infrastructure</div>
+                    <div class="system-proof-desc">Double-entry ledgers, automated reconciliation, and payment processing handling £10M+ in volume to the exact penny.</div>
+                </div>
+
+                <div class="system-proof-item">
+                    <div class="system-proof-title">Enterprise AI & RAG</div>
+                    <div class="system-proof-desc">Multi-tenant retrieval platforms with constrained retrieval and vector orchestration servicing 50+ enterprise clients.</div>
+                </div>
+
+                <div class="system-proof-item">
+                    <div class="system-proof-title">Real-Time Media & Streaming</div>
+                    <div class="system-proof-desc">Low-latency live video pipelines (HLS, RTMP, SRT) and TV feed syndication designed for high-concurrency sessions.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tech Categories Grid -->
+        <div class="tech-categories">
+            <!-- 01. Distributed Systems -->
+            <div class="tech-card">
+                <div class="tech-card-header">
+                    <span class="tech-card-num">01. SYSTEMS</span>
+                    <span class="tech-card-title">Distributed Systems & Architecture</span>
+                </div>
+                <div class="tech-list">
+                    <div class="tech-item">
+                        <span class="tech-item-name">Go (Golang)</span>
+                        <span class="tech-item-desc">Low-latency, high-concurrency backend services engineered for predictable performance.</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-item-name">Python (3.11+)</span>
+                        <span class="tech-item-desc">Data pipelines, AI orchestration, FastAPI services, and asynchronous worker systems.</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-item-name">gRPC & Protobuf</span>
+                        <span class="tech-item-desc">High-performance inter-service communication with strong schema contracts.</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-item-name">Apache Kafka</span>
+                        <span class="tech-item-desc">Decoupled event-driven streaming pipelines for transactional event processing.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 02. Ledgers & Databases -->
+            <div class="tech-card">
+                <div class="tech-card-header">
+                    <span class="tech-card-num">02. DATA</span>
+                    <span class="tech-card-title">Financial Ledgers & Data Engineering</span>
+                </div>
+                <div class="tech-list">
+                    <div class="tech-item">
+                        <span class="tech-item-name">PostgreSQL</span>
+                        <span class="tech-item-desc">ACID transactional integrity for financial, double-entry accounting, and multi-tenant workloads.</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-item-name">Redis</span>
+                        <span class="tech-item-desc">Distributed state, caching, rate-limiting, and coordination for latency-sensitive services.</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-item-name">Payment Rails</span>
+                        <span class="tech-item-desc">Faster Payments, Stripe API, Confirmation of Payee, ISO 20022, PSD2, and PCI-DSS compliance.</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-item-name">Reconciliation Engines</span>
+                        <span class="tech-item-desc">Idempotent transaction processing and automated daily financial reconciliation systems.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 03. Production AI -->
+            <div class="tech-card">
+                <div class="tech-card-header">
+                    <span class="tech-card-num">03. AI & RAG</span>
+                    <span class="tech-card-title">Production AI & Vector Search</span>
+                </div>
+                <div class="tech-list">
+                    <div class="tech-item">
+                        <span class="tech-item-name">RAG & Vector Search</span>
+                        <span class="tech-item-desc">Constrained retrieval architectures using Qdrant, Pinecone, and Pgvector for enterprise knowledge.</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-item-name">Deterministic AI Infrastructure</span>
+                        <span class="tech-item-desc">Structured JSON outputs, strict input validation, evaluation benchmarks, and graceful fallbacks.</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-item-name">LLM Orchestration</span>
+                        <span class="tech-item-desc">Low-latency model routing, prompt optimization, token tracking, and multi-provider failover.</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-item-name">Google Vertex AI & ML</span>
+                        <span class="tech-item-desc">Custom entity extraction, automated indexing, and production ML model deployment.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 04. Infrastructure & FinOps -->
+            <div class="tech-card">
+                <div class="tech-card-header">
+                    <span class="tech-card-num">04. CLOUD</span>
+                    <span class="tech-card-title">Cloud Infrastructure & FinOps</span>
+                </div>
+                <div class="tech-list">
+                    <div class="tech-item">
+                        <span class="tech-item-name">AWS & GCP Infrastructure</span>
+                        <span class="tech-item-desc">Multi-region cloud architecture, VPC peering, IAM security baselines, and SOC2 readiness.</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-item-name">Kubernetes & Docker</span>
+                        <span class="tech-item-desc">Container auto-scaling policies, Helm releases, and zero-downtime rolling deployments.</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-item-name">AWS CDK & Terraform (IaC)</span>
+                        <span class="tech-item-desc">Infrastructure as Code using AWS CDK (TypeScript/Python) and Terraform for immutable environments.</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-item-name">Cloud Cost Reduction & FinOps</span>
+                        <span class="tech-item-desc">Automated AWS/GCP savings, egress bandwidth routing, spot instance orchestration, and continuous cloud cost optimization.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 05. Real-Time Media -->
+            <div class="tech-card">
+                <div class="tech-card-header">
+                    <span class="tech-card-num">05. MEDIA</span>
+                    <span class="tech-card-title">Real-Time Streaming & Media Networks</span>
+                </div>
+                <div class="tech-list">
+                    <div class="tech-item">
+                        <span class="tech-item-name">Live Protocols (HLS, RTMP, SRT)</span>
+                        <span class="tech-item-desc">Broadcast-grade video ingestion and low-latency delivery using HLS, RTMP, and Secure Reliable Transport (SRT).</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-item-name">TV Channel Feed Syndication</span>
+                        <span class="tech-item-desc">Automated live video feed syndication delivering real-time broadcasts to major TV channels.</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-item-name">High-Concurrency Sockets</span>
+                        <span class="tech-item-desc">High-concurrency WebSocket architectures designed for 100,000+ concurrent user sessions.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div>
+                © 2026 Atomic Leap Ltd. All rights reserved.
+            </div>
+            <div>
+                Co. No. 16987076 • London, United Kingdom • rr@atomicleap.com
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            document.getElementById('themeToggleBtn').innerText = newTheme === 'dark' ? '🌗' : '☀️';
+        }
+    </script>
+</body>
+</html>
