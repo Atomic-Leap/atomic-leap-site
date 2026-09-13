@@ -1,0 +1,135 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Atomic Leap Global Company Intelligence API",
+    "version": "1.0.0",
+    "description": "The Atomic Leap API provides real-time access to corporate registry data across the UK, France, US, and EU."
+  },
+  "servers": [
+    {
+      "url": "https://api.atomicleap.co/v1",
+      "description": "Production Server"
+    },
+    {
+      "url": "http://localhost:8000",
+      "description": "Local Development Server"
+    }
+  ],
+  "paths": {
+    "/companies/{jurisdiction}/{company_number}": {
+      "get": {
+        "summary": "Retrieve Company Details",
+        "description": "Fetches detailed information about a company from the specified jurisdiction's registry.",
+        "parameters": [
+          {
+            "name": "jurisdiction",
+            "in": "path",
+            "required": true,
+            "description": "The country or state jurisdiction code (e.g., 'uk', 'fr', 'us_de').",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "company_number",
+            "in": "path",
+            "required": true,
+            "description": "The official company registration number.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyDetails"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing API key"
+          },
+          "404": {
+            "description": "Not Found - Company does not exist"
+          },
+          "429": {
+            "description": "Too Many Requests - Rate limit exceeded"
+          },
+          "502": {
+            "description": "Bad Gateway - Upstream Registry Unavailable"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "CompanyDetails": {
+        "type": "object",
+        "properties": {
+          "company_number": {
+            "type": "string",
+            "example": "12345678"
+          },
+          "jurisdiction": {
+            "type": "string",
+            "example": "uk"
+          },
+          "name": {
+            "type": "string",
+            "example": "ATOMIC LEAP LTD"
+          },
+          "status": {
+            "type": "string",
+            "example": "active"
+          },
+          "incorporation_date": {
+            "type": "string",
+            "format": "date",
+            "example": "2020-01-01"
+          },
+          "registered_address": {
+            "type": "object",
+            "properties": {
+              "address_line_1": {
+                "type": "string",
+                "example": "123 Innovation Drive"
+              },
+              "city": {
+                "type": "string",
+                "example": "London"
+              },
+              "postal_code": {
+                "type": "string",
+                "example": "E1 6AN"
+              },
+              "country": {
+                "type": "string",
+                "example": "United Kingdom"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
+}

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atomic Leap API Documentation</title>
+  <style>
+    :root {
+      --bg-color: #0a0a0a;
+      --text-color: #ededed;
+      --accent-color: #ffffff;
+      --muted-color: #888888;
+      --border-color: #333333;
+      --code-bg: #111111;
+      --nav-bg: #000000;
+      --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: var(--font-family);
+      line-height: 1.6;
+    }
+    header {
+      background-color: var(--nav-bg);
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    h1, h2, h3, h4 {
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+    .container {
+      display: flex;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .sidebar {
+      width: 250px;
+      padding: 2rem;
+      border-right: 1px solid var(--border-color);
+      height: calc(100vh - 60px);
+      position: sticky;
+      top: 60px;
+      overflow-y: auto;
+    }
+    .sidebar a {
+      display: block;
+      color: var(--muted-color);
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      transition: color 0.2s;
+    }
+    .sidebar a:hover {
+      color: var(--accent-color);
+    }
+    .content {
+      flex: 1;
+      padding: 2rem 4rem;
+      max-width: 800px;
+    }
+    .right-sidebar {
+      width: 400px;
+      padding: 2rem;
+      background-color: var(--code-bg);
+      border-left: 1px solid var(--border-color);
+    }
+    pre {
+      background-color: var(--code-bg);
+      padding: 1rem;
+      border-radius: 4px;
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+    }
+    code {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.9em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    th {
+      color: var(--accent-color);
+    }
+    .lang-switcher {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .lang-switcher button {
+      background: none;
+      border: none;
+      color: var(--muted-color);
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid transparent;
+    }
+    .lang-switcher button.active {
+      color: var(--accent-color);
+      border-bottom-color: var(--accent-color);
+    }
+    .playground {
+      background: var(--code-bg);
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 2rem;
+    }
+    .playground input {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: white;
+      padding: 0.5rem;
+      border-radius: 4px;
+      margin-right: 0.5rem;
+    }
+    .playground button {
+      background: var(--accent-color);
+      color: black;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .collapsible {
+      cursor: pointer;
+      user-select: none;
+    }
+    .collapsible::before {
+      content: '▶ ';
+      font-size: 0.8em;
+    }
+    .collapsible.active::before {
+      content: '▼ ';
+    }
+    .nested {
+      display: none;
+      padding-left: 1rem;
+      border-left: 1px solid var(--border-color);
+      margin-left: 0.5rem;
+    }
+    .nested.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h2>Atomic Leap</h2>
+  <nav>
+    <a href="#" style="color: white; text-decoration: none;">API Reference</a>
+  </nav>
+</header>
+
+<div class="container">
+  <nav class="sidebar">
+    <h3>Getting Started</h3>
+    <a href="#authentication">Authentication</a>
+    <a href="#rate-limits">Rate Limits</a>
+    <a href="#error-codes">Error Codes</a>
+    <a href="#pricing">Pricing Tiers</a>
+    
+    <h3>Endpoints</h3>
+    <a href="#companies">Companies</a>
+  </nav>
+
+  <main class="content">
+    <h1>API Reference</h1>
+    <p>Welcome to the Atomic Leap Global Company Intelligence API documentation. This API provides real-time access to corporate registry data across the UK, France, US, and EU.</p>
+
+    <h2 id="authentication">Authentication</h2>
+    <p>Authenticate your account by sending your secret key as a Bearer token in the Authorization header.</p>
+    <pre><code>Authorization: Bearer YOUR_API_KEY</code></pre>
+
+    <h2 id="rate-limits">Rate Limits</h2>
+    <p>Rate limit information is included in the response headers:</p>
+    <ul>
+      <li><code>X-RateLimit-Limit</code>: The maximum number of requests permitted per hour.</li>
+      <li><code>X-RateLimit-Remaining</code>: The number of requests remaining in the current window.</li>
+    </ul>
+    <p>When the rate limit is exceeded, you will receive a <code>429 Too Many Requests</code> response.</p>
+    <pre><code>{
+  "error": "rate_limit_exceeded",
+  "message": "You have exceeded your API request quota."
+}</code></pre>
+
+    <h2 id="error-codes">Error Codes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>400</td><td>Bad Request - Invalid parameters</td></tr>
+        <tr><td>401</td><td>Unauthorized - Invalid or missing API key</td></tr>
+        <tr><td>404</td><td>Not Found - Company does not exist</td></tr>
+        <tr><td>422</td><td>Unprocessable Entity</td></tr>
+        <tr><td>429</td><td>Too Many Requests</td></tr>
+        <tr><td>502</td><td>Bad Gateway - Upstream Registry Unavailable</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="pricing">Pricing Tiers</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Tier</th>
+          <th>Price</th>
+          <th>Features</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Free Developer</td><td>$0/mo</td><td>100 req/day</td></tr>
+        <tr><td>Starter</td><td>£29/mo</td><td>10,000 req/mo</td></tr>
+        <tr><td>Pro</td><td>£79/mo</td><td>100,000 req/mo</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="companies">Retrieve Company Details</h2>
+    <p>Fetches detailed information about a company from the specified jurisdiction's registry.</p>
+    <p><code>GET /companies/{jurisdiction}/{company_number}</code></p>
+    
+    <h3>Playground</h3>
+    <div class="playground">
+      <input type="text" id="pg-jurisdiction" placeholder="jurisdiction (e.g. uk)" value="uk">
+      <input type="text" id="pg-company" placeholder="company number" value="12345678">
+      <button onclick="testAPI()">Send Request</button>
+      <pre id="pg-response" style="margin-top: 1rem; display: none;"></pre>
+    </div>
+
+    <h3>Schema Reference</h3>
+    <div style="background: var(--code-bg); padding: 1rem; border-radius: 4px; font-family: monospace;">
+      <div>{</div>
+      <div style="padding-left: 1rem;">"company_number": "string",</div>
+      <div style="padding-left: 1rem;">"jurisdiction": "string",</div>
+      <div style="padding-left: 1rem;">"name": "string",</div>
+      <div class="collapsible" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('active')">"registered_address": {</div>
+      <div class="nested">
+        <div>"address_line_1": "string",</div>
+        <div>"city": "string",</div>
+        <div>"country": "string"</div>
+      </div>
+      <div>}</div>
+    </div>
+  </main>
+
+  <aside class="right-sidebar">
+    <div class="lang-switcher">
+      <button class="active" onclick="switchLang('curl')">cURL</button>
+      <button onclick="switchLang('python')">Python</button>
+      <button onclick="switchLang('node')">Node.js</button>
+      <button onclick="switchLang('go')">Go</button>
+    </div>
+
+    <div id="code-curl" class="code-block">
+<pre><code>curl -X GET "https://api.atomicleap.co/v1/companies/uk/12345678" \
+  -H "Authorization: Bearer YOUR_API_KEY"</code></pre>
+    </div>
+    
+    <div id="code-python" class="code-block" style="display: none;">
+<pre><code>import requests
+
+url = "https://api.atomicleap.co/v1/companies/uk/12345678"
+headers = {"Authorization": "Bearer YOUR_API_KEY"}
+
+response = requests.get(url, headers=headers)
+print(response.json())</code></pre>
+    </div>
+
+    <div id="code-node" class="code-block" style="display: none;">
+<pre><code>const axios = require('axios');
+
+axios.get('https://api.atomicleap.co/v1/companies/uk/12345678', {
+  headers: { 'Authorization': 'Bearer YOUR_API_KEY' }
+})
+.then(response => console.log(response.data));</code></pre>
+    </div>
+    
+    <div id="code-go" class="code-block" style="display: none;">
+<pre><code>req, _ := http.NewRequest("GET", "https://api.atomicleap.co/v1/companies/uk/12345678", nil)
+req.Header.Add("Authorization", "Bearer YOUR_API_KEY")
+
+res, _ := http.DefaultClient.Do(req)</code></pre>
+    </div>
+
+  </aside>
+</div>
+
+<script>
+  function switchLang(lang) {
+    document.querySelectorAll('.lang-switcher button').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    document.querySelectorAll('.code-block').forEach(b => b.style.display = 'none');
+    document.getElementById('code-' + lang).style.display = 'block';
+  }
+
+  async function testAPI() {
+    const jur = document.getElementById('pg-jurisdiction').value;
+    const num = document.getElementById('pg-company').value;
+    const resEl = document.getElementById('pg-response');
+    
+    resEl.style.display = 'block';
+    resEl.innerText = 'Loading...';
+    
+    try {
+      const response = await fetch(`http://localhost:8000/companies/${jur}/${num}`);
+      const data = await response.json();
+      resEl.innerText = JSON.stringify(data, null, 2);
+    } catch (e) {
+      resEl.innerText = 'Error: Could not connect to localhost:8000. Ensure the local server is running.';
+    }
+  }
+</script>
+
+</body>
+</html>
