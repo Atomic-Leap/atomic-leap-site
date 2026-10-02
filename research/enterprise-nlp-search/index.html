@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atomic Leap — Enterprise NLP & Search Research Whitepaper</title>
+    <title>Atomic Leap — Enterprise NLP & Search Architecture Case Study</title>
     <!-- Vercel Analytics Insights -->
     <script defer src="/_vercel/insights/script.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -382,8 +382,9 @@
 
         <!-- Main Article Header -->
         <div class="article-header">
-            <div class="article-meta">Research Whitepaper • Timeline: 2019 – 2023</div>
+            <div class="article-meta">Architecture Case Study • Timeline: 2019 – 2023</div>
             <h1 class="article-title">Enterprise NLP & Search</h1>
+            <p style="font-family: var(--mono-font); font-size: 11px; color: var(--text-muted); margin-top: 12px; font-style: italic;">Research timeline: Original engineering work conducted between 2019–2023; this document was reconstructed and published in 2026.</p>
         </div>
 
         <!-- Metrics Bar -->
@@ -468,8 +469,16 @@ float computeRrfScore(int lexicalRank, int vectorRank, int k) {
                 <li><strong>Fuzzy Compound Handling:</strong> Custom N-gram tokenizers successfully resolved partial word matches for compound editorial keywords, preventing zero-result failures when editors entered incomplete search terms.</li>
             </ul>
 
-            <h4>5. Architectural Conclusions</h4>
-            <p>This research proves that neither pure lexical matching nor pure semantic vector search is sufficient for high-velocity enterprise workflows. Hybrid search, mathematically merged via Reciprocal Rank Fusion, represents the optimal retrieval pattern. By decoupling heavy embedding calculations from the core search cluster and utilizing GKE for horizontal pod scaling, enterprise search engines can maintain sub-second retrieval times over tens of millions of records, unlocking real-time semantic assistance directly inside newsroom workspaces.</p>
+            <h4>5. Limitations</h4>
+            <p>While the proposed hybrid search architecture performs exceptionally well under the tested conditions, several operational limitations should be noted:</p>
+            <ul>
+                <li><strong>Parallel Indexing Footprint:</strong> Running both lexical (BM25) and dense vector indices in parallel effectively doubles index storage requirements and complicates database ingestion pipeline state management.</li>
+                <li><strong>Host Resource Constraints:</strong> Generating dense embeddings in real-time requires reliable access to GPU or high-compute CPU clusters, which increases host infrastructure complexity and ongoing operational costs.</li>
+                <li><strong>Fusion Hyperparameter Sensitivity:</strong> The Reciprocal Rank Fusion constant <code>k</code> requires empirical tuning based on the specific distribution of content. Incorrect configurations can cause the system to disproportionately favor one search style over another.</li>
+            </ul>
+
+            <h4>6. Architectural Conclusions</h4>
+            <p>This experiment demonstrates that neither pure lexical matching nor pure semantic vector search is sufficient for high-velocity enterprise workflows. Hybrid search, mathematically merged via Reciprocal Rank Fusion, represents a highly effective retrieval pattern. By decoupling heavy embedding calculations from the core search cluster and utilizing GKE for horizontal pod scaling, enterprise search engines can maintain sub-second retrieval times over tens of millions of records, unlocking real-time semantic assistance directly inside newsroom workspaces.</p>
         
         </div>
 

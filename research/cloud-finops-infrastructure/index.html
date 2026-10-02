@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atomic Leap — Cloud FinOps & Infrastructure Research Whitepaper</title>
+    <title>Atomic Leap — Cloud FinOps & Infrastructure Architecture Case Study</title>
     <!-- Vercel Analytics Insights -->
     <script defer src="/_vercel/insights/script.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -382,8 +382,9 @@
 
         <!-- Main Article Header -->
         <div class="article-header">
-            <div class="article-meta">Research Whitepaper • Timeline: 2019 – Present</div>
+            <div class="article-meta">Architecture Case Study • Timeline: 2019 – Present</div>
             <h1 class="article-title">Cloud FinOps & Infrastructure</h1>
+            <p style="font-family: var(--mono-font); font-size: 11px; color: var(--text-muted); margin-top: 12px; font-style: italic;">Research timeline: Original engineering work conducted between 2019–2025; this document was reconstructed and published in 2026.</p>
         </div>
 
         <!-- Metrics Bar -->
@@ -474,8 +475,16 @@ spec:
                 <li><strong>Cross-Portfolio SaaS Savings:</strong> Slashed compute expenditures by 21% to 40% across multi-tenant accounts while maintaining strict 99.9% to 99.99% system availability, proving that cloud budgets can be systematically optimized as an engineering discipline.</li>
             </ul>
 
-            <h4>5. Architectural Conclusions</h4>
-            <p>The research proves that cloud waste is a solvable architectural problem, not an inevitable cost of doing business. By coupling dynamic Spot VM orchestration with proactive termination handlers, organizations can leverage highly discounted preemptible compute with the exact same reliability as expensive, on-demand infrastructure. Treating cloud economics as an automated SRE feedback loop unlocks massive, recurring infrastructure savings without sacrificing system performance or uptime reliability.</p>
+            <h4>5. Limitations</h4>
+            <p>While the proposed spot-optimized architecture achieves substantial cost savings, several operational limitations must be accounted for:</p>
+            <ul>
+                <li><strong>Private IP Address Exhaustion:</strong> Dynamic, rapid recycling and consolidation of nodes can quickly exhaust private IP address allocation pools within VPC subnets if CIDR ranges are not oversized.</li>
+                <li><strong>Cloud Provider Manifest Divergence:</strong> Karpenter is heavily coupled to AWS APIs. Replicating similar node-less scheduling efficiency on other providers requires alternative cloud-specific architectures (such as GCP GKE Autopilot), increasing operational overhead.</li>
+                <li><strong>Pod Disruption Budget Gridlocks:</strong> Aggressive cluster consolidation is bounded by Kubernetes Pod Disruption Budgets (PDBs). Misconfigured PDBs can permanently block Karpenter from terminating or consolidating underutilized nodes.</li>
+            </ul>
+
+            <h4>6. Architectural Conclusions</h4>
+            <p>This experiment demonstrates that cloud waste is a solvable architectural problem, not an inevitable cost of doing business. By coupling dynamic Spot VM orchestration with proactive termination handlers, organizations can leverage highly discounted preemptible compute with the exact same reliability as expensive, on-demand infrastructure. Treating cloud economics as an automated SRE feedback loop unlocks massive, recurring infrastructure savings without sacrificing system performance or uptime reliability.</p>
         
         </div>
 

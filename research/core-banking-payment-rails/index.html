@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atomic Leap — Core Banking & Payment Rails Research Whitepaper</title>
+    <title>Atomic Leap — Core Banking & Payment Rails Architecture Case Study</title>
     <!-- Vercel Analytics Insights -->
     <script defer src="/_vercel/insights/script.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -382,8 +382,9 @@
 
         <!-- Main Article Header -->
         <div class="article-header">
-            <div class="article-meta">Research Whitepaper • Timeline: 2015 – 2019</div>
+            <div class="article-meta">Architecture Case Study • Timeline: 2015 – 2019</div>
             <h1 class="article-title">Core Banking & Payment Rails</h1>
+            <p style="font-family: var(--mono-font); font-size: 11px; color: var(--text-muted); margin-top: 12px; font-style: italic;">Research timeline: Original engineering work conducted between 2015–2019; this document was reconstructed and published in 2026.</p>
         </div>
 
         <!-- Metrics Bar -->
@@ -407,7 +408,7 @@
             <p>Between 2015 and 2019, the financial sector underwent major regulatory and structural modernizations in Europe, such as the introduction of the Payment Services Directive (PSD2) and the UK Open Banking framework. These regulations demanded near-instantaneous transaction validation, continuous auditability, and sub-50ms latency. In core transactional systems, the greatest architectural risk is the introduction of data race conditions (such as double-spending) under concurrent execution, resulting in ledger reconciliation drift where the balance sheet fails to balance.</p>
 
             <h4>2. Evaluation of Available Options</h4>
-            <p>To secure absolute transactional correctness under peak concurrency, three primary processing models were evaluated:</p>
+            <p>To achieve high transactional reliability under peak concurrency, three primary processing models were evaluated:</p>
             
             <table class="comparison-table">
                 <thead>
@@ -455,6 +456,7 @@ CREATE TABLE ledger_entries (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Simplified schema excerpt; invariant enforcement omitted.
 -- Constraint query guaranteeing zero ledger drift (balance sheet equilibrium)
 CREATE UNIQUE INDEX idx_linear_accounts ON ledger_entries (account_id, transaction_id);
             </div>
@@ -467,8 +469,16 @@ CREATE UNIQUE INDEX idx_linear_accounts ON ledger_entries (account_id, transacti
                 <li><strong>SLA Compliance:</strong> The payment rail completed transactions end-to-end within an average 18ms SLA, easily exceeding the strict sub-50ms target required for real-time payments.</li>
             </ul>
 
-            <h4>5. Architectural Conclusions</h4>
-            <p>The research establishes that mutable state is the single greatest risk to data correctness in core transactional systems. Designing ledgers as append-only event streams ensures absolute financial audibility. By offloading transaction synchronization to an ultra-fast in-memory locking store like Redis, write contention is minimized, proving that high-throughput payment rails can achieve enterprise-scale performance without sacrificing absolute mathematical consistency.</p>
+            <h4>5. Limitations</h4>
+            <p>While the proposed architecture performs exceptionally well under the tested conditions, several operational limitations should be noted:</p>
+            <ul>
+                <li><strong>Redlock Clock Dependency:</strong> The distributed pre-locking layer relies on the Redlock algorithm, which assumes synchronized system clocks across the Redis cluster. Significant clock drift between nodes can violate mutual exclusion guarantees, requiring strict NTP/PTP monitoring.</li>
+                <li><strong>Single-Primary Lock Bottleneck:</strong> Under extremely high transaction volumes focused on a small subset of hot accounts, the Redis instance handles all lock coordination, creating a potential processing bottleneck.</li>
+                <li><strong>Eventual Consistency of CQRS Reads:</strong> Because balance history is computed dynamically or via projections, read-only queries might experience a minor sync delay compared to the write-side double-entry ledger.</li>
+            </ul>
+
+            <h4>6. Architectural Conclusions</h4>
+            <p>The experiment demonstrates that mutable state is a primary risk to data correctness in core transactional systems under high concurrency. Designing ledgers as append-only event streams significantly improves financial audibility. By offloading transaction synchronization to an in-memory locking store like Redis, write contention is minimized, showing that high-throughput payment rails can achieve enterprise-scale performance while maintaining consistency under the simulated conditions.</p>
         
         </div>
 

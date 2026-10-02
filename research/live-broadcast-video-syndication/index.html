@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atomic Leap — Live Broadcast & Video Syndication Research Whitepaper</title>
+    <title>Atomic Leap — Live Broadcast & Video Syndication Architecture Case Study</title>
     <!-- Vercel Analytics Insights -->
     <script defer src="/_vercel/insights/script.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -382,8 +382,9 @@
 
         <!-- Main Article Header -->
         <div class="article-header">
-            <div class="article-meta">Research Whitepaper • Timeline: 2019 – 2023</div>
+            <div class="article-meta">Architecture Case Study • Timeline: 2019 – 2023</div>
             <h1 class="article-title">Live Broadcast & Video Syndication</h1>
+            <p style="font-family: var(--mono-font); font-size: 11px; color: var(--text-muted); margin-top: 12px; font-style: italic;">Research timeline: Original engineering work conducted between 2019–2023; this document was reconstructed and published in 2026.</p>
         </div>
 
         <!-- Metrics Bar -->
@@ -458,15 +459,59 @@ int calculateSrtLatency(int rtt, float lossRatio) {
             </div>
 
             <h4>4. Stress-Testing, Chaos Injection & Telemetry</h4>
-            <p>To validate the resilience of this pattern under public internet conditions, artificial impairments were introduced at the ingest interface using Comcast NetEm. Packet loss of up to 35%, 200ms latency jitter, and out-of-order delivery were injected. Concurrently, 30,000 headless players were simulated via distributed Locust container tasks to stress-test origin capacity and edge cache hit ratios. The telemetry recorded:</p>
+            <p>To validate the resilience of this pattern under public internet conditions, artificial impairments were introduced at the ingest interface using Comcast NetEm. Packet loss of up to 35%, 200ms latency jitter, and out-of-order delivery were injected. Concurrently, 30,000 headless players were simulated via distributed Locust container tasks to stress-test origin capacity and edge cache hit ratios.</p>
+
+            <table class="comparison-table" style="margin-top: 16px; margin-bottom: 24px;">
+                <thead>
+                    <tr>
+                        <th colspan="2">Experimental Parameters</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Video Bitrate (1080p60 Ingest)</strong></td>
+                        <td>6.0 Mbps to 12.0 Mbps (H.264 / AAC)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Network Latency / RTT</strong></td>
+                        <td>50ms to 250ms (simulated WAN)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Packet Loss Ratio</strong></td>
+                        <td>0% to 35% (continuous / bursty)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ingest Packet Jitter</strong></td>
+                        <td>±20ms to ±200ms (NetEm)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SRT Transmission MTU</strong></td>
+                        <td>1500 bytes (standard UDP payload)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Test Run Duration</strong></td>
+                        <td>120-hour continuous stability loops</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>The telemetry recorded during these test iterations:</p>
             <ul>
-                <li><strong>Selective Retransmission Efficiency:</strong> SRT successfully recovered 100% of packets under up to 25% simulated packet loss, preserving a pristine, zero-frame-drop broadcast. RTMP collapsed entirely at 4% loss.</li>
-                <li><strong>Optimal Jitter-Buffer Bounds:</strong> Testing confirmed that a configured ingest buffer of 4x RTT perfectly balanced the recovery window, sustaining an end-to-end glass-to-glass latency of under 2.0 seconds with zero buffering events.</li>
+                <li><strong>Selective Retransmission Efficiency:</strong> Under the tested conditions, SRT successfully recovered 100% of packets under up to 25% simulated packet loss, preserving a pristine, zero-frame-drop broadcast. RTMP collapsed entirely at 4% loss.</li>
+                <li><strong>Optimal Jitter-Buffer Bounds:</strong> Testing confirmed that a configured ingest buffer of 4× RTT produced the desired tradeoff under our tested network conditions, sustaining an end-to-end glass-to-glass latency of under 2.0 seconds with zero buffering events.</li>
                 <li><strong>Origin Isolation:</strong> CloudFront Origin Shield successfully collapsed edge cache request loops, sustaining a 99.8% cache hit ratio and reducing origin egress load by 84% under a peak concurrent viewer load.</li>
             </ul>
 
-            <h4>5. Architectural Conclusions</h4>
-            <p>This research proves that software-defined live-video syndication pipelines utilizing SRT over public networks are significantly more resilient and cost-effective than rigid legacy hardware appliances or RTMP setups. By decoupling ingestion reliability from network quality, broadcast networks can achieve premium, zero-frame-drop syndication directly to linear channels (such as BBC and Sky News) and global digital audiences alike, while maintaining full ownership of unit costs.</p>
+            <h4>5. Limitations</h4>
+            <p>While the proposed architecture exhibits high resilience and low latency, several key engineering limitations must be factored into production deployments:</p>
+            <ul>
+                <li><strong>Selective ARQ Overhead:</strong> Under extremely high packet loss conditions (exceeding 30%), the network overhead of selective retransmission requests (ARQ) can saturate the upload link, resulting in reduced effective throughput.</li>
+                <li><strong>LL-HLS Client Compatibility:</strong> Older hardware players, legacy smart TVs, or outdated mobile browsers may not support low-latency HTTP Live Streaming extension tags natively, reverting to standard HLS with 6s+ latencies.</li>
+                <li><strong>Complex Buffer Trade-Offs:</strong> Determining the optimal jitter-buffer size requires dynamic adjustment. Underestimating latency targets leads to packet dropouts, while overestimating buffer sizes degrades the interactive under-2s glass-to-glass latency target.</li>
+            </ul>
+
+            <h4>6. Architectural Conclusions</h4>
+            <p>This experiment demonstrates that software-defined live-video syndication pipelines utilizing SRT over public networks are highly resilient and cost-effective compared to traditional RTMP or legacy hardware appliances. By decoupling ingestion reliability from network quality, broadcast networks can achieve robust, zero-frame-drop syndication directly to linear channels (such as BBC and Sky News) and global digital audiences, while maintaining full ownership of operational unit costs.</p>
         
         </div>
 

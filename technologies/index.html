@@ -245,10 +245,19 @@
 
         /* Tech Category Grid */
         .tech-categories {
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
             margin-bottom: 50px;
+        }
+
+        @media (min-width: 640px) {
+            .tech-categories {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .tech-card.full-width {
+                grid-column: span 2;
+            }
         }
 
         .tech-card {
@@ -285,6 +294,28 @@
             font-size: 30px;
             font-weight: 700;
             color: var(--text-main);
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .tech-tag {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            background: var(--badge-bg);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 8px;
+            color: var(--text-main);
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .tech-tag:hover {
+            border-color: var(--border-hover);
         }
 
         .tech-list {
@@ -446,129 +477,74 @@
 
         <!-- Tech Categories Grid -->
         <div class="tech-categories">
-            <!-- 01. Distributed Systems -->
+            <!-- 01. Distributed systems -->
             <div class="tech-card">
                 <div class="tech-card-header">
                     <span class="tech-card-num">01. SYSTEMS</span>
-                    <span class="tech-card-title">Distributed Systems & Architecture</span>
+                    <span class="tech-card-title">Distributed Systems</span>
                 </div>
-                <div class="tech-list">
-                    <div class="tech-item">
-                        <span class="tech-item-name">Go (Golang)</span>
-                        <span class="tech-item-desc">Low-latency, high-concurrency backend services engineered for predictable performance.</span>
-                    </div>
-                    <div class="tech-item">
-                        <span class="tech-item-name">Python (3.11+)</span>
-                        <span class="tech-item-desc">Data pipelines, AI orchestration, FastAPI services, and asynchronous worker systems.</span>
-                    </div>
-                    <div class="tech-item">
-                        <span class="tech-item-name">gRPC & Protobuf</span>
-                        <span class="tech-item-desc">High-performance inter-service communication with strong schema contracts.</span>
-                    </div>
-                    <div class="tech-item">
-                        <span class="tech-item-name">Apache Kafka</span>
-                        <span class="tech-item-desc">Decoupled event-driven streaming pipelines for transactional event processing.</span>
-                    </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">PostgreSQL</span>
+                    <span class="tech-tag">Redis</span>
+                    <span class="tech-tag">Kafka</span>
+                    <span class="tech-tag">Go</span>
+                    <span class="tech-tag">event sourcing</span>
                 </div>
             </div>
 
-            <!-- 02. Ledgers & Databases -->
+            <!-- 02. Infrastructure -->
             <div class="tech-card">
                 <div class="tech-card-header">
-                    <span class="tech-card-num">02. DATA</span>
-                    <span class="tech-card-title">Financial Ledgers & Data Engineering</span>
+                    <span class="tech-card-num">02. CLOUD</span>
+                    <span class="tech-card-title">Infrastructure</span>
                 </div>
-                <div class="tech-list">
-                    <div class="tech-item">
-                        <span class="tech-item-name">PostgreSQL</span>
-                        <span class="tech-item-desc">ACID transactional integrity for financial, double-entry accounting, and multi-tenant workloads.</span>
-                    </div>
-                    <div class="tech-item">
-                        <span class="tech-item-name">Redis</span>
-                        <span class="tech-item-desc">Distributed state, caching, rate-limiting, and coordination for latency-sensitive services.</span>
-                    </div>
-                    <div class="tech-item">
-                        <span class="tech-item-name">Payment Rails</span>
-                        <span class="tech-item-desc">Faster Payments, Stripe API, Confirmation of Payee, ISO 20022, PSD2, and PCI-DSS compliance.</span>
-                    </div>
-                    <div class="tech-item">
-                        <span class="tech-item-name">Reconciliation Engines</span>
-                        <span class="tech-item-desc">Idempotent transaction processing and automated daily financial reconciliation systems.</span>
-                    </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">AWS</span>
+                    <span class="tech-tag">GCP</span>
+                    <span class="tech-tag">Kubernetes</span>
+                    <span class="tech-tag">Terraform</span>
+                    <span class="tech-tag">CDK</span>
                 </div>
             </div>
 
-            <!-- 03. Production AI -->
+            <!-- 03. Media -->
             <div class="tech-card">
                 <div class="tech-card-header">
-                    <span class="tech-card-num">03. AI & RAG</span>
-                    <span class="tech-card-title">Production AI & Vector Search</span>
+                    <span class="tech-card-num">03. VIDEO</span>
+                    <span class="tech-card-title">Media</span>
                 </div>
-                <div class="tech-list">
-                    <div class="tech-item">
-                        <span class="tech-item-name">RAG & Vector Search</span>
-                        <span class="tech-item-desc">Constrained retrieval architectures using Qdrant, Pinecone, and Pgvector for enterprise knowledge.</span>
-                    </div>
-                    <div class="tech-item">
-                        <span class="tech-item-name">Deterministic AI Infrastructure</span>
-                        <span class="tech-item-desc">Structured JSON outputs, strict input validation, evaluation benchmarks, and graceful fallbacks.</span>
-                    </div>
-                    <div class="tech-item">
-                        <span class="tech-item-name">LLM Orchestration</span>
-                        <span class="tech-item-desc">Low-latency model routing, prompt optimisation, token tracking, and multi-provider failover.</span>
-                    </div>
-                    <div class="tech-item">
-                        <span class="tech-item-name">Google Vertex AI & ML</span>
-                        <span class="tech-item-desc">Custom entity extraction, automated indexing, and production ML model deployment.</span>
-                    </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">SRT</span>
+                    <span class="tech-tag">RTMP</span>
+                    <span class="tech-tag">HLS</span>
+                    <span class="tech-tag">LL-HLS</span>
+                    <span class="tech-tag">FFmpeg</span>
                 </div>
             </div>
 
-            <!-- 04. Infrastructure & FinOps -->
+            <!-- 04. AI -->
             <div class="tech-card">
                 <div class="tech-card-header">
-                    <span class="tech-card-num">04. CLOUD</span>
-                    <span class="tech-card-title">Cloud Infrastructure & FinOps</span>
+                    <span class="tech-card-num">04. INTELLIGENCE</span>
+                    <span class="tech-card-title">AI</span>
                 </div>
-                <div class="tech-list">
-                    <div class="tech-item">
-                        <span class="tech-item-name">AWS & GCP Infrastructure</span>
-                        <span class="tech-item-desc">Multi-region cloud architecture, VPC peering, IAM security baselines, and SOC2 readiness.</span>
-                    </div>
-                    <div class="tech-item">
-                        <span class="tech-item-name">Kubernetes & Docker</span>
-                        <span class="tech-item-desc">Container auto-scaling policies, Helm releases, and zero-downtime rolling deployments.</span>
-                    </div>
-                    <div class="tech-item">
-                        <span class="tech-item-name">AWS CDK & Terraform (IaC)</span>
-                        <span class="tech-item-desc">Infrastructure as Code using AWS CDK (TypeScript/Python) and Terraform for immutable environments.</span>
-                    </div>
-                    <div class="tech-item">
-                        <span class="tech-item-name">Cloud Cost Reduction & FinOps</span>
-                        <span class="tech-item-desc">Automated AWS/GCP savings, egress bandwidth routing, spot instance orchestration, and continuous cloud cost optimisation.</span>
-                    </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">RAG</span>
+                    <span class="tech-tag">vector search</span>
+                    <span class="tech-tag">constrained generation</span>
+                    <span class="tech-tag">structured outputs</span>
                 </div>
             </div>
 
-            <!-- 05. Real-Time Media -->
-            <div class="tech-card">
+            <!-- 05. Products -->
+            <div class="tech-card full-width">
                 <div class="tech-card-header">
-                    <span class="tech-card-num">05. MEDIA</span>
-                    <span class="tech-card-title">Real-Time Streaming & Media Networks</span>
+                    <span class="tech-card-num">05. VENTURES</span>
+                    <span class="tech-card-title">Products</span>
                 </div>
-                <div class="tech-list">
-                    <div class="tech-item">
-                        <span class="tech-item-name">Live Protocols (HLS, RTMP, SRT)</span>
-                        <span class="tech-item-desc">Broadcast-grade video ingestion and low-latency delivery using HLS, RTMP, and Secure Reliable Transport (SRT).</span>
-                    </div>
-                    <div class="tech-item">
-                        <span class="tech-item-name">TV Channel Feed Syndication</span>
-                        <span class="tech-item-desc">Automated live video feed syndication delivering real-time broadcasts to major TV channels.</span>
-                    </div>
-                    <div class="tech-item">
-                        <span class="tech-item-name">High-Concurrency Sockets</span>
-                        <span class="tech-item-desc">High-concurrency WebSocket architectures designed for 25,000+ active user connections.</span>
-                    </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">BearAudit</span>
+                    <span class="tech-tag">[future ventures]</span>
                 </div>
             </div>
         </div>
