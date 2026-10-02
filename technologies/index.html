@@ -221,6 +221,12 @@
         .system-proof-item {
             border-left: 2px solid var(--text-main);
             padding-left: 14px;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .system-proof-item:hover {
+            transform: translateX(4px);
+            opacity: 0.85;
         }
 
         .system-proof-title {
@@ -416,20 +422,25 @@
         <div class="systems-card">
             <div class="systems-card-title">// CORE SANDBOX RESEARCH PIPELINES</div>
             <div class="systems-grid">
-                <div class="system-proof-item">
-                    <div class="system-proof-title">Financial Infrastructure</div>
+                <a href="/research/core-banking-payment-rails" class="system-proof-item" style="text-decoration: none; color: inherit;">
+                    <div class="system-proof-title">Financial Infrastructure ↗</div>
                     <div class="system-proof-desc">Validating PostgreSQL double-entry ledgers, automated reconciliation protocols, and high-frequency settlement pipelines.</div>
-                </div>
+                </a>
 
-                <div class="system-proof-item">
-                    <div class="system-proof-title">Enterprise AI & RAG</div>
+                <a href="/research/enterprise-nlp-search" class="system-proof-item" style="text-decoration: none; color: inherit;">
+                    <div class="system-proof-title">Enterprise AI & RAG ↗</div>
                     <div class="system-proof-desc">Testing deterministic retrieval platforms, vector database performance under peak concurrency, and structured output validations.</div>
-                </div>
+                </a>
 
-                <div class="system-proof-item">
-                    <div class="system-proof-title">Real-Time Media & Streaming</div>
+                <a href="/research/live-broadcast-video-syndication" class="system-proof-item" style="text-decoration: none; color: inherit;">
+                    <div class="system-proof-title">Real-Time Media & Streaming ↗</div>
                     <div class="system-proof-desc">Stress-testing low-latency live video pipelines (HLS, RTMP, SRT) and real-time syndication feeds.</div>
-                </div>
+                </a>
+
+                <a href="/research/cloud-finops-infrastructure" class="system-proof-item" style="text-decoration: none; color: inherit;">
+                    <div class="system-proof-title">Cloud FinOps & Infrastructure ↗</div>
+                    <div class="system-proof-desc">Prototyping automated cloud cost governance, Spot VM preemption safeguards, and Karpenter node-less cluster orchestration.</div>
+                </a>
             </div>
         </div>
 
