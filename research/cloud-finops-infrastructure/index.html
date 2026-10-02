@@ -391,9 +391,9 @@
 
         <!-- Main Article Header -->
         <div class="article-header">
-            <div class="article-meta">Architecture Case Study • Timeline: 2019 – 2025</div>
+            <div class="article-meta">Architecture Case Study • Timeline: 2019 - 2025</div>
             <h1 class="article-title">Cloud FinOps & Infrastructure</h1>
-            <p style="font-family: var(--mono-font); font-size: 11px; color: var(--text-muted); margin-top: 12px; font-style: italic;">Research timeline: Original engineering work conducted between 2019–2025; this document was reconstructed and published in 2026.</p>
+            <p style="font-family: var(--mono-font); font-size: 11px; color: var(--text-muted); margin-top: 12px; font-style: italic;">Research timeline: Original engineering work conducted between 2019-2025; this document was reconstructed and published in 2026.</p>
         </div>
 
         <!-- Metrics Bar -->
@@ -404,7 +404,7 @@
                 <span class="metric-lbl">AWS Cost Reduction</span>
             </div>
             <div class="metric-item">
-                <span class="metric-val">21–40%</span>
+                <span class="metric-val">21-40%</span>
                 <span class="metric-lbl">Compute Cost Reduction</span>
             </div>
         
@@ -413,7 +413,7 @@
         <!-- Content -->
         <div class="article-content">
             
-            <h4>1. Context of the Problem (2019–2025)</h4>
+            <h4>1. Context of the Problem (2019-2025)</h4>
             <p>As cloud architectures scaled between 2019 and 2025, cloud resource bills became one of the largest operating expenses for high-growth SaaS platforms. Statically provisioned, on-demand compute environments resulted in massive fiscal waste due to over-provisioning. While spot instances (preemptible VMs) offered up to 90% cost discounts, cloud providers can terminate them with a mere 2-minute notice. This volatile preemption made spot instances highly risky for stateful, high-throughput container workloads, threatening sudden user-facing downtime and dropped connections.</p>
 
             <h4>2. Evaluation of Available Options</h4>
@@ -453,7 +453,7 @@
             <h4>3. Architectural Selection Rationale</h4>
             <p>Option C was selected. Option A (traditional Cluster Autoscaler) was rejected because its slow node scale-up times (often taking up to 10 minutes to register and provision an ASG VM) caused massive scheduling delays and API SLA violations when spot instances were preempted under heavy traffic. Option B was rejected because maintaining over-provisioned on-demand compute is cost-prohibitive and directly violates basic FinOps principles.</p>
             
-            <p>By implementing Option C, AWS Karpenter (open-sourced by AWS in late 2021) is used for node-less infrastructure provisioning. Karpenter bypasses traditional Auto Scaling Groups (ASGs) entirely, interacting directly with the EC2 fleet APIs to provision right-sized compute nodes in under 60 seconds. This is paired with custom Spot termination metadata handlers on EKS. The handler service continuously polls the local instance metadata endpoint for termination notices, instantly cordoning the node and initiating a graceful pod eviction drain. This allows the Kubernetes scheduler to safely relocate workloads to alternative capacity—or signals Karpenter to provision replacement nodes Just-In-Time (JIT)— before the 2-minute preemption deadline is reached.</p>
+            <p>By implementing Option C, AWS Karpenter (open-sourced by AWS in late 2021) is used for node-less infrastructure provisioning. Karpenter bypasses traditional Auto Scaling Groups (ASGs) entirely, interacting directly with the EC2 fleet APIs to provision right-sized compute nodes in under 60 seconds. This is paired with custom Spot termination metadata handlers on EKS. The handler service continuously polls the local instance metadata endpoint for termination notices, instantly cordoning the node and initiating a graceful pod eviction drain. This allows the Kubernetes scheduler to safely relocate workloads to alternative capacity-or signals Karpenter to provision replacement nodes Just-In-Time (JIT)- before the 2-minute preemption deadline is reached.</p>
 
             <div class="code-block">
 # Karpenter AWS NodePool Manifest showing spot instance and node-less scaling rules
@@ -481,7 +481,7 @@ spec:
             <ul>
                 <li><strong>50% Budget Optimization:</strong> Utilizing dynamic EC2 Spot instances, Karpenter right-sizing, and aggressive cluster consolidation reduced monthly AWS compute expenditures by up to 50% for high-throughput container clusters.</li>
                 <li><strong>Zero-Downtime Eviction:</strong> Custom Spot Termination Handlers successfully drained and drained and migrated container pods to alternative capacity in under 90 seconds, resulting in zero dropped requests or user-perceived downtime.</li>
-                <li><strong>Cross-Portfolio SaaS Savings:</strong> Slashed compute expenditures by 21–40% across multi-tenant accounts while maintaining strict 99.9% to 99.99% system availability, proving that cloud budgets can be systematically optimized as an engineering discipline.</li>
+                <li><strong>Cross-Portfolio SaaS Savings:</strong> Slashed compute expenditures by 21-40% across multi-tenant accounts while maintaining strict 99.9% to 99.99% system availability, proving that cloud budgets can be systematically optimized as an engineering discipline.</li>
             </ul>
 
             <h4>5. Limitations</h4>

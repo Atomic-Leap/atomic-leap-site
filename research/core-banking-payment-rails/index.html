@@ -391,9 +391,9 @@
 
         <!-- Main Article Header -->
         <div class="article-header">
-            <div class="article-meta">Architecture Case Study • Timeline: 2015 – 2019</div>
+            <div class="article-meta">Architecture Case Study • Timeline: 2015 - 2019</div>
             <h1 class="article-title">Core Banking & Payment Rails</h1>
-            <p style="font-family: var(--mono-font); font-size: 11px; color: var(--text-muted); margin-top: 12px; font-style: italic;">Research timeline: Original engineering work conducted between 2015–2019; this document was reconstructed and published in 2026.</p>
+            <p style="font-family: var(--mono-font); font-size: 11px; color: var(--text-muted); margin-top: 12px; font-style: italic;">Research timeline: Original engineering work conducted between 2015-2019; this document was reconstructed and published in 2026.</p>
         </div>
 
         <!-- Metrics Bar -->
@@ -413,7 +413,7 @@
         <!-- Content -->
         <div class="article-content">
             
-            <h4>1. Context of the Problem (2015–2019)</h4>
+            <h4>1. Context of the Problem (2015-2019)</h4>
             <p>Between 2015 and 2019, the financial sector underwent major regulatory and structural modernizations in Europe, such as the introduction of the Payment Services Directive (PSD2) and the UK Open Banking framework. These regulations demanded near-instantaneous transaction validation, continuous auditability, and sub-50ms latency. In core transactional systems, the greatest architectural risk is the introduction of data race conditions (such as double-spending) under concurrent execution, resulting in ledger reconciliation drift where the balance sheet fails to balance.</p>
 
             <h4>2. Evaluation of Available Options</h4>
@@ -451,7 +451,7 @@
             </table>
 
             <h4>3. Architectural Selection Rationale</h4>
-            <p>Option C was selected. Option A (direct relational database mutations) was rejected because modifying mutable balances directly in a table database is highly vulnerable to deadlock blocks and race conditions under concurrent spikes. It also fails strict auditing compliance by hiding the historical states of transaction changes. Option B (Blockchain) was rejected because, during the 2015–2019 era, DLT systems lacked the performance capabilities to meet transactional SLAs, often requiring minutes to guarantee cryptographic finality.</p>
+            <p>Option C was selected. Option A (direct relational database mutations) was rejected because modifying mutable balances directly in a table database is highly vulnerable to deadlock blocks and race conditions under concurrent spikes. It also fails strict auditing compliance by hiding the historical states of transaction changes. Option B (Blockchain) was rejected because, during the 2015-2019 era, DLT systems lacked the performance capabilities to meet transactional SLAs, often requiring minutes to guarantee cryptographic finality.</p>
             
             <p>By implementing Option C, the core ledger model is built on strictly append-only principles in PostgreSQL. Account balances are never altered with SQL <code>UPDATE</code> commands; instead, balances are dynamically computed by summing a historical log of immutable debit and credit event records. A Redis distributed locking layer (using the Redlock algorithm) was used to serialize conflicting requests before they reached PostgreSQL, while PostgreSQL serializable transactions provided the database-level consistency boundary, with the zero-sum ledger invariant enforced firmly by the application's transaction model.</p>
 
