@@ -506,8 +506,8 @@ int calculateSrtLatency(int rtt, float lossRatio) {
 
             <p>The telemetry recorded during these test iterations:</p>
             <ul>
-                <li><strong>Selective Retransmission Efficiency:</strong> Under the tested conditions, SRT successfully recovered 100% of packets under up to 25% simulated packet loss, preserving a pristine, zero-frame-drop broadcast. In our test configuration, RTMP became unstable at approximately 4% packet loss.</li>
-                <li><strong>Optimal Jitter-Buffer Bounds:</strong> Testing confirmed that a configured ingest buffer of 4× RTT produced the desired tradeoff under our tested network conditions, sustaining an end-to-end glass-to-glass latency of under 2.0 seconds with zero buffering events.</li>
+                <li><strong>Selective Retransmission Efficiency:</strong> Under the tested conditions, SRT successfully recovered 100% of packets under up to 25% simulated packet loss, preserving a pristine, zero-frame-drop broadcast. In parallel testing, RTMP became unstable at approximately 4% packet loss.</li>
+                <li><strong>Optimal Jitter-Buffer Bounds:</strong> Testing confirmed that a configured ingest buffer of 4× RTT produced the desired tradeoff under tested network conditions, sustaining an end-to-end glass-to-glass latency of under 2.0 seconds with zero buffering events.</li>
                 <li><strong>Origin Isolation:</strong> CloudFront Origin Shield successfully collapsed edge cache request loops, sustaining a 99.8% cache hit ratio and reducing origin egress load by 84% under a peak concurrent viewer load.</li>
             </ul>
 
