@@ -774,7 +774,7 @@
                             <span class="venture-badge">RESEARCH</span>
                         </div>
                         <div class="venture-desc">
-                            Designed and prototyped highly resilient RTMP/HLS/SRT live video streaming sandboxes handling 100k+ concurrent viewers with low-latency feed syndication.
+                            Designed and prototyped highly resilient RTMP/HLS/SRT live video streaming sandboxes handling 25,000+ concurrent viewers with low-latency feed syndication.
                         </div>
                     </div>
                     <span class="venture-link" style="color: var(--text-muted);">AWS Serverless • SRT • FinOps • View Report ↗</span>
@@ -816,7 +816,7 @@
                             <span class="venture-badge">RESEARCH</span>
                         </div>
                         <div class="venture-desc">
-                            Prototyped automated cloud cost governance cutting AWS and GCP compute and egress expenditure by 28% to 50% through spot fleet automation.
+                            Prototyped automated cloud cost governance cutting GCP infrastructure spend by 50% via Spot VM and container orchestration.
                         </div>
                     </div>
                     <span class="venture-link" style="color: var(--text-muted);">Terraform • CDK • Kubernetes • View Report ↗</span>
@@ -859,7 +859,7 @@
                 meta: "Research Report • October 2026",
                 title: "Live Broadcast & Video Syndication",
                 metrics: [
-                    { val: "100k+", lbl: "Simulated Concurrent Viewers" },
+                    { val: "25,000+", lbl: "Simulated Concurrent Viewers" },
                     { val: "< 2.0s", lbl: "Ingest-to-Edge Latency" }
                 ],
                 body: `
@@ -871,7 +871,7 @@
                     <h4>Stress-Testing Methodology</h4>
                     <ul>
                         <li><strong>Congestion Emulation:</strong> Injected up to 35% packet loss and 200ms latency jitter on SRT ingest pipelines using Comcast's Network Emulator tools.</li>
-                        <li><strong>High Load Simulation:</strong> Spawned 120,000 headless player nodes globally via distributed Locust container tasks to stress-test adaptive bitrate switching thresholds.</li>
+                        <li><strong>High Load Simulation:</strong> Spawned 30,000 headless player nodes globally via distributed Locust container tasks to stress-test adaptive bitrate switching thresholds.</li>
                     </ul>
 
                     <h4>Key Conclusions</h4>
@@ -911,25 +911,25 @@
                 meta: "Research Report • August 2026",
                 title: "Enterprise NLP & Search",
                 metrics: [
-                    { val: "20M+", lbl: "Indexed Test Documents" },
-                    { val: "94.2%", lbl: "Context Retrieval Accuracy" }
+                    { val: "20M+", lbl: "Indexed Documents" },
+                    { val: "< 500ms", lbl: "Search Integration SLA" }
                 ],
                 body: `
-                    <p>We designed and stress-tested a high-throughput search sandbox to analyze semantic context retrieval speeds on enterprise knowledge graphs.</p>
+                    <p>We designed and stress-tested a high-throughput content intelligence search sandbox to analyze semantic context retrieval speeds on enterprise knowledge graphs for global media networks.</p>
                     
                     <h4>Architectural Blueprint</h4>
-                    <p>Built with distributed Elasticsearch clusters deployed on Google Kubernetes Engine (GKE). It implements custom N-gram tokenizers and dense vector embedding pipelines using BERT models to achieve hybrid search (dense semantic search paired with sparse keyword matching).</p>
+                    <p>Built with distributed Elasticsearch clusters deployed on Google Kubernetes Engine (GKE). It implements custom N-gram tokenizers and dense vector embedding pipelines to achieve hybrid search (dense semantic search paired with sparse keyword matching), integrated with custom Microsoft Word (Office.js) and Chrome extensions.</p>
                     
                     <h4>Stress-Testing Methodology</h4>
                     <ul>
-                        <li><strong>High Volume Indexing:</strong> Loaded and indexed 20 million unstructured PDF, docx, and text files.</li>
-                        <li><strong>Complex Queries:</strong> Executed concurrent hybrid searches with natural-language context matches to evaluate token routing latency.</li>
+                        <li><strong>High Volume Indexing:</strong> Loaded and indexed 20 million unstructured news articles and editorial documents.</li>
+                        <li><strong>Complex Queries:</strong> Executed concurrent hybrid searches with natural-language context matches to evaluate real-time editor-assistance response times.</li>
                     </ul>
 
                     <h4>Key Conclusions</h4>
                     <ul>
-                        <li><strong>Hybrid Search Precision:</strong> Combining dense vector search with sparse BM25 keyword matching improved search result relevance by 22% over vector search alone.</li>
-                        <li><strong>Throughput Performance:</strong> Attained sub-100ms response times for hybrid queries under a sustained load of 2,500 queries per second.</li>
+                        <li><strong>Integration Latency:</strong> Delivered sub-second (<500ms) semantic search results directly inside active newsroom editors.</li>
+                        <li><strong>Search Throughput:</strong> Attained consistent sub-800ms p99 search latency under a sustained concurrent load across multi-tenant media accounts.</li>
                     </ul>
                 `
             },
@@ -937,25 +937,25 @@
                 meta: "Research Report • July 2026",
                 title: "Cloud FinOps & Infrastructure",
                 metrics: [
-                    { val: "-42%", lbl: "Average Monthly Cost Reduction" },
-                    { val: "< 5m", lbl: "Spot Failover Convergence" }
+                    { val: "50%", lbl: "GCP Cost Reduction" },
+                    { val: "21% to 40%", lbl: "SaaS Account Savings" }
                 ],
                 body: `
-                    <p>We researched architectural methodologies to optimize cloud resource utilization and reduce compute expenditures without introducing downtime or SLA violations.</p>
+                    <p>We researched architectural methodologies and FinOps scaling guidelines to optimize multi-cloud resource utilization and systematically slash compute and storage expenditures.</p>
                     
                     <h4>Architectural Blueprint</h4>
-                    <p>Our automation sandbox utilizes AWS CDK and Terraform for dynamic cluster orchestration. We developed custom telemetry collectors running on Kubernetes that continuously analyze compute workloads and dynamically trigger spot/on-demand compute transitions.</p>
+                    <p>The automation sandbox utilizes AWS CDK and Terraform for infrastructure as code, configuring dynamic Horizontal Pod Autoscaling (HPA) and Karpenter on GKE and AWS EKS. Custom telemetry collectors track unit economics to automate Spot VM transitions.</p>
                     
                     <h4>Stress-Testing Methodology</h4>
                     <ul>
-                        <li><strong>Spot Interrupt Simulations:</strong> Triggered artificial AWS spot instance termination notifications on high-concurrency node groups to test container failover speeds.</li>
-                        <li><strong>Workload Scaling:</strong> Simulated diurnal CPU load profiles to benchmark cluster scaling response curves.</li>
+                        <li><strong>Spot Interrupt Simulations:</strong> Simulated AWS/GCP spot VM preemption interrupts under peak production traffic profiles to verify state preservation.</li>
+                        <li><strong>Workload Downscaling:</strong> Applied scheduled scaling and aggressive node right-sizing across multi-tenant environments.</li>
                     </ul>
 
                     <h4>Key Conclusions</h4>
                     <ul>
-                        <li><strong>Autonomous Cost Control:</strong> Dynamic spot instance orchestration and scheduled down-scaling reduced monthly cloud compute costs by 42% on average.</li>
-                        <li><strong>Resilient Failover:</strong> Spot termination handlers successfully migrated stateful workloads to on-demand nodes in under 5 minutes with zero user-perceived downtime.</li>
+                        <li><strong>GCP Spend Halved:</strong> Slashed GCP cloud infrastructure footprint by exactly 50% utilizing GKE Spot VMs, node right-sizing, and storage tiering.</li>
+                        <li><strong>AWS/GCP Multi-Tenant Savings:</strong> Slashed compute expenditures by 21% to 40% across multi-tenant accounts while maintaining strict 99.9% to 99.99% system availability.</li>
                     </ul>
                 `
             }
