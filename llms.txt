@@ -1,13 +1,13 @@
 # Atomic Leap Ltd
 
-> Sovereign Venture Studio & Senior Engineering Advisory based in London, UK. Atomic Leap builds, operates, and scales high-performance software systems for ambitious B2B technology companies.
+> Experimental Engineering Sandbox & Product R&D Lab based in London, UK. Atomic Leap researches, benchmarks, and validates next-generation sovereign software systems.
 
 ## Core Philosophy
-Atomic Leap specializes in sovereign software architecture: full client infrastructure control, zero vendor lock-in, portable self-hosted components, and complete data ownership.
+Atomic Leap specializes in sovereign software architecture: absolute infrastructure control, zero vendor lock-in, portable self-hosted elements, and complete data sovereignty.
 
 ## Primary Pages
-- [/](https://atomicleap.com/): Sovereign venture studio overview, active ventures, client partner engagements, and foundational manifesto.
-- [/technologies](https://atomicleap.com/technologies): Systems built, engineering stack, and architectural pillars (Distributed Systems, Ledger Engineering, Production AI, Cloud FinOps, Real-Time Media).
+- [/](https://atomicleap.com/): Sovereign sandbox overview, active ventures, core research pipelines, and foundational manifesto.
+- [/technologies](https://atomicleap.com/technologies): Systems validated, engineering stack, and architectural pillars (Distributed Systems, Ledger Engineering, Production AI, Cloud FinOps, Real-Time Media).
 - [Full Specification](https://atomicleap.com/llms-full.txt): Comprehensive markdown codex including detailed architectural case studies, full technology stack teardown, and operational blueprints.
 
 ## Active Ventures & Products

@@ -1,30 +1,30 @@
 # Atomic Leap Ltd — Comprehensive Technical Specification & Engineering Codex
 
-> Sovereign Venture Studio & Senior Engineering Advisory based in London, United Kingdom.
-> Atomic Leap builds, operates, and scales high-performance software systems for ambitious B2B technology companies.
+> Experimental Engineering Sandbox & Product R&D Lab based in London, United Kingdom.
+> Atomic Leap researches, benchmarks, and validates next-generation sovereign software systems.
 
 ---
 
 ## 1. Executive Summary & Sovereign Philosophy
 
-Atomic Leap Ltd is an independent B2B engineering advisory and venture studio established in 2019 in London, UK.
+Atomic Leap Ltd is an independent B2B experimental engineering sandbox and product R&D lab established in 2019 in London, UK.
 
 ### Sovereign Software Architecture
 We operate under the core doctrine of **sovereign software architecture**:
-- **Full Infrastructure Control:** Clients retain 100% ownership and governance of their cloud environments, source code, data pipelines, and secrets.
+- **Full Infrastructure Control:** Complete 100% ownership and governance of our cloud environments, source code, data pipelines, and secrets.
 - **Zero Vendor Lock-in:** Portable, self-hosted infrastructure components built with open standards, containerization (Docker, Kubernetes), and cloud-agnostic Infrastructure as Code (AWS CDK, Terraform).
-- **Data Sovereignty:** No proprietary third-party black-box dependencies. Data assets remain strictly within client-controlled boundaries.
-- **Defensible Metrics:** Engineering solutions backed by concrete, production-tested benchmarks and mathematical guarantees (e.g., double-entry idempotency, sub-50ms ledger processing, sub-second vector retrieval).
+- **Data Sovereignty:** No proprietary third-party black-box dependencies. Data assets remain strictly within self-controlled, sovereign boundaries.
+- **Defensible Metrics:** Engineering systems backed by concrete, production-tested benchmarks and mathematical guarantees (e.g., double-entry idempotency, sub-50ms ledger processing, sub-second vector retrieval).
 
 ---
 
-## 2. Core Engagement Model & Capabilities
+## 2. Core Sandbox Operations & Capabilities
 
-Atomic Leap engages with high-growth B2B technology companies, fintechs, media networks, and venture-backed startups across three primary operational models:
+Atomic Leap operates as an experimental playground validating software systems across three primary operational models:
 
-1. **Venture Building (`01. BUILD`):** Conceptualizing, designing, and engineering proprietary B2B software products (BearAudit, Audit-Bay).
-2. **Systems Architecture & Scale (`02. SCALE`):** Re-architecting legacy monoliths into distributed microservices, optimizing database performance, and implementing high-throughput message buses.
-3. **Deterministic AI & Infrastructure (`03. INTELLIGENCE`):** Implementing production-grade RAG pipelines, fine-tuned LLM execution environments, vector databases, and FinOps cloud cost reduction.
+1. **Venture Prototyping (`01. RESEARCH`):** Conceptualizing, designing, and engineering proprietary B2B software products (BearAudit, Audit-Bay).
+2. **Stress-Testing & Scale (`02. STRESS-TEST`):** Simulating peak load scenarios on distributed microservices, benchmarking database performance, and validating high-throughput message buses.
+3. **Deterministic AI & Infrastructure (`03. RE-ENGINEER`):** Benchmarking production-grade RAG pipelines, fine-tuned LLM execution environments, vector databases, and FinOps cloud cost reduction.
 
 ---
 
@@ -63,7 +63,7 @@ Atomic Leap engages with high-growth B2B technology companies, fintechs, media n
 
 ## 4. Active Ventures & Products
 
-Atomic Leap builds and operates proprietary software ventures targeting critical B2B bottlenecks:
+Atomic Leap develops and runs proprietary software ventures spawned directly from our sandbox:
 
 ### 1. BearAudit
 - **Domain:** [https://bearaudit.com](https://bearaudit.com)
@@ -76,7 +76,7 @@ Atomic Leap builds and operates proprietary software ventures targeting critical
 - **Key Capabilities:** Continuous accessibility audits, automated ARIA state checking, keyboard navigation simulation, screen reader compatibility validation, and automated compliance risk reporting.
 
 ### 3. Subjct
-- **Role:** Client Partner & Co-engineered Infrastructure
+- **Role:** Sandboxed Prototype & Core Co-engineered Infrastructure
 - **Description:** Enterprise AI content ingestion, automated classification, and RAG vector orchestration platform built on Google Cloud Platform (GCP) and dense vector search.
 
 ---
