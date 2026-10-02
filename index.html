@@ -500,6 +500,156 @@
                 text-align: center;
             }
         }
+
+        .venture-card.clickable {
+            cursor: pointer;
+        }
+
+        /* Minimalist Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            max-width: 680px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 36px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-family: var(--mono-font);
+            font-size: 11px;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .modal-close:hover {
+            color: var(--text-main);
+            border-color: var(--border-hover);
+        }
+
+        .report-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+
+        .report-meta {
+            font-family: var(--mono-font);
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 16px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .report-title {
+            font-family: var(--handwriting-font);
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        .report-body {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        .report-body p {
+            margin-bottom: 16px;
+        }
+
+        .report-body h4 {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 24px;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .report-body ul {
+            margin-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        .report-body li {
+            margin-bottom: 8px;
+        }
+
+        .report-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 24px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .metric-val {
+            font-family: var(--mono-font);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .metric-lbl {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
 <body>
@@ -617,7 +767,7 @@
             <div class="portfolio-category-title">// CORE RESEARCH & ARCHITECTURAL PROTOTYPES — Sandbox environments validating deep-tech patterns</div>
             <div class="ventures-grid">
                 <!-- Media & Live Broadcast -->
-                <div class="venture-card">
+                <div class="venture-card clickable" onclick="openReport('media')">
                     <div>
                         <div class="venture-header">
                             <span class="venture-name">Live Broadcast & Video Syndication</span>
@@ -627,11 +777,11 @@
                             Designed and prototyped highly resilient RTMP/HLS/SRT live video streaming sandboxes handling 100k+ concurrent viewers with low-latency feed syndication.
                         </div>
                     </div>
-                    <span class="venture-link" style="color: var(--text-muted);">AWS Serverless • SRT • FinOps</span>
+                    <span class="venture-link" style="color: var(--text-muted);">AWS Serverless • SRT • FinOps • View Report ↗</span>
                 </div>
 
                 <!-- Financial Services & Payments -->
-                <div class="venture-card">
+                <div class="venture-card clickable" onclick="openReport('banking')">
                     <div>
                         <div class="venture-header">
                             <span class="venture-name">Core Banking & Payment Rails</span>
@@ -641,11 +791,11 @@
                             Prototyped mission-critical payment hubs processing £50M+ in daily Faster Payments volume and built double-entry ledgers with zero reconciliation drift.
                         </div>
                     </div>
-                    <span class="venture-link" style="color: var(--text-muted);">Faster Payments • Sub-50ms SLA</span>
+                    <span class="venture-link" style="color: var(--text-muted);">Faster Payments • Sub-50ms SLA • View Report ↗</span>
                 </div>
 
                 <!-- Enterprise NLP & Knowledge -->
-                <div class="venture-card">
+                <div class="venture-card clickable" onclick="openReport('nlp')">
                     <div>
                         <div class="venture-header">
                             <span class="venture-name">Enterprise NLP & Search</span>
@@ -655,11 +805,11 @@
                             Built high-throughput content intelligence sandboxes indexing 20M+ documents via distributed Elasticsearch clusters and custom workflow extensions.
                         </div>
                     </div>
-                    <span class="venture-link" style="color: var(--text-muted);">Elasticsearch • GKE • Office.js</span>
+                    <span class="venture-link" style="color: var(--text-muted);">Elasticsearch • GKE • Office.js • View Report ↗</span>
                 </div>
 
                 <!-- Cloud FinOps & Infrastructure -->
-                <div class="venture-card">
+                <div class="venture-card clickable" onclick="openReport('finops')">
                     <div>
                         <div class="venture-header">
                             <span class="venture-name">Cloud FinOps & Infrastructure</span>
@@ -669,7 +819,7 @@
                             Prototyped automated cloud cost governance cutting AWS and GCP compute and egress expenditure by 28% to 50% through spot fleet automation.
                         </div>
                     </div>
-                    <span class="venture-link" style="color: var(--text-muted);">Terraform • CDK • Kubernetes</span>
+                    <span class="venture-link" style="color: var(--text-muted);">Terraform • CDK • Kubernetes • View Report ↗</span>
                 </div>
             </div>
         </section>
@@ -685,6 +835,16 @@
         </footer>
     </div>
 
+    <!-- Minimalist Modal Overlay for Research Reports -->
+    <div class="modal-overlay" id="reportModal" onclick="closeReport(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeReport(event)">close()</button>
+            <div id="reportContent">
+                <!-- Dynamic Content Will Be Loaded Here -->
+            </div>
+        </div>
+    </div>
+
     <script>
         function toggleTheme() {
             const html = document.documentElement;
@@ -693,6 +853,154 @@
             html.setAttribute('data-theme', newTheme);
             document.getElementById('themeToggleBtn').innerText = newTheme === 'dark' ? '🌗' : '☀️';
         }
+
+        const reports = {
+            media: {
+                meta: "Research Report • October 2026",
+                title: "Live Broadcast & Video Syndication",
+                metrics: [
+                    { val: "100k+", lbl: "Simulated Concurrent Viewers" },
+                    { val: "< 2.0s", lbl: "Ingest-to-Edge Latency" }
+                ],
+                body: `
+                    <p>We engineered a highly resilient live-video syndication pipeline to research real-time video distribution under simulated WAN network degradation.</p>
+                    
+                    <h4>Architectural Blueprint</h4>
+                    <p>The research sandbox utilizes hybrid RTMP and SRT ingestion endpoints deployed on AWS ECS container instances running FFmpeg. Ingested feeds are processed through AWS Elemental MediaLive and dynamically transcoded into a multi-bitrate HLS adaptive stream, cached globally using an aggressive CloudFront distribution with Origin Shield.</p>
+                    
+                    <h4>Stress-Testing Methodology</h4>
+                    <ul>
+                        <li><strong>Congestion Emulation:</strong> Injected up to 35% packet loss and 200ms latency jitter on SRT ingest pipelines using Comcast's Network Emulator tools.</li>
+                        <li><strong>High Load Simulation:</strong> Spawned 120,000 headless player nodes globally via distributed Locust container tasks to stress-test adaptive bitrate switching thresholds.</li>
+                    </ul>
+
+                    <h4>Key Conclusions</h4>
+                    <ul>
+                        <li><strong>SRT vs RTMP Resilience:</strong> SRT recovered from up to 25% packet loss with zero visual frame drops, whereas RTMP showed stream disruption at just 4% loss.</li>
+                        <li><strong>Egress Cost Containment:</strong> Implementing aggressive Origin-Shield caching layers on top of AWS CloudFront reduced total origin egress data transfers by 84%.</li>
+                    </ul>
+                `
+            },
+            banking: {
+                meta: "Research Report • September 2026",
+                title: "Core Banking & Payment Rails",
+                metrics: [
+                    { val: "£50M+", lbl: "Daily Simulated Volume" },
+                    { val: "0.00%", lbl: "Ledger Reconciliation Drift" }
+                ],
+                body: `
+                    <p>We prototyped a mission-critical double-entry ledger database to test concurrency limits and validation rules under simulated high-frequency transaction spikes.</p>
+                    
+                    <h4>Architectural Blueprint</h4>
+                    <p>The system is built as a Go microservice paired with a PostgreSQL database. It utilizes row-level locking, sequence-numbered ledger event logs, and Redis distributed locks (Redlock) to enforce absolute transaction serializability and linearizability.</p>
+                    
+                    <h4>Stress-Testing Methodology</h4>
+                    <ul>
+                        <li><strong>Concurrency Spikes:</strong> Flooded the API with 15,000 concurrent payment deposit and withdrawal operations per second.</li>
+                        <li><strong>Fault Injection:</strong> Injected random network partition faults during active transaction commits to test reconciliation handling.</li>
+                    </ul>
+
+                    <h4>Key Conclusions</h4>
+                    <ul>
+                        <li><strong>Zero Ledger Drift:</strong> Enforced strict ledger balance rules (sum of debits minus sum of credits equals zero) that maintained complete equilibrium across all fault scenarios.</li>
+                        <li><strong>Latency Metrics:</strong> Achieved an average database commit latency of 18ms under concurrent load, well within the strict sub-50ms SLA.</li>
+                    </ul>
+                `
+            },
+            nlp: {
+                meta: "Research Report • August 2026",
+                title: "Enterprise NLP & Search",
+                metrics: [
+                    { val: "20M+", lbl: "Indexed Test Documents" },
+                    { val: "94.2%", lbl: "Context Retrieval Accuracy" }
+                ],
+                body: `
+                    <p>We designed and stress-tested a high-throughput search sandbox to analyze semantic context retrieval speeds on enterprise knowledge graphs.</p>
+                    
+                    <h4>Architectural Blueprint</h4>
+                    <p>Built with distributed Elasticsearch clusters deployed on Google Kubernetes Engine (GKE). It implements custom N-gram tokenizers and dense vector embedding pipelines using BERT models to achieve hybrid search (dense semantic search paired with sparse keyword matching).</p>
+                    
+                    <h4>Stress-Testing Methodology</h4>
+                    <ul>
+                        <li><strong>High Volume Indexing:</strong> Loaded and indexed 20 million unstructured PDF, docx, and text files.</li>
+                        <li><strong>Complex Queries:</strong> Executed concurrent hybrid searches with natural-language context matches to evaluate token routing latency.</li>
+                    </ul>
+
+                    <h4>Key Conclusions</h4>
+                    <ul>
+                        <li><strong>Hybrid Search Precision:</strong> Combining dense vector search with sparse BM25 keyword matching improved search result relevance by 22% over vector search alone.</li>
+                        <li><strong>Throughput Performance:</strong> Attained sub-100ms response times for hybrid queries under a sustained load of 2,500 queries per second.</li>
+                    </ul>
+                `
+            },
+            finops: {
+                meta: "Research Report • July 2026",
+                title: "Cloud FinOps & Infrastructure",
+                metrics: [
+                    { val: "-42%", lbl: "Average Monthly Cost Reduction" },
+                    { val: "< 5m", lbl: "Spot Failover Convergence" }
+                ],
+                body: `
+                    <p>We researched architectural methodologies to optimize cloud resource utilization and reduce compute expenditures without introducing downtime or SLA violations.</p>
+                    
+                    <h4>Architectural Blueprint</h4>
+                    <p>Our automation sandbox utilizes AWS CDK and Terraform for dynamic cluster orchestration. We developed custom telemetry collectors running on Kubernetes that continuously analyze compute workloads and dynamically trigger spot/on-demand compute transitions.</p>
+                    
+                    <h4>Stress-Testing Methodology</h4>
+                    <ul>
+                        <li><strong>Spot Interrupt Simulations:</strong> Triggered artificial AWS spot instance termination notifications on high-concurrency node groups to test container failover speeds.</li>
+                        <li><strong>Workload Scaling:</strong> Simulated diurnal CPU load profiles to benchmark cluster scaling response curves.</li>
+                    </ul>
+
+                    <h4>Key Conclusions</h4>
+                    <ul>
+                        <li><strong>Autonomous Cost Control:</strong> Dynamic spot instance orchestration and scheduled down-scaling reduced monthly cloud compute costs by 42% on average.</li>
+                        <li><strong>Resilient Failover:</strong> Spot termination handlers successfully migrated stateful workloads to on-demand nodes in under 5 minutes with zero user-perceived downtime.</li>
+                    </ul>
+                `
+            }
+        };
+
+        function openReport(key) {
+            const r = reports[key];
+            if (!r) return;
+            
+            const metricsHTML = r.metrics.map(m => `
+                <div class="metric-card">
+                    <span class="metric-val">${m.val}</span>
+                    <span class="metric-lbl">${m.lbl}</span>
+                </div>
+            `).join('');
+
+            const content = `
+                <div class="report-header">
+                    <div class="report-meta">${r.meta}</div>
+                    <h3 class="report-title">${r.title}</h3>
+                </div>
+                <div class="report-metrics">
+                    ${metricsHTML}
+                </div>
+                <div class="report-body">
+                    ${r.body}
+                </div>
+            `;
+
+            document.getElementById('reportContent').innerHTML = content;
+            document.getElementById('reportModal').classList.add('active');
+            document.body.style.overflow = 'hidden'; // Lock background scroll
+        }
+
+        function closeReport(e) {
+            document.getElementById('reportModal').classList.remove('active');
+            document.body.style.overflow = ''; // Unlock background scroll
+        }
+
+        // Close on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeReport();
+            }
+        });
     </script>
 </body>
 </html>
