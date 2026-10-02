@@ -464,7 +464,7 @@ float computeRrfScore(int lexicalRank, int vectorRank, int k) {
             <h4>4. Stress-Testing, Chaos Injection & Telemetry</h4>
             <p>The hybrid search sandbox was loaded with 20 million unstructured, multi-format media articles and documents. To simulate active, concurrent newsroom editorial workflows, a load generator fired 2,500 concurrent hybrid search queries per second, continuously varying query complexity between natural-language sentences and alphanumeric entity strings. Telemetry results verified:</p>
             <ul>
-                <li><strong>Precision & Relevance Gains:</strong> Fusing keyword and vector ranks via RRF delivered a 22% improvement in overall context retrieval accuracy compared to pure vector search alone.</li>
+                <li><strong>Precision & Relevance Gains:</strong> Fusing keyword and vector ranks via RRF delivered a 22% relative improvement in nDCG@10 (Normalized Discounted Cumulative Gain) compared to pure vector search alone.</li>
                 <li><strong>Sub-Second Editorial SLA:</strong> Search recommendations successfully returned and rendered inside Microsoft Word and Chrome extensions in under 500ms, maintaining a consistent p99 latency under 800ms.</li>
                 <li><strong>Fuzzy Compound Handling:</strong> Custom N-gram tokenizers successfully resolved partial word matches for compound editorial keywords, preventing zero-result failures when editors entered incomplete search terms.</li>
             </ul>
