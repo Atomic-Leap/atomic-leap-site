@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic Leap — Live Broadcast & Video Syndication Research Whitepaper</title>
+    <!-- Vercel Analytics Insights -->
+    <script defer src="/_vercel/insights/script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #000000;
+            --card-bg: #0a0a0a;
+            --border-color: #262626;
+            --border-hover: #ffffff;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --badge-bg: #171717;
+            --handwriting-font: 'Caveat', cursive;
+            --sans-font: 'Inter', -apple-system, sans-serif;
+            --mono-font: 'JetBrains Mono', monospace;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #ffffff;
+            --card-bg: #f9f9f9;
+            --border-color: #e5e5e5;
+            --border-hover: #000000;
+            --text-main: #000000;
+            --text-muted: #666666;
+            --badge-bg: #f0f0f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--sans-font);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .bg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(to right, var(--border-color) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--border-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border-color);
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-main);
+            flex-shrink: 0;
+        }
+
+        .atom-icon {
+            width: 26px;
+            height: 26px;
+            stroke: var(--text-main);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .brand-text {
+            font-family: var(--handwriting-font);
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            white-space: nowrap;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-link {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-main);
+        }
+
+        .toggle-theme-btn {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-main);
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .toggle-theme-btn:hover {
+            border-color: var(--border-hover);
+        }
+
+        .contact-btn {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-main);
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: var(--card-bg);
+            white-space: nowrap;
+        }
+
+        .contact-btn:hover {
+            border-color: var(--border-hover);
+            background: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .back-link:hover {
+            color: var(--text-main);
+        }
+
+        /* Article Formatting */
+        .article-header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 24px;
+        }
+
+        .article-meta {
+            font-family: var(--mono-font);
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+        }
+
+        .article-title {
+            font-family: var(--sans-font);
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--text-main);
+            letter-spacing: -1px;
+        }
+
+        /* Metrics grid */
+        .metrics-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+
+        .metric-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .metric-val {
+            font-family: var(--mono-font);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .metric-lbl {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .article-content {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-main);
+        }
+
+        .article-content p {
+            margin-bottom: 24px;
+            text-align: justify;
+        }
+
+        .article-content h4 {
+            font-family: var(--mono-font);
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 40px;
+            margin-bottom: 16px;
+            letter-spacing: 1.5px;
+            border-left: 2px solid var(--text-muted);
+            padding-left: 10px;
+        }
+
+        .article-content ul, .article-content ol {
+            margin-left: 24px;
+            margin-bottom: 24px;
+        }
+
+        .article-content li {
+            margin-bottom: 12px;
+        }
+
+        .article-content blockquote {
+            border-left: 3px solid var(--border-color);
+            padding: 16px 20px;
+            margin: 32px 0;
+            background: var(--card-bg);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        .code-block {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            font-family: var(--mono-font);
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text-main);
+            overflow-x: auto;
+            margin: 32px 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 32px 0;
+            font-size: 13px;
+        }
+
+        .comparison-table th, .comparison-table td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: var(--badge-bg);
+            font-family: var(--mono-font);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 32px 0;
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: var(--mono-font);
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 24px 16px;
+            }
+
+            header {
+                padding-bottom: 20px;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .brand-text {
+                font-size: 26px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+
+    <div class="container">
+        <!-- Header Nav -->
+        <header>
+            <a href="/" class="brand">
+                <svg class="atom-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="3"/>
+                    <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(30 12 12)"/>
+                    <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-30 12 12)"/>
+                </svg>
+                <span class="brand-text">Atomic Leap</span>
+            </a>
+
+            <div class="nav-controls">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/technologies" class="nav-link">Stack</a>
+                <button class="toggle-theme-btn" onclick="toggleTheme()" id="themeToggleBtn">
+                    🌗
+                </button>
+                <a href="mailto:rr@atomicleap.com" class="contact-btn">ping_sandbox()</a>
+            </div>
+        </header>
+
+        <a href="/" class="back-link">← back_to_sandbox()</a>
+
+        <!-- Main Article Header -->
+        <div class="article-header">
+            <div class="article-meta">Research Whitepaper • Timeline: 2019 – 2023</div>
+            <h1 class="article-title">Live Broadcast & Video Syndication</h1>
+        </div>
+
+        <!-- Metrics Bar -->
+        <div class="metrics-bar">
+            
+            <div class="metric-item">
+                <span class="metric-val">25,000+</span>
+                <span class="metric-lbl">Simulated Concurrent Viewers</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-val">&lt; 2.0s</span>
+                <span class="metric-lbl">Ingest-to-Edge Latency</span>
+            </div>
+        
+        </div>
+
+        <!-- Content -->
+        <div class="article-content">
+            
+            <h4>1. Context of the Problem (2019–2023)</h4>
+            <p>Between 2019 and 2023, the live video broadcast industry underwent a paradigm shift. Content creators, premium OTT networks, and live event promoters demanded ultra-low-latency, interactive streaming experiences. The standard goal was to achieve "glass-to-glass" latency (the time from a camera lens capturing a frame to a viewer seeing it on their screen) of under 2.0 seconds. However, delivering high-bitrate contribution feeds reliably over public internet networks remained highly volatile, prone to dynamic packet loss, jitter, and congestion. Standard transmission protocols lacked the error-correction efficiency or scalability required for concurrent multi-destination syndication.</p>
+
+            <h4>2. Evaluation of Available Options</h4>
+            <p>During the research phase, three primary architectural patterns were evaluated for contribution and edge distribution:</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Protocol / Option</th>
+                        <th>Pros</th>
+                        <th>Cons</th>
+                        <th>Suitable Use Case</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Option A: Traditional RTMP (over TCP)</strong></td>
+                        <td>Universal software and hardware encoder support; simple firewall configuration.</td>
+                        <td>TCP head-of-line blocking; stream disconnections or severe buffering if packet loss exceeds 3%.</td>
+                        <td>Legacy ingest only; unsuitable for low-latency or unstable networks.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Option B: WebRTC (over UDP)</strong></td>
+                        <td>Sub-second sub-505ms interactive latency; supported natively in standard browsers.</td>
+                        <td>Computationally expensive to scale; lacks linear TV syndication profiles (SDI/NDI output mapping).</td>
+                        <td>Interactive peer-to-peer chats and highly localized small-audience feeds.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Option C: SRT Ingest + LL-HLS Edge (UDP Contribution)</strong></td>
+                        <td>Selective ARQ packet recovery; resilient over volatile networks; ultra-low-latency packaging.</td>
+                        <td>Requires custom jitter-buffer tuning; more complex player support integration.</td>
+                        <td>High-concurrency global OTT and TV channel syndication. Chosen Option.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>3. Architectural Selection Rationale</h4>
+            <p>Option C was selected as the optimal architecture. Option A (RTMP) was rejected because it is fundamentally limited by TCP's congestion-control behavior. Under 5% packet loss, RTMP's buffer queue spirals out of control, introducing seconds of latency and leading to complete feed failure. Option B (WebRTC) was rejected due to its lack of scaling unit economics—operating peer-to-peer SFUs for 25,000+ viewers requires astronomical server compute costs and cannot easily map to traditional linear television satellite/cable receivers.</p>
+            
+            <p>By implementing Option C, Secure Reliable Transport (SRT) is used for the contribution feed. SRT, open-sourced by Haivision in 2017 and maintained by the SRT Alliance, utilizes UDP with selective ARQ (Automatic Repeat reQuest). It isolates packet loss recovery within a configured latency budget, preventing network retransmission delays from blocking subsequent frames. The ingest layer is backed by Go-based streaming managers running on AWS ECS (Fargate) with containerized FFmpeg pipelines, transcoding SRT feeds into multi-bitrate HTTP Live Streaming (HLS) and LL-HLS targets distributed globally via AWS CloudFront with Origin Shield.</p>
+
+            <div class="code-block">
+// Calculating the SRT Jitter Buffer size mathematically based on network telemetry
+// Rule of thumb: Latency Budget = 4 * Round Trip Time (RTT) + packet loss margin
+int calculateSrtLatency(int rtt, float lossRatio) {
+    int baseLatency = 4 * rtt;
+    if (lossRatio > 0.10) {
+        baseLatency += (int)(rtt * lossRatio * 10.0);
+    }
+    return Math.max(120, baseLatency); // minimum 120ms safety threshold
+}
+            </div>
+
+            <h4>4. Stress-Testing, Chaos Injection & Telemetry</h4>
+            <p>To validate the resilience of this pattern under public internet conditions, artificial impairments were introduced at the ingest interface using Comcast NetEm. Packet loss of up to 35%, 200ms latency jitter, and out-of-order delivery were injected. Concurrently, 30,000 headless players were simulated via distributed Locust container tasks to stress-test origin capacity and edge cache hit ratios. The telemetry recorded:</p>
+            <ul>
+                <li><strong>Selective Retransmission Efficiency:</strong> SRT successfully recovered 100% of packets under up to 25% simulated packet loss, preserving a pristine, zero-frame-drop broadcast. RTMP collapsed entirely at 4% loss.</li>
+                <li><strong>Optimal Jitter-Buffer Bounds:</strong> Testing confirmed that a configured ingest buffer of 4x RTT perfectly balanced the recovery window, sustaining an end-to-end glass-to-glass latency of under 2.0 seconds with zero buffering events.</li>
+                <li><strong>Origin Isolation:</strong> CloudFront Origin Shield successfully collapsed edge cache request loops, sustaining a 99.8% cache hit ratio and reducing origin egress load by 84% under a peak concurrent viewer load.</li>
+            </ul>
+
+            <h4>5. Architectural Conclusions</h4>
+            <p>This research proves that software-defined live-video syndication pipelines utilizing SRT over public networks are significantly more resilient and cost-effective than rigid legacy hardware appliances or RTMP setups. By decoupling ingestion reliability from network quality, broadcast networks can achieve premium, zero-frame-drop syndication directly to linear channels (such as BBC and Sky News) and global digital audiences alike, while maintaining full ownership of unit costs.</p>
+        
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div>
+                © 2026 Atomic Leap Ltd. All rights reserved. Registered in England & Wales (Co. No. 16987076).
+            </div>
+            <div>
+                London, United Kingdom • <a href="mailto:rr@atomicleap.com" style="color: inherit; text-decoration: underline;">rr@atomicleap.com</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            document.getElementById('themeToggleBtn').innerText = newTheme === 'dark' ? '🌗' : '☀️';
+        }
+    </script>
+</body>
+</html>

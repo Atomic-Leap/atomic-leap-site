@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic Leap — Cloud FinOps & Infrastructure Research Whitepaper</title>
+    <!-- Vercel Analytics Insights -->
+    <script defer src="/_vercel/insights/script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #000000;
+            --card-bg: #0a0a0a;
+            --border-color: #262626;
+            --border-hover: #ffffff;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --badge-bg: #171717;
+            --handwriting-font: 'Caveat', cursive;
+            --sans-font: 'Inter', -apple-system, sans-serif;
+            --mono-font: 'JetBrains Mono', monospace;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #ffffff;
+            --card-bg: #f9f9f9;
+            --border-color: #e5e5e5;
+            --border-hover: #000000;
+            --text-main: #000000;
+            --text-muted: #666666;
+            --badge-bg: #f0f0f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--sans-font);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .bg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(to right, var(--border-color) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--border-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border-color);
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-main);
+            flex-shrink: 0;
+        }
+
+        .atom-icon {
+            width: 26px;
+            height: 26px;
+            stroke: var(--text-main);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .brand-text {
+            font-family: var(--handwriting-font);
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            white-space: nowrap;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-link {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-main);
+        }
+
+        .toggle-theme-btn {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-main);
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .toggle-theme-btn:hover {
+            border-color: var(--border-hover);
+        }
+
+        .contact-btn {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-main);
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: var(--card-bg);
+            white-space: nowrap;
+        }
+
+        .contact-btn:hover {
+            border-color: var(--border-hover);
+            background: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .back-link:hover {
+            color: var(--text-main);
+        }
+
+        /* Article Formatting */
+        .article-header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 24px;
+        }
+
+        .article-meta {
+            font-family: var(--mono-font);
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+        }
+
+        .article-title {
+            font-family: var(--sans-font);
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--text-main);
+            letter-spacing: -1px;
+        }
+
+        /* Metrics grid */
+        .metrics-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+
+        .metric-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .metric-val {
+            font-family: var(--mono-font);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .metric-lbl {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .article-content {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-main);
+        }
+
+        .article-content p {
+            margin-bottom: 24px;
+            text-align: justify;
+        }
+
+        .article-content h4 {
+            font-family: var(--mono-font);
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 40px;
+            margin-bottom: 16px;
+            letter-spacing: 1.5px;
+            border-left: 2px solid var(--text-muted);
+            padding-left: 10px;
+        }
+
+        .article-content ul, .article-content ol {
+            margin-left: 24px;
+            margin-bottom: 24px;
+        }
+
+        .article-content li {
+            margin-bottom: 12px;
+        }
+
+        .article-content blockquote {
+            border-left: 3px solid var(--border-color);
+            padding: 16px 20px;
+            margin: 32px 0;
+            background: var(--card-bg);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        .code-block {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            font-family: var(--mono-font);
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text-main);
+            overflow-x: auto;
+            margin: 32px 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 32px 0;
+            font-size: 13px;
+        }
+
+        .comparison-table th, .comparison-table td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: var(--badge-bg);
+            font-family: var(--mono-font);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 32px 0;
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: var(--mono-font);
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 24px 16px;
+            }
+
+            header {
+                padding-bottom: 20px;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .brand-text {
+                font-size: 26px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+
+    <div class="container">
+        <!-- Header Nav -->
+        <header>
+            <a href="/" class="brand">
+                <svg class="atom-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="3"/>
+                    <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(30 12 12)"/>
+                    <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-30 12 12)"/>
+                </svg>
+                <span class="brand-text">Atomic Leap</span>
+            </a>
+
+            <div class="nav-controls">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/technologies" class="nav-link">Stack</a>
+                <button class="toggle-theme-btn" onclick="toggleTheme()" id="themeToggleBtn">
+                    🌗
+                </button>
+                <a href="mailto:rr@atomicleap.com" class="contact-btn">ping_sandbox()</a>
+            </div>
+        </header>
+
+        <a href="/" class="back-link">← back_to_sandbox()</a>
+
+        <!-- Main Article Header -->
+        <div class="article-header">
+            <div class="article-meta">Research Whitepaper • Timeline: 2019 – Present</div>
+            <h1 class="article-title">Cloud FinOps & Infrastructure</h1>
+        </div>
+
+        <!-- Metrics Bar -->
+        <div class="metrics-bar">
+            
+            <div class="metric-item">
+                <span class="metric-val">50%</span>
+                <span class="metric-lbl">GCP Cost Reduction</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-val">21% to 40%</span>
+                <span class="metric-lbl">SaaS Account Savings</span>
+            </div>
+        
+        </div>
+
+        <!-- Content -->
+        <div class="article-content">
+            
+            <h4>1. Context of the Problem (2019–Present)</h4>
+            <p>As cloud architectures scaled between 2019 and the present, cloud resource bills became one of the largest operating expenses for high-growth SaaS platforms. Statically provisioned, on-demand compute environments resulted in massive fiscal waste due to over-provisioning. While spot instances (preemptible VMs) offered up to 90% cost discounts, cloud providers can terminate them with a mere 2-minute notice. This volatile preemption made spot instances highly risky for stateful, high-throughput container workloads, threatening sudden user-facing downtime and dropped connections.</p>
+
+            <h4>2. Evaluation of Available Options</h4>
+            <p>Three primary auto-scaling and cost-mitigation strategies were evaluated:</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>FinOps Strategy</th>
+                        <th>Pros</th>
+                        <th>Cons</th>
+                        <th>Suitable Use Case</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Option A: Cluster Autoscaler (Auto Scaling Groups)</strong></td>
+                        <td>Standard, standard Kubernetes SIG project; well-supported.</td>
+                        <td>Provisioning is very slow (5-10 minutes); rigid scaling groups bound to static instance types.</td>
+                        <td>Predictable, slow-growing workloads with flat load profiles.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Option B: Static Over-Provisioning (On-Demand)</strong></td>
+                        <td>100% reliable; zero node termination risk; simple administration.</td>
+                        <td>Extremely expensive; massive resource wastage; severely inflates cloud COGS.</td>
+                        <td>Highly critical, non-scaling systems with zero budget constraints.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Option C: Karpenter Node-less Provisioning + Proactive Spot Termination Handlers</strong></td>
+                        <td>Node scale-up in under 60 seconds; dynamic right-sizing; seamless spotVM preemption draining.</td>
+                        <td>Requires complex node-draining logic and Spot warning configuration.</td>
+                        <td>Dynamic, high-throughput SaaS containers. Chosen Option.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>3. Architectural Selection Rationale</h4>
+            <p>Option C was selected. Option A (traditional Cluster Autoscaler) was rejected because its slow node scale-up times (often taking up to 10 minutes to register and provision an ASG VM) caused massive scheduling delays and API SLA violations when spot instances were preempted under heavy traffic. Option B was rejected because maintaining over-provisioned on-demand compute is cost-prohibitive and directly violates basic FinOps principles.</p>
+            
+            <p>By implementing Option C, AWS Karpenter (open-sourced by AWS in late 2021) is used for node-less infrastructure provisioning. Karpenter bypasses traditional Auto Scaling Groups (ASGs) entirely, interacting directly with the EC2 fleet APIs to provision right-sized compute nodes in under 60 seconds. This is paired with custom Spot termination metadata handlers on EKS and GKE. The handler service continuously polls the local instance metadata endpoint for termination notices, instantly triggering Horizontal Pod Autoscaling (HPA) and gracefully rescheduling container pods to warm backup nodes before the 2-minute preemption deadline is reached.</p>
+
+            <div class="code-block">
+# Karpenter AWS NodePool Manifest showing spot instance and node-less scaling rules
+apiVersion: karpenter.sh/v1beta1
+kind: NodePool
+metadata:
+  name: spot-optimized-pool
+spec:
+  template:
+    spec:
+      requirements:
+        - key: "karpenter.sh/capacity-type"
+          operator: In
+          values: ["spot"]
+        - key: "kubernetes.io/arch"
+          operator: In
+          values: ["amd64", "arm64"]
+      disruption:
+        consolidationPolicy: WhenUnderutilized
+        expireAfter: 720h
+            </div>
+
+            <h4>4. Stress-Testing, Chaos Injection & Telemetry</h4>
+            <p>The FinOps cluster was validated by triggering artificial GCP and AWS spot preemption events across 100% of active compute node groups under peak simulated traffic loads. Resource scanners analyzed CPU and memory utilization trends to identify and eliminate waste. Telemetry results verified:</p>
+            <ul>
+                <li><strong>50% Budget Optimization:</strong> Utilizing dynamic GKE Spot VMs, Karpenter right-sizing, and tiered storage pipelines cut monthly GCP cloud expenditures by exactly 50% for high-throughput container clusters.</li>
+                <li><strong>Zero-Downtime Eviction:</strong> Custom Spot Termination Handlers successfully drained and migrated container pods to warm backup nodes in under 5 minutes, resulting in zero dropped requests or user-perceived downtime.</li>
+                <li><strong>Cross-Portfolio SaaS Savings:</strong> Slashed compute expenditures by 21% to 40% across multi-tenant accounts while maintaining strict 99.9% to 99.99% system availability, proving that cloud budgets can be systematically optimized as an engineering discipline.</li>
+            </ul>
+
+            <h4>5. Architectural Conclusions</h4>
+            <p>The research proves that cloud waste is a solvable architectural problem, not an inevitable cost of doing business. By coupling dynamic Spot VM orchestration with proactive termination handlers, organizations can leverage highly discounted preemptible compute with the exact same reliability as expensive, on-demand infrastructure. Treating cloud economics as an automated SRE feedback loop unlocks massive, recurring infrastructure savings without sacrificing system performance or uptime reliability.</p>
+        
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div>
+                © 2026 Atomic Leap Ltd. All rights reserved. Registered in England & Wales (Co. No. 16987076).
+            </div>
+            <div>
+                London, United Kingdom • <a href="mailto:rr@atomicleap.com" style="color: inherit; text-decoration: underline;">rr@atomicleap.com</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            document.getElementById('themeToggleBtn').innerText = newTheme === 'dark' ? '🌗' : '☀️';
+        }
+    </script>
+</body>
+</html>

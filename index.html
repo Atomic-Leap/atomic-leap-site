@@ -501,155 +501,7 @@
             }
         }
 
-        .venture-card.clickable {
-            cursor: pointer;
-        }
 
-        /* Minimalist Modal Overlay */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(4px);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal-content {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            max-width: 680px;
-            width: 100%;
-            max-height: 85vh;
-            overflow-y: auto;
-            padding: 36px;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            transform: scale(0.95);
-            transition: transform 0.3s ease;
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 24px;
-            right: 24px;
-            font-family: var(--mono-font);
-            font-size: 11px;
-            color: var(--text-muted);
-            border: 1px solid var(--border-color);
-            padding: 4px 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            background: transparent;
-        }
-
-        .modal-close:hover {
-            color: var(--text-main);
-            border-color: var(--border-hover);
-        }
-
-        .report-header {
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 16px;
-            margin-bottom: 24px;
-        }
-
-        .report-meta {
-            font-family: var(--mono-font);
-            font-size: 11px;
-            color: var(--text-muted);
-            display: flex;
-            gap: 16px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .report-title {
-            font-family: var(--handwriting-font);
-            font-size: 36px;
-            font-weight: 700;
-            color: var(--text-main);
-            line-height: 1.2;
-        }
-
-        .report-body {
-            font-size: 14px;
-            line-height: 1.6;
-            color: var(--text-main);
-        }
-
-        .report-body p {
-            margin-bottom: 16px;
-        }
-
-        .report-body h4 {
-            font-family: var(--mono-font);
-            font-size: 12px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-top: 24px;
-            margin-bottom: 12px;
-            letter-spacing: 1px;
-        }
-
-        .report-body ul {
-            margin-left: 20px;
-            margin-bottom: 16px;
-        }
-
-        .report-body li {
-            margin-bottom: 8px;
-        }
-
-        .report-metrics {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            background: var(--bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 16px;
-            margin-top: 24px;
-            margin-bottom: 24px;
-        }
-
-        .metric-card {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .metric-val {
-            font-family: var(--mono-font);
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .metric-lbl {
-            font-size: 11px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
     </style>
 </head>
 <body>
@@ -767,7 +619,7 @@
             <div class="portfolio-category-title">// CORE RESEARCH & ARCHITECTURAL PROTOTYPES — Sandbox environments validating deep-tech patterns</div>
             <div class="ventures-grid">
                 <!-- Media & Live Broadcast -->
-                <div class="venture-card clickable" onclick="openReport('media')">
+                <a href="/research/live-broadcast-video-syndication" class="venture-card" style="text-decoration: none; color: inherit;">
                     <div>
                         <div class="venture-header">
                             <span class="venture-name">Live Broadcast & Video Syndication</span>
@@ -777,11 +629,11 @@
                             Designed and prototyped highly resilient RTMP/HLS/SRT live video streaming sandboxes handling 25,000+ concurrent viewers with low-latency feed syndication.
                         </div>
                     </div>
-                    <span class="venture-link" style="color: var(--text-muted);">AWS Serverless • SRT • FinOps • View Report ↗</span>
-                </div>
+                    <span class="venture-link" style="color: var(--text-muted);">AWS Serverless • SRT • FinOps • View Whitepaper ↗</span>
+                </a>
 
                 <!-- Financial Services & Payments -->
-                <div class="venture-card clickable" onclick="openReport('banking')">
+                <a href="/research/core-banking-payment-rails" class="venture-card" style="text-decoration: none; color: inherit;">
                     <div>
                         <div class="venture-header">
                             <span class="venture-name">Core Banking & Payment Rails</span>
@@ -791,11 +643,11 @@
                             Prototyped mission-critical payment hubs processing £50M+ in daily Faster Payments volume and built double-entry ledgers with zero reconciliation drift.
                         </div>
                     </div>
-                    <span class="venture-link" style="color: var(--text-muted);">Faster Payments • Sub-50ms SLA • View Report ↗</span>
-                </div>
+                    <span class="venture-link" style="color: var(--text-muted);">Faster Payments • Sub-50ms SLA • View Whitepaper ↗</span>
+                </a>
 
                 <!-- Enterprise NLP & Knowledge -->
-                <div class="venture-card clickable" onclick="openReport('nlp')">
+                <a href="/research/enterprise-nlp-search" class="venture-card" style="text-decoration: none; color: inherit;">
                     <div>
                         <div class="venture-header">
                             <span class="venture-name">Enterprise NLP & Search</span>
@@ -805,11 +657,11 @@
                             Built high-throughput content intelligence sandboxes indexing 20M+ documents via distributed Elasticsearch clusters and custom workflow extensions.
                         </div>
                     </div>
-                    <span class="venture-link" style="color: var(--text-muted);">Elasticsearch • GKE • Office.js • View Report ↗</span>
-                </div>
+                    <span class="venture-link" style="color: var(--text-muted);">Elasticsearch • GKE • Office.js • View Whitepaper ↗</span>
+                </a>
 
                 <!-- Cloud FinOps & Infrastructure -->
-                <div class="venture-card clickable" onclick="openReport('finops')">
+                <a href="/research/cloud-finops-infrastructure" class="venture-card" style="text-decoration: none; color: inherit;">
                     <div>
                         <div class="venture-header">
                             <span class="venture-name">Cloud FinOps & Infrastructure</span>
@@ -819,8 +671,8 @@
                             Prototyped automated cloud cost governance cutting GCP infrastructure spend by 50% via Spot VM and container orchestration.
                         </div>
                     </div>
-                    <span class="venture-link" style="color: var(--text-muted);">Terraform • CDK • Kubernetes • View Report ↗</span>
-                </div>
+                    <span class="venture-link" style="color: var(--text-muted);">Terraform • CDK • Kubernetes • View Whitepaper ↗</span>
+                </a>
             </div>
         </section>
 
@@ -835,16 +687,6 @@
         </footer>
     </div>
 
-    <!-- Minimalist Modal Overlay for Research Reports -->
-    <div class="modal-overlay" id="reportModal" onclick="closeReport(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeReport(event)">close()</button>
-            <div id="reportContent">
-                <!-- Dynamic Content Will Be Loaded Here -->
-            </div>
-        </div>
-    </div>
-
     <script>
         function toggleTheme() {
             const html = document.documentElement;
@@ -853,174 +695,6 @@
             html.setAttribute('data-theme', newTheme);
             document.getElementById('themeToggleBtn').innerText = newTheme === 'dark' ? '🌗' : '☀️';
         }
-
-        const reports = {
-            media: {
-                meta: "Research Timeline: 2019 – 2023",
-                title: "Live Broadcast & Video Syndication",
-                metrics: [
-                    { val: "25,000+", lbl: "Simulated Concurrent Viewers" },
-                    { val: "< 2.0s", lbl: "Ingest-to-Edge Latency" }
-                ],
-                body: `
-                    <h4>1. Context of the Problem (2019–2023)</h4>
-                    <p>Between 2019 and 2023, the live video broadcast industry experienced explosive growth, fueled by the demand for low-latency interactive streaming and creator-to-fan monetization. Contributing high-quality, real-time live feeds (contribution streams) over noisy public internet connections was notoriously brittle. Dropouts, network congestion, and packet fluctuations frequently disrupted live broadcasts, while distribution costs at scale spiked uncontrollably under concurrent load surges.</p>
-
-                    <h4>2. Architectural Options Evaluated</h4>
-                    <p>During the research phase, three primary architectural models were evaluated for contribution and edge distribution:</p>
-                    <ul>
-                        <li><strong>Option A: Traditional RTMP (TCP-Based).</strong> The legacy industry standard. While universally supported by hardware and software encoders, RTMP runs on TCP. Under network congestion, TCP's rigid congestion control and head-of-line blocking cause video streams to freeze, stutter, or disconnect when packet loss exceeds just 3-4%.</li>
-                        <li><strong>Option B: WebRTC (UDP-Based, Sub-Second Latency).</strong> Ideal for interactive peer-to-peer web chat, but highly complex and computationally expensive to scale at the edge (requiring massive Selective Forwarding Units / SFUs). Furthermore, WebRTC lacked native integration standards for traditional, linear television syndication workflows (such as SDI/NDI/SRT broadcast ingestion).</li>
-                        <li><strong>Option C: SRT (Secure Reliable Transport) + LL-HLS / HLS.</strong> SRT, open-sourced by Haivision in 2017 and promoted by the SRT Alliance, runs on UDP. It implements selective ARQ (Automatic Repeat reQuest) packet retransmission inside a configurable latency window. This contribution stream is then transcoded into low-latency HTTP Live Streaming (LL-HLS) at the cloud origin and cached globally.</li>
-                    </ul>
-
-                    <h4>3. The Decision & Architectural Rationale</h4>
-                    <p><strong>Option C</strong> was selected as the mathematically and operationally superior pattern. SRT was chosen for ingest contribution because its UDP-based selective retransmission successfully recovers from high packet loss over the public internet without stream collapses. This contribution feed is routed to a containerized, Go-based ingestion manager on AWS ECS (Fargate), executing FFmpeg pipelines. Feeds are dynamically transcoded via AWS Elemental MediaLive into multi-bitrate ABR (Adaptive Bitrate) HLS streams. This decoupled architecture resolved the scaling limitations of WebRTC and the fragile transport bottlenecks of RTMP, while maintaining complete compatibility with linear TV syndication networks (such as the BBC and Sky News).</p>
-
-                    <h4>4. Stress-Testing & Telemetry Results</h4>
-                    <p>To validate the architecture, extreme WAN network degradation was injected at the ingestion interface using Comcast's NetEm tools, simulating 35% packet loss, 200ms latency jitter, and out-of-order delivery. Simultaneously, 30,000 headless player nodes were spawned globally via distributed Locust container tasks to stress-test edge-cache hit ratios and ABR transitions. Telemetry results verified:</p>
-                    <ul>
-                        <li><strong>SRT Loss Recovery:</strong> SRT successfully recovered 100% of packets under up to 25% simulated packet loss, maintaining a flawless, zero-frame-drop broadcast. RTMP streams collapsed completely at just 4% loss.</li>
-                        <li><strong>Optimal Jitter-Buffer:</strong> Setting the SRT ingest jitter buffer to exactly 4 times the Round Trip Time (RTT) provided the optimal stability curve, guaranteeing stable ingest streams with less than 2.0 seconds of ingest-to-edge latency.</li>
-                        <li><strong>Origin Shield Performance:</strong> Enabling an AWS CloudFront Origin Shield collapsed duplicate edge requests, maintaining a 99.8% cache hit ratio and reducing origin egress data transfers by 84% during peak concurrent viewer surges.</li>
-                    </ul>
-                `
-            },
-            banking: {
-                meta: "Research Timeline: 2015 – 2019",
-                title: "Core Banking & Payment Rails",
-                metrics: [
-                    { val: "£50M+", lbl: "Daily Simulated Volume" },
-                    { val: "0.00%", lbl: "Ledger Reconciliation Drift" }
-                ],
-                body: `
-                    <h4>1. Context of the Problem (2015–2019)</h4>
-                    <p>Between 2015 and 2019, European financial services prepared for strict regulatory shifts, including PSD2 and Open Banking, demanding sub-100ms processing times, high concurrency, and perfect financial audibility. In core transaction processing, the ultimate catastrophe is "phantom money" created by concurrency race conditions. If an account with a £15 balance undergoes two simultaneous £10 withdrawals at the exact same millisecond, a naive update-in-place database system could commit both, introducing ledger drift and requiring manual administrative corrections.</p>
-
-                    <h4>2. Architectural Options Evaluated</h4>
-                    <p>Three primary transaction processing models were evaluated to guarantee absolute balance sheet correctness:</p>
-                    <ul>
-                        <li><strong>Option A: Mutable Relational Updates (SQL UPDATE).</strong> Modifying a mutable <code>balance</code> field directly in a SQL table. While simple, this approach causes severe database lock contention (deadlocks) under high concurrent load, failing to scale and failing to provide an immutable, audit-ready event trail.</li>
-                        <li><strong>Option B: Early Distributed Ledger Technology / Blockchain (DLT).</strong> Cryptographically immutable and decentralized. However, in 2015, DLT frameworks suffered from severe transaction throughput bottlenecks (under 100 transactions/sec) and lacked the deterministic sub-50ms finality required for live, high-frequency clearing rails.</li>
-                        <li><strong>Option C: Event Sourced Append-Only Double-Entry Ledger (PostgreSQL) + Distributed Memory Pre-Locking (Redis Redlock).</strong> Storing transactions as a strictly immutable, append-only log of debit and credit rows. Balances are calculated dynamically as a sum of these events. Concurrency is managed by acquiring distributed lock keys in Redis before hitting the database.</li>
-                    </ul>
-
-                    <h4>3. The Decision & Architectural Rationale</h4>
-                    <p><strong>Option C</strong> was selected as the optimal pattern. Option A was rejected because mutating database rows introduces massive write contention and fails basic financial auditing standards. Option B was rejected due to slow, non-deterministic block confirmation latencies. Option C provides the absolute transactional guarantees of PostgreSQL's ACID compliance, while deflecting database lock contention in-memory via Redis (utilizing the Redlock algorithm). To enforce continuous balance sheet equilibrium, hard database-level constraints require that every transaction balance exactly to zero (<code>sum(debits) - sum(credits) == 0</code>).</p>
-
-                    <h4>4. Stress-Testing & Telemetry Results</h4>
-                    <p>The transaction engine was validated by flooding the payment API with 15,000 concurrent deposit and withdrawal operations per second. API containers and database connection pools were forcefully terminated during active commit phases to verify fault recovery. Telemetry results verified:</p>
-                    <ul>
-                        <li><strong>Zero Reconciliation Drift:</strong> Because balances are computed dynamically from immutable records, the ledger achieved a continuous 0.00% reconciliation drift. Interrupted transactions rolled back instantly via PostgreSQL ACID boundaries.</li>
-                        <li><strong>Contention Deflection:</strong> The Redis-based distributed pre-locking layer deflected 94% of duplicate lock requests before they hit the database, maintaining an average database commit latency of just 18ms under concurrent load.</li>
-                        <li><strong>High Concurrency Clearance:</strong> The system successfully cleared a simulated volume of £50M+ in daily transaction events, easily satisfying the strict sub-50ms processing latency SLA.</li>
-                    </ul>
-                `
-            },
-            nlp: {
-                meta: "Research Timeline: 2019 – 2023",
-                title: "Enterprise NLP & Search",
-                metrics: [
-                    { val: "20M+", lbl: "Indexed Documents" },
-                    { val: "< 500ms", lbl: "Search Integration SLA" }
-                ],
-                body: `
-                    <h4>1. Context of the Problem (2019–2023)</h4>
-                    <p>Between 2019 and 2023, the rise of BERT-era dense retrievers and large-scale semantic vector embeddings revolutionized information retrieval. However, enterprise newsrooms and media conglomerates struggled to search massive document archives. Editorial workflows require searching millions of articles with both conceptual understanding (semantic search) and exact phrase matches (lexical search, such as proper nouns, names, serial numbers, or partial codes). Merging these two styles into a single high-performance pipeline without introducing unacceptable search latency was a major challenge.</p>
-
-                    <h4>2. Architectural Options Evaluated</h4>
-                    <p>Three primary information retrieval paradigms were evaluated:</p>
-                    <ul>
-                        <li><strong>Option A: Pure Lexical Keyword Search (Elasticsearch BM25).</strong> Highly optimized for exact-match precision (e.g. names, codes) and incredibly fast. However, BM25 is entirely blind to semantic relationships (e.g. a search for "physician" misses articles containing "doctor").</li>
-                        <li><strong>Option B: Pure Dense Vector Search (K-Nearest Neighbor / pgvector).</strong> Understands conceptual context and synonyms perfectly. However, pure vector search is blind to exact alphanumeric serials and proper nouns, has high computational indexing costs, and experiences query slowdowns under high concurrency.</li>
-                        <li><strong>Option C: Hybrid Search with Reciprocal Rank Fusion (RRF).</strong> Running BM25 lexical search and dense vector search in parallel, and mathematically merging their rank positions into a single, unified list using a rank-based formula (RRF) that requires no complex score normalization.</li>
-                    </ul>
-
-                    <h4>3. The Decision & Architectural Rationale</h4>
-                    <p><strong>Option C</strong> was researched and selected. Option A was rejected due to its lack of conceptual intelligence, which led to poor research discovery. Option B was rejected because newsrooms depend heavily on exact named-entity matching, which vector search frequently misses, and its search latency under concurrent traffic surges was too volatile. Option C provides the absolute best of both worlds. By deploying Elasticsearch on Google Kubernetes Engine (GKE) and managing a distributed, multi-tenant cluster, lexical and dense vector runs are executed in parallel. The RRF pipeline mathematically fuses their rankings, delivering context-rich, exact-match results to editors.</p>
-
-                    <h4>4. Stress-Testing & Telemetry Results</h4>
-                    <p>The search engine was loaded with 20 million unstructured, multi-format media articles and documents. To simulate active editorial usage, a load generator fired 2,500 concurrent hybrid queries per second from distributed user agents. Telemetry results verified:</p>
-                    <ul>
-                        <li><strong>Precision Improvement:</strong> Merging sparse keyword and dense vector ranks using Reciprocal Rank Fusion (RRF) delivered a 22% improvement in overall context retrieval accuracy compared to vector search alone.</li>
-                        <li><strong>Sub-Second Editorial SLA:</strong> Search integration tests successfully returned and rendered highly contextual recommendations directly inside Microsoft Word (Office.js) and Chrome sidebars in under 500ms, while sustaining a p99 latency under 800ms.</li>
-                        <li><strong>Compound Fuzzy Handling:</strong> Custom N-gram tokenizers successfully resolved partial word matches for compound editorial keywords, preventing zero-result failures when editors entered incomplete search terms.</li>
-                    </ul>
-                `
-            },
-            finops: {
-                meta: "Research Timeline: 2019 – Present",
-                title: "Cloud FinOps & Infrastructure",
-                metrics: [
-                    { val: "50%", lbl: "GCP Cost Reduction" },
-                    { val: "21% to 40%", lbl: "SaaS Account Savings" }
-                ],
-                body: `
-                    <h4>1. Context of the Problem (2019–Present)</h4>
-                    <p>As cloud architectures scaled between 2019 and the present, cloud resource bills became one of the largest operating expenses for SaaS platforms. Statically provisioned, on-demand compute environments resulted in massive fiscal waste due to over-provisioning. While spot instances (preemptible VMs) offered up to 90% cost discounts, cloud providers can terminate them with a mere 2-minute notice. This volatile preemption made spot instances highly risky for stateful, high-throughput container workloads, threatening sudden user-facing downtime and dropped connections.</p>
-
-                    <h4>2. Architectural Options Evaluated</h4>
-                    <p>Three primary auto-scaling and cost-mitigation strategies were evaluated:</p>
-                    <ul>
-                        <li><strong>Option A: Standard Cluster Autoscaler (EKS Node Groups / GKE Node Pools).</strong> The legacy autoscaling standard. It scales clusters by adding nodes to pre-configured auto-scaling groups (ASGs). However, node provisioning is incredibly slow (taking 5-10 minutes), making it too sluggish to absorb sudden traffic spikes or handle rapid spot VM preemptions gracefully.</li>
-                        <li><strong>Option B: Over-provisioned On-Demand Allocations.</strong> Maintaining large buffers of highly expensive on-demand compute. While highly stable, this option leads to massive, flat-rate resource wastage, severely inflating cloud COGS (Cost of Goods Sold).</li>
-                        <li><strong>Option C: Karpenter Node-less Provisioning (GA Late 2021) + Proactive Spot Termination Listeners.</strong> Karpenter, open-sourced by AWS in late 2021, bypasses node groups entirely and interacts directly with the cloud fleet APIs, launching right-sized compute nodes in under a minute. Custom metadata listeners intercept the 2-minute spot preemption warning, instantly triggering container rescheduling and graceful draining.</li>
-                    </ul>
-
-                    <h4>3. The Decision & Architectural Rationale</h4>
-                    <p><strong>Option C</strong> was researched and selected. Option A was rejected because its slow ASG scale-up time caused immediate container scheduling delays and SLA violations during preemptions. Option B was rejected as a cost-prohibitive model that contradicted modern FinOps principles. Option C decouples container workloads from rigid node group definitions. By pairing AWS CDK and Terraform IaC with Karpenter node-less scheduling, dynamic Horizontal Pod Autoscaling (HPA), and proactive spot termination handlers, Spot compute is utilized with the exact same reliability as premium on-demand instances.</p>
-
-                    <h4>4. Stress-Testing & Telemetry Results</h4>
-                    <p>The FinOps cluster was validated by triggering artificial GCP and AWS spot preemption events across 100% of active compute node groups under peak simulated traffic loads. Resource scanners analyzed CPU and memory utilization trends to identify and eliminate waste. Telemetry results verified:</p>
-                    <ul>
-                        <li><strong>50% Budget Optimization:</strong> Utilizing dynamic GKE Spot VMs, Karpenter right-sizing, and tiered storage pipelines cut monthly GCP cloud expenditures by exactly 50% for high-throughput container clusters.</li>
-                        <li><strong>Zero-Downtime Eviction:</strong> Custom Spot Termination Handlers successfully drained and migrated container pods to warm backup nodes in under 5 minutes, resulting in zero dropped requests or user-perceived downtime.</li>
-                        <li><strong>Cross-Portfolio SaaS Savings:</strong> Slashed compute expenditures by 21% to 40% across multi-tenant accounts while maintaining strict 99.9% to 99.99% system availability, proving that cloud budgets can be systematically optimized as an engineering discipline.</li>
-                    </ul>
-                `
-            }
-        };
-
-        function openReport(key) {
-            const r = reports[key];
-            if (!r) return;
-            
-            const metricsHTML = r.metrics.map(m => `
-                <div class="metric-card">
-                    <span class="metric-val">${m.val}</span>
-                    <span class="metric-lbl">${m.lbl}</span>
-                </div>
-            `).join('');
-
-            const content = `
-                <div class="report-header">
-                    <div class="report-meta">${r.meta}</div>
-                    <h3 class="report-title">${r.title}</h3>
-                </div>
-                <div class="report-metrics">
-                    ${metricsHTML}
-                </div>
-                <div class="report-body">
-                    ${r.body}
-                </div>
-            `;
-
-            document.getElementById('reportContent').innerHTML = content;
-            document.getElementById('reportModal').classList.add('active');
-            document.body.style.overflow = 'hidden'; // Lock background scroll
-        }
-
-        function closeReport(e) {
-            document.getElementById('reportModal').classList.remove('active');
-            document.body.style.overflow = ''; // Unlock background scroll
-        }
-
-        // Close on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeReport();
-            }
-        });
     </script>
 </body>
 </html>

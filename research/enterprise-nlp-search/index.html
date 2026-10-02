@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic Leap — Enterprise NLP & Search Research Whitepaper</title>
+    <!-- Vercel Analytics Insights -->
+    <script defer src="/_vercel/insights/script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #000000;
+            --card-bg: #0a0a0a;
+            --border-color: #262626;
+            --border-hover: #ffffff;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --badge-bg: #171717;
+            --handwriting-font: 'Caveat', cursive;
+            --sans-font: 'Inter', -apple-system, sans-serif;
+            --mono-font: 'JetBrains Mono', monospace;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #ffffff;
+            --card-bg: #f9f9f9;
+            --border-color: #e5e5e5;
+            --border-hover: #000000;
+            --text-main: #000000;
+            --text-muted: #666666;
+            --badge-bg: #f0f0f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--sans-font);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .bg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(to right, var(--border-color) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--border-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border-color);
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-main);
+            flex-shrink: 0;
+        }
+
+        .atom-icon {
+            width: 26px;
+            height: 26px;
+            stroke: var(--text-main);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .brand-text {
+            font-family: var(--handwriting-font);
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            white-space: nowrap;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-link {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-main);
+        }
+
+        .toggle-theme-btn {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-main);
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .toggle-theme-btn:hover {
+            border-color: var(--border-hover);
+        }
+
+        .contact-btn {
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-main);
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: var(--card-bg);
+            white-space: nowrap;
+        }
+
+        .contact-btn:hover {
+            border-color: var(--border-hover);
+            background: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--mono-font);
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .back-link:hover {
+            color: var(--text-main);
+        }
+
+        /* Article Formatting */
+        .article-header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 24px;
+        }
+
+        .article-meta {
+            font-family: var(--mono-font);
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+        }
+
+        .article-title {
+            font-family: var(--sans-font);
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--text-main);
+            letter-spacing: -1px;
+        }
+
+        /* Metrics grid */
+        .metrics-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+
+        .metric-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .metric-val {
+            font-family: var(--mono-font);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .metric-lbl {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .article-content {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-main);
+        }
+
+        .article-content p {
+            margin-bottom: 24px;
+            text-align: justify;
+        }
+
+        .article-content h4 {
+            font-family: var(--mono-font);
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 40px;
+            margin-bottom: 16px;
+            letter-spacing: 1.5px;
+            border-left: 2px solid var(--text-muted);
+            padding-left: 10px;
+        }
+
+        .article-content ul, .article-content ol {
+            margin-left: 24px;
+            margin-bottom: 24px;
+        }
+
+        .article-content li {
+            margin-bottom: 12px;
+        }
+
+        .article-content blockquote {
+            border-left: 3px solid var(--border-color);
+            padding: 16px 20px;
+            margin: 32px 0;
+            background: var(--card-bg);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        .code-block {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            font-family: var(--mono-font);
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text-main);
+            overflow-x: auto;
+            margin: 32px 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 32px 0;
+            font-size: 13px;
+        }
+
+        .comparison-table th, .comparison-table td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: var(--badge-bg);
+            font-family: var(--mono-font);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 32px 0;
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: var(--mono-font);
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 24px 16px;
+            }
+
+            header {
+                padding-bottom: 20px;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .brand-text {
+                font-size: 26px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+
+    <div class="container">
+        <!-- Header Nav -->
+        <header>
+            <a href="/" class="brand">
+                <svg class="atom-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="3"/>
+                    <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(30 12 12)"/>
+                    <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-30 12 12)"/>
+                </svg>
+                <span class="brand-text">Atomic Leap</span>
+            </a>
+
+            <div class="nav-controls">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/technologies" class="nav-link">Stack</a>
+                <button class="toggle-theme-btn" onclick="toggleTheme()" id="themeToggleBtn">
+                    🌗
+                </button>
+                <a href="mailto:rr@atomicleap.com" class="contact-btn">ping_sandbox()</a>
+            </div>
+        </header>
+
+        <a href="/" class="back-link">← back_to_sandbox()</a>
+
+        <!-- Main Article Header -->
+        <div class="article-header">
+            <div class="article-meta">Research Whitepaper • Timeline: 2019 – 2023</div>
+            <h1 class="article-title">Enterprise NLP & Search</h1>
+        </div>
+
+        <!-- Metrics Bar -->
+        <div class="metrics-bar">
+            
+            <div class="metric-item">
+                <span class="metric-val">20M+</span>
+                <span class="metric-lbl">Indexed Documents</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-val">&lt; 500ms</span>
+                <span class="metric-lbl">Search Integration SLA</span>
+            </div>
+        
+        </div>
+
+        <!-- Content -->
+        <div class="article-content">
+            
+            <h4>1. Context of the Problem (2019–2023)</h4>
+            <p>Between 2019 and 2023, the rise of Transformer-based models (such as BERT) and large-scale semantic vector embeddings revolutionized text processing. However, global media organizations and editorial newsrooms struggled to search massive document archives. Editorial workflows require searching millions of articles with both conceptual semantic understanding (e.g. searching "physician guidelines" should return "doctor rules") and exact phrase matches (such as proper nouns, names, serial numbers, or partial codes). Merging these two retrieval styles into a single high-performance pipeline without introducing unacceptable search latency was a major challenge.</p>
+
+            <h4>2. Evaluation of Available Options</h4>
+            <p>Three primary search paradigms were evaluated for high-throughput enterprise media archives:</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Search Paradigm</th>
+                        <th>Pros</th>
+                        <th>Cons</th>
+                        <th>Suitable Use Case</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Option A: Lexical BM25 (Elasticsearch)</strong></td>
+                        <td>Extremely fast; highly precise for exact keywords, names, and serial codes.</td>
+                        <td>Blind to semantics; fails to understand context, synonyms, or intent.</td>
+                        <td>Basic database searches and exact matching of unique identifiers.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Option B: Pure Dense Vector Search</strong></td>
+                        <td>Understands conceptual meaning, synonyms, and context beautifully.</td>
+                        <td>High computational index overhead; blind to exact alphanumeric serials and proper nouns.</td>
+                        <td>Small-scale semantic Q&A databases with no exact-match requirements.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Option C: Hybrid Search + Reciprocal Rank Fusion (RRF)</strong></td>
+                        <td>Combines lexical precision with semantic intent; mathematically fuses ranks.</td>
+                        <td>Requires parallel index execution and custom rank fusion pipelines.</td>
+                        <td>High-scale, real-time enterprise search. Chosen Option.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>3. Architectural Selection Rationale</h4>
+            <p>Option C was selected as the optimal architecture. Option A (pure BM25) was rejected because it lacks conceptual intelligence, returning zero matches for semantic queries. Option B (pure vector search) was rejected because editorial newsrooms depend heavily on exact-match names, codes, and proper nouns—which vector models frequently fail to match due to out-of-vocabulary constraints. In addition, pure vector index queries suffered from latency spikes under highly concurrent traffic loads.</p>
+            
+            <p>By implementing Option C, lexical search (BM25) and dense vector search are executed in parallel on a distributed Elasticsearch cluster deployed on Google Kubernetes Engine (GKE). To merge the search results cleanly, a Reciprocal Rank Fusion (RRF) pipeline was implemented. RRF mathematically merges the rank positions of documents from both retrieval runs, avoiding the need for complex and slow score normalization. This hybrid engine was integrated directly with custom Microsoft Word (Office.js) and Chrome extensions, providing real-time, context-aware semantic recommendations directly inside newsroom editor environments.</p>
+
+            <div class="code-block">
+// Reciprocal Rank Fusion (RRF) Algorithm Implementation
+// Computes unified rank score: Score = sum( 1 / (k + rank_i) ) where k is a constant (typically 60)
+float computeRrfScore(int lexicalRank, int vectorRank, int k) {
+    float score = 0.0f;
+    if (lexicalRank > 0) {
+        score += 1.0f / (k + lexicalRank);
+    }
+    if (vectorRank > 0) {
+        score += 1.0f / (k + vectorRank);
+    }
+    return score;
+}
+            </div>
+
+            <h4>4. Stress-Testing, Chaos Injection & Telemetry</h4>
+            <p>The hybrid search sandbox was loaded with 20 million unstructured, multi-format media articles and documents. To simulate active, concurrent newsroom editorial workflows, a load generator fired 2,500 concurrent hybrid search queries per second, continuously varying query complexity between natural-language sentences and alphanumeric entity strings. Telemetry results verified:</p>
+            <ul>
+                <li><strong>Precision & Relevance Gains:</strong> Fusing keyword and vector ranks via RRF delivered a 22% improvement in overall context retrieval accuracy compared to pure vector search alone.</li>
+                <li><strong>Sub-Second Editorial SLA:</strong> Search recommendations successfully returned and rendered inside Microsoft Word and Chrome extensions in under 500ms, maintaining a consistent p99 latency under 800ms.</li>
+                <li><strong>Fuzzy Compound Handling:</strong> Custom N-gram tokenizers successfully resolved partial word matches for compound editorial keywords, preventing zero-result failures when editors entered incomplete search terms.</li>
+            </ul>
+
+            <h4>5. Architectural Conclusions</h4>
+            <p>This research proves that neither pure lexical matching nor pure semantic vector search is sufficient for high-velocity enterprise workflows. Hybrid search, mathematically merged via Reciprocal Rank Fusion, represents the optimal retrieval pattern. By decoupling heavy embedding calculations from the core search cluster and utilizing GKE for horizontal pod scaling, enterprise search engines can maintain sub-second retrieval times over tens of millions of records, unlocking real-time semantic assistance directly inside newsroom workspaces.</p>
+        
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div>
+                © 2026 Atomic Leap Ltd. All rights reserved. Registered in England & Wales (Co. No. 16987076).
+            </div>
+            <div>
+                London, United Kingdom • <a href="mailto:rr@atomicleap.com" style="color: inherit; text-decoration: underline;">rr@atomicleap.com</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            document.getElementById('themeToggleBtn').innerText = newTheme === 'dark' ? '🌗' : '☀️';
+        }
+    </script>
+</body>
+</html>
