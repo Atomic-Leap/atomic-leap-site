@@ -10,8 +10,8 @@
 Atomic Leap Ltd is an independent B2B experimental engineering sandbox and product R&D lab established in 2019 in London, UK.
 
 ### Sovereign Software Architecture
-We operate under the core doctrine of **sovereign software architecture**:
-- **Full Infrastructure Control:** Complete 100% ownership and governance of our cloud environments, source code, data pipelines, and secrets.
+Operations are guided under the core doctrine of **sovereign software architecture**:
+- **Full Infrastructure Control:** Complete 100% ownership and governance of cloud environments, source code, data pipelines, and secrets.
 - **Zero Vendor Lock-in:** Portable, self-hosted infrastructure components built with open standards, containerization (Docker, Kubernetes), and cloud-agnostic Infrastructure as Code (AWS CDK, Terraform).
 - **Data Sovereignty:** No proprietary third-party black-box dependencies. Data assets remain strictly within self-controlled, sovereign boundaries.
 - **Defensible Metrics:** Engineering systems backed by concrete, production-tested benchmarks and mathematical guarantees (e.g., double-entry idempotency, sub-50ms ledger processing, sub-second vector retrieval).
@@ -63,7 +63,7 @@ Atomic Leap operates as an experimental playground validating software systems a
 
 ## 4. Active Ventures & Products
 
-Atomic Leap develops and runs proprietary software ventures spawned directly from our sandbox:
+Atomic Leap develops and runs proprietary software ventures spawned directly from the sandbox:
 
 ### 1. BearAudit
 - **Domain:** [https://bearaudit.com](https://bearaudit.com)
