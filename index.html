@@ -696,13 +696,31 @@
         </footer>
     </div>
 
-    <script>
+        <script>
+        // Apply persisted theme immediately before DOM rendering to prevent flashing
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const btn = document.getElementById('themeToggleBtn');
+            if (btn) {
+                btn.innerText = currentTheme === 'dark' ? '🌗' : '☀️';
+            }
+        });
+
         function toggleTheme() {
             const html = document.documentElement;
             const currentTheme = html.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', newTheme);
-            document.getElementById('themeToggleBtn').innerText = newTheme === 'dark' ? '🌗' : '☀️';
+            localStorage.setItem('theme', newTheme);
+            const btn = document.getElementById('themeToggleBtn');
+            if (btn) {
+                btn.innerText = newTheme === 'dark' ? '🌗' : '☀️';
+            }
         }
     </script>
 </body>
