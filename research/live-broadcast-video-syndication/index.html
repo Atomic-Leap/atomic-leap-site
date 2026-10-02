@@ -442,7 +442,7 @@
             </table>
 
             <h4>3. Architectural Selection Rationale</h4>
-            <p>Option C was selected as the optimal architecture. Option A (RTMP) was rejected because it is fundamentally limited by TCP's congestion-control behavior. Under 5% packet loss, RTMP's buffer queue spirals out of control, introducing seconds of latency and leading to complete feed failure. Option B (WebRTC) was rejected due to its lack of scaling unit economics—operating peer-to-peer SFUs for 25,000+ viewers requires astronomical server compute costs and cannot easily map to traditional linear television satellite/cable receivers.</p>
+            <p>Option C was engineered as the optimal architecture. Option A (RTMP) was rejected because it is fundamentally limited by TCP's congestion-control behavior. Under 5% packet loss, RTMP's buffer queue spirals out of control, introducing seconds of latency and leading to complete feed failure. Option B (WebRTC) was rejected due to its lack of scaling unit economics—operating peer-to-peer SFUs for 25,000+ viewers requires astronomical server compute costs and cannot easily map to traditional linear television satellite/cable receivers.</p>
             
             <p>By implementing Option C, Secure Reliable Transport (SRT) is used for the contribution feed. SRT, open-sourced by Haivision in 2017 and maintained by the SRT Alliance, utilizes UDP with selective ARQ (Automatic Repeat reQuest). It isolates packet loss recovery within a configured latency budget, preventing network retransmission delays from blocking subsequent frames. The ingest layer is backed by Go-based streaming managers running on AWS ECS (Fargate) with containerized FFmpeg pipelines, transcoding SRT feeds into multi-bitrate HTTP Live Streaming (HLS) and LL-HLS targets distributed globally via AWS CloudFront with Origin Shield.</p>
 
@@ -511,7 +511,7 @@ int calculateSrtLatency(int rtt, float lossRatio) {
             </ul>
 
             <h4>6. Architectural Conclusions</h4>
-            <p>This experiment demonstrates that software-defined live-video syndication pipelines utilizing SRT over public networks are highly resilient and cost-effective compared to traditional RTMP or legacy hardware appliances. By decoupling ingestion reliability from network quality, broadcast networks can achieve robust, zero-frame-drop syndication directly to linear channels (such as BBC and Sky News) and global digital audiences, while maintaining full ownership of operational unit costs.</p>
+            <p>This architecture case study demonstrates that software-defined live-video syndication pipelines utilizing SRT over public networks are highly resilient and cost-effective compared to traditional RTMP or legacy hardware appliances. By decoupling ingestion reliability from network quality, broadcast networks can achieve robust, zero-frame-drop syndication directly to linear channels (such as national broadcasters) and global digital audiences, while maintaining full ownership of operational unit costs.</p>
         
         </div>
 
