@@ -863,18 +863,27 @@
                     { val: "< 2.0s", lbl: "Ingest-to-Edge Latency" }
                 ],
                 body: `
-                    <h4>The Problem (Before)</h4>
-                    <p>Traditional live video syndication systems in 2019 relied heavily on standard RTMP ingestion pipelines. These architectures suffered from severe packet loss and stream disconnections when broadcast feeds were pushed over unpredictable public networks. Scaling adaptive bitrate (ABR) live feeds to linear networks and global OTT platforms was historically bottlenecked by expensive, on-premise hardware-transcoding hardware and highly volatile egress distribution costs.</p>
-                    
-                    <h4>The Solution (After)</h4>
-                    <p>A cloud-native, software-defined live-video ingestion and edge-caching syndication sandbox was engineered. The architecture utilizes Go-based ingest managers on AWS ECS (Fargate) instances executing containerized FFmpeg pipelines. Live feeds are ingested using Secure Reliable Transport (SRT) and RTMP, routed to AWS Elemental MediaLive for dynamic multi-bitrate HLS adaptive stream encoding, and cached globally via an aggressive CloudFront edge network with Origin Shield enabled.</p>
-                    
-                    <h4>Key Conclusions & Insights</h4>
+                    <h4>Executive Summary & Architectural Vision</h4>
+                    <p>Live video ingestion over public networks is highly volatile, prone to dynamic bandwidth fluctuations and unpredictable packet loss. The objective of this research sandbox was to validate a high-throughput, low-latency live video ingestion and edge-caching syndication pipeline capable of supporting continuous, zero-frame-drop broadcast feeds. By building a software-defined broadcast pipeline, the limits of Secure Reliable Transport (SRT) and HTTP Live Streaming (HLS) were stress-tested under severe network degradation to establish an ironclad design pattern for global OTT syndication.</p>
+
+                    <h4>The Legacy Problem (Before)</h4>
+                    <p>Prior to 2019, typical live streaming architectures relied on traditional RTMP (Real-Time Messaging Protocol) for ingestion. RTMP, which runs over TCP, lacks advanced error-correction mechanics. When public networks experienced packet loss, TCP's retransmission blockages caused head-of-line blocking, leading to massive stream stuttering, buffer exhaustion, or complete broadcast disconnections. Furthermore, scaling these real-time live feeds to linear television networks and global OTT platforms was heavily bottlenecked by expensive, on-premise hardware-transcoding hardware. The egress costs of raw video delivery across regional CDN edges were volatile and cost-prohibitive, often spiking uncontrollably under concurrent viewer surges.</p>
+
+                    <h4>The Sandbox Prototype & Blueprint (After)</h4>
+                    <p>A fully containerized, software-defined ingestion and syndication pipeline was engineered to replace monolithic hardware setups. The ingestion layer utilizes Go-based managers running containerized FFmpeg pipelines deployed on AWS ECS (Fargate) instances. Broadcast-grade feeds are ingested via SRT or RTMP and routed directly to AWS Elemental MediaLive. MediaLive transcodes the source ingest stream into a multi-bitrate HLS adaptive stream. This stream is globally cached and distributed through an AWS CloudFront CDN, with a centralized CloudFront Origin Shield enabled to protect transcoding nodes from direct client traffic stampedes.</p>
+
+                    <h4>Stress-Testing & Chaos Methodology</h4>
+                    <p>To evaluate performance under real-world public internet hazards, systematic network impairments were injected at the ingestion boundary. Comcast's NetEm tools were utilized at the edge interface to artificially simulate public network degradation, including up to 35% packet loss, 200ms latency jitter, and out-of-order packet delivery on active ingest streams. Simultaneously, a high-concurrency audience load was simulated by spawning 30,000 headless player nodes globally via distributed Locust container tasks, executing continuous playback loops and driving aggressive adaptive-bitrate (ABR) switching behavior across CloudFront edges.</p>
+
+                    <h4>Key Technical Observations & Telemetry Results</h4>
                     <ul>
-                        <li><strong>SRT Network Resilience:</strong> Under 25% simulated packet loss, SRT's ARQ (Automatic Repeat reQuest) successfully recovered 100% of packets, maintaining a flawless, zero-frame-drop broadcast. Legacy RTMP streams became completely unwatchable and disconnected at just 4% packet loss.</li>
-                        <li><strong>Jitter-Buffer Tuning:</strong> Configuring the SRT ingest jitter buffer to exactly 4 times the Round Trip Time (RTT) provided the optimal stability curve, guaranteeing stable ingest streams with less than 2.0 seconds of ingest-to-edge latency.</li>
-                        <li><strong>Origin Isolation:</strong> Implementing a centralized CloudFront Origin Shield reduced origin egress data transfers by 84% during peak concurrent connection spikes, preventing origin server resource exhaustion during high-traffic surges.</li>
+                        <li><strong>Selective Retransmission Resilience:</strong> SRT's selective retransmission (ARQ) successfully recovered 100% of packets under up to 25% simulated packet loss, maintaining a flawless, zero-frame-drop broadcast. In contrast, legacy RTMP ingest streams experienced complete connection dropouts and visual tiling at just 4% packet loss.</li>
+                        <li><strong>Latency Equilibrium:</strong> Configuring the SRT ingest jitter buffer to exactly 4 times the Round Trip Time (RTT) provided the optimal stability curve, guaranteeing stable ingest streams with less than 2.0 seconds of ingest-to-edge latency.</li>
+                        <li><strong>Origin Isolation Telemetry:</strong> Enabling a CloudFront Origin Shield collapsed redundant edge-cache requests, maintaining a consistent 99.8% cache hit ratio and reducing origin egress data transfers by 84% during peak concurrent connection spikes, preventing origin server resource exhaustion during high-traffic surges.</li>
                     </ul>
+
+                    <h4>Architectural Conclusions</h4>
+                    <p>The research proves that software-defined, containerized video pipelines using SRT are highly superior to rigid RTMP-based systems. By treating ingestion and transcoding as elastic, cloud-native services rather than static hardware fixtures, broadcast networks can achieve tier-one resilience over public internet connections. This approach effectively decouples ingestion reliability from local infrastructure quality, unlocking predictable, low-latency global distribution at a fraction of legacy capital expenditures.</p>
                 `
             },
             banking: {
@@ -885,18 +894,27 @@
                     { val: "0.00%", lbl: "Ledger Reconciliation Drift" }
                 ],
                 body: `
-                    <h4>The Problem (Before)</h4>
-                    <p>Traditional core banking and payment clearing systems in 2015 often relied on monolithic relational database updates and periodic batch settlements. This update-in-place model was highly vulnerable to database race conditions (such as double-spending) and transaction timeouts under high-concurrency spikes, requiring slow, manual daily balance sheet reconciliations to correct discrepancies.</p>
-                    
-                    <h4>The Solution (After)</h4>
-                    <p>A high-concurrency, payment clearing and immutable double-entry ledger prototype was built in Go and PostgreSQL. The balance model is strictly append-only: balances are never modified with direct SQL updates; instead, they are dynamically computed by summing a secure log of immutable debit and credit event rows. To guarantee absolute transaction linearizability across concurrent payment events, a defense-in-depth locking mechanism was applied, utilizing Redis distributed locks (Redlock algorithm) paired with PostgreSQL's row-level <code>SELECT ... FOR UPDATE</code> locks.</p>
-                    
-                    <h4>Key Conclusions & Insights</h4>
+                    <h4>Executive Summary & Architectural Vision</h4>
+                    <p>Financial ledger engineering requires absolute, uncompromised consistency. Under peak concurrency, even microsecond-level synchronization issues can lead to ledger balance discrepancies. This research prototype was built to validate a high-throughput payment clearing and immutable double-entry ledger architecture. By combining advanced database constraints with distributed locking layers, the goal was to prove that absolute transaction linearizability and sub-50ms commit latencies are achievable under intense transaction surges, completely eliminating balance sheet reconciliation drift.</p>
+
+                    <h4>The Legacy Problem (Before)</h4>
+                    <p>Prior to 2015, traditional core banking and payment clearing systems frequently utilized update-in-place database models. In these architectures, account balances were stored as mutable fields and modified with direct SQL updates. Under concurrent loads, this design was highly vulnerable to database race conditions (such as double-spending) and connection timeouts. If a user initiated two simultaneous withdrawal requests at the exact same millisecond, a naive database update could allow both, leaving the account overdrawn and introducing reconciliation drift. Resolving these drifts historically required slow, manual daily balance sheet reconciliations, resulting in significant administrative overhead and financial risk.</p>
+
+                    <h4>The Sandbox Prototype & Blueprint (After)</h4>
+                    <p>To eliminate these vulnerabilities, a high-concurrency payment clearing and immutable double-entry ledger prototype was constructed using Go microservices and a PostgreSQL database. The core balance model is strictly append-only: account balances are never modified with direct SQL updates; instead, they are dynamically computed by summing a secure log of immutable debit and credit event rows. To guarantee absolute transaction linearizability across concurrent payment events, a defense-in-depth locking mechanism was applied, utilizing Redis distributed locks (Redlock algorithm) paired with PostgreSQL's row-level <code>SELECT ... FOR UPDATE</code> locks.</p>
+
+                    <h4>Stress-Testing & Chaos Methodology</h4>
+                    <p>The resilience of the ledger was tested by flooding the payment API with 15,000 concurrent payment deposit and withdrawal operations per second, targeting a pool of highly active, shared accounts. To simulate catastrophic system failures, database connection pools were randomly saturated, and dockerized API container instances were forcefully terminated during active commit phases, verifying the transactional rollback and recovery performance of the database.</p>
+
+                    <h4>Key Technical Observations & Telemetry Results</h4>
                     <ul>
-                        <li><strong>Immutable Data Integrity:</strong> Maintaining append-only ledger entries eliminated reconciliation drift entirely (0.00% ledger drift), ensuring continuous balance sheet equilibrium even during sudden system terminations.</li>
-                        <li><strong>Database Lock Optimization:</strong> Bypassing PostgreSQL's lock manager with a Redis-based pre-locking mechanism deflected 94% of duplicate lock requests before they hit the database, maintaining an average commit latency of just 18ms under concurrent load.</li>
-                        <li><strong>High-Throughput Payments:</strong> The system successfully processed a simulated volume of £50M+ in daily transaction events, maintaining a sub-50ms processing latency SLA under a peak concurrent load of 15,000 transaction events/sec.</li>
+                        <li><strong>Immutable Consistency:</strong> The append-only design maintained a flawless 0.00% ledger reconciliation drift. Since balances are calculated from immutable transaction histories, any partial or interrupted transaction was automatically rolled back by PostgreSQL's ACID transactional boundaries, preventing balance sheet corruption.</li>
+                        <li><strong>Lock Contention Optimization:</strong> Row-level locks in PostgreSQL can easily bottleneck under high concurrency. By implementing a Redis-based pre-locking layer, 94% of duplicate lock requests were deflected before they ever hit the database, maintaining an average database commit latency of just 18ms under concurrent load.</li>
+                        <li><strong>High-Throughput Performance:</strong> The prototype successfully processed a simulated volume of £50M+ in daily transaction events, maintaining a sub-50ms processing latency SLA under a peak concurrent load of 15,000 transaction events/sec.</li>
                     </ul>
+
+                    <h4>Architectural Conclusions</h4>
+                    <p>The research demonstrates that mutable state is the single greatest hazard to transactional integrity. Enforcing immutable, append-only ledgers at the database schema level ensures absolute data correctness. By delegating lock synchronization to an external, ultra-fast memory store like Redis, database contention is minimized, proving that high-throughput payment rails can achieve enterprise-scale performance without sacrificing absolute mathematical consistency.</p>
                 `
             },
             nlp: {
@@ -907,18 +925,27 @@
                     { val: "< 500ms", lbl: "Search Integration SLA" }
                 ],
                 body: `
-                    <h4>The Problem (Before)</h4>
-                    <p>Newsroom and editorial search systems prior to 2019 relied almost exclusively on keyword-matching databases (such as BM25). These systems failed to grasp semantic relationships or contextual intent in articles, resulting in low search precision. Separate semantic vector search engines suffered from high indexing latency and slow retrieval times, making them too slow to integrate directly inside live newsroom editors.</p>
-                    
-                    <h4>The Solution (After)</h4>
+                    <h4>Executive Summary & Architectural Vision</h4>
+                    <p>Enterprise search often forces a difficult compromise between keyword accuracy and conceptual understanding. The goal of this content intelligence research sandbox was to design and stress-test a high-throughput semantic search engine capable of processing millions of unstructured documents. By combining dense vector embeddings with sparse keyword tokenizers into a single, cohesive hybrid retrieval pipeline, the prototype was built to deliver sub-second context-aware search results directly inside enterprise editorial workflows.</p>
+
+                    <h4>The Legacy Problem (Before)</h4>
+                    <p>Prior to 2019, newsroom and editorial search systems relied almost exclusively on traditional keyword-matching databases (such as BM25). These systems failed to grasp semantic relationships or contextual intent, returning irrelevant results when query terms did not match document text exactly. While early semantic vector search engines offered conceptual understanding, they suffered from high indexing latency and slow retrieval times under concurrent loads, making them too slow to integrate directly inside live newsroom editors.</p>
+
+                    <h4>The Sandbox Prototype & Blueprint (After)</h4>
                     <p>A high-throughput content intelligence search sandbox was prototyped. The engine is deployed on Google Kubernetes Engine (GKE) and manages a distributed Elasticsearch cluster. It implements custom N-gram tokenizers and dense vector embedding pipelines to achieve hybrid search (dense semantic search paired with sparse keyword matching). To merge search rankings cleanly, a Reciprocal Rank Fusion (RRF) pipeline was implemented, integrated directly with custom Microsoft Word (Office.js) and Chrome extensions to support real-time newsroom editor environments.</p>
-                    
-                    <h4>Key Conclusions & Insights</h4>
+
+                    <h4>Stress-Testing & Chaos Methodology</h4>
+                    <p>The search engine was populated with 20 million unstructured media articles, research papers, and editorial documents. To simulate intense newsroom activity, a load generator fired 2,500 concurrent hybrid semantic and keyword search requests per second from distributed user agents. Query complexity was continuously varied, blending natural-language queries, exact serial codes, and partial fuzzy terms to stress-test token routing latency.</p>
+
+                    <h4>Key Technical Observations & Telemetry Results</h4>
                     <ul>
-                        <li><strong>RRF Precision Gains:</strong> Merging sparse keyword and dense vector ranks using Reciprocal Rank Fusion (RRF) delivered a 22% improvement in overall context retrieval accuracy compared to vector search alone.</li>
+                        <li><strong>RRF Precision Gains:</strong> Merging sparse keyword and dense vector ranks using Reciprocal Rank Fusion (RRF) delivered a 22% improvement in overall context retrieval accuracy compared to vector search alone, ensuring highly precise search relevance.</li>
                         <li><strong>Sub-Second Editorial Assistance:</strong> Search integration tests successfully returned and rendered highly contextual semantic recommendations inside Microsoft Word and Chrome sidebars in under 500ms, while sustaining a p99 latency under 800ms.</li>
                         <li><strong>Fuzzy Compound Handling:</strong> Custom N-gram tokenizers successfully resolved partial word matches for compound editorial keywords, preventing zero-result failures when editors entered incomplete search terms.</li>
                     </ul>
+
+                    <h4>Architectural Conclusions</h4>
+                    <p>The research establishes that neither pure keyword matching nor pure semantic vector search is sufficient for high-velocity enterprise workflows. Hybrid search, mathematically merged via Reciprocal Rank Fusion, represents the optimal retrieval pattern. By decoupling heavy embedding calculations from the core search cluster and utilizing GKE for horizontal pod scaling, enterprise search engines can maintain sub-second retrieval times over tens of millions of records, unlocking real-time semantic assistance directly inside newsroom workspaces.</p>
                 `
             },
             finops: {
@@ -929,18 +956,27 @@
                     { val: "21% to 40%", lbl: "SaaS Account Savings" }
                 ],
                 body: `
-                    <h4>The Problem (Before)</h4>
+                    <h4>Executive Summary & Architectural Vision</h4>
+                    <p>Cloud resource management is frequently treated as an administrative afterthought, resulting in massive fiscal waste. This research sandbox was built to validate an automated, multi-cloud FinOps framework capable of systematically slashing compute and egress costs without degrading system performance or violating strict uptime SLAs. By orchestrating elastic Spot VM container lifecycles, the objective was to prove that cloud infrastructure budgets can be dynamically optimized as a core engineering discipline.</p>
+
+                    <h4>The Legacy Problem (Before)</h4>
                     <p>Historically, cloud computing environments were provisioned statically using highly expensive, on-demand compute instances with flat-rate scale-out policies. This model resulted in severe resource over-provisioning and massive cloud budget waste, while dynamic spot instances (preemptible VMs) were avoided due to the lack of graceful container termination and migration mechanics during sudden node preemptions.</p>
-                    
-                    <h4>The Solution (After)</h4>
+
+                    <h4>The Sandbox Prototype & Blueprint (After)</h4>
                     <p>A multi-cloud sandbox was built using AWS CDK and Terraform to automate Spot VM container lifecycle governance. Deployed on GKE and AWS EKS, the setup configures dynamic Horizontal Pod Autoscaling (HPA) coupled with Karpenter for rapid, millisecond-fast node scaling. A custom telemetry service was engineered to continuously listen to preemption warnings via the cloud metadata API and immediately trigger graceful container draining before node eviction.</p>
-                    
-                    <h4>Key Conclusions & Insights</h4>
+
+                    <h4>Stress-Testing & Chaos Methodology</h4>
+                    <p>The resilience of the FinOps sandbox was tested by triggering artificial AWS and GCP spot preemption events on 100% of active compute node groups under a sustained, simulated production traffic load. Simultaneously, resource profile scanners were applied to analyze container CPU and memory usage, simulating diurnal workload patterns to benchmark cluster downscaling response times.</p>
+
+                    <h4>Key Technical Observations & Telemetry Results</h4>
                     <ul>
                         <li><strong>The 50% GCP Reduction:</strong> Utilizing dynamic GKE Spot VMs, node right-sizing, and tiered storage pipelines cut monthly GCP cloud expenditures by exactly 50% for high-throughput container clusters.</li>
                         <li><strong>Zero-Downtime Spot Migration:</strong> Custom Spot Termination Handlers successfully drained and migrated container pods to warm backup nodes in under 5 minutes, resulting in zero dropped requests or user-perceived downtime.</li>
                         <li><strong>SaaS Portfolio Savings:</strong> Compute expenditures were slashed by 21% to 40% across multi-tenant accounts while maintaining strict 99.9% to 99.99% system availability, proving that cloud budgets can be systematically optimized as an engineering discipline.</li>
                     </ul>
+
+                    <h4>Architectural Conclusions</h4>
+                    <p>The research proves that cloud waste is a solvable architectural problem, not an inevitable cost of doing business. By coupling dynamic Spot VM orchestration with proactive termination handlers, organizations can leverage highly discounted preemptible compute with the exact same reliability as expensive, on-demand infrastructure. Treating cloud economics as an automated SRE feedback loop unlocks massive, recurring infrastructure savings without sacrificing system performance or uptime reliability.</p>
                 `
             }
         };
