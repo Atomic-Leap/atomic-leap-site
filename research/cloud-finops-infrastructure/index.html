@@ -8,6 +8,8 @@
     <meta property="og:title" content="Atomic Leap - Product R&D Lab & Engineering Sandbox">
     <meta property="og:description" content="Atomic Leap is a personal engineering R&D lab by Ricardo Ribeiro, turning a decade of production infrastructure experience into independently owned software.">
     <meta property="og:type" content="website">
+    <link rel="canonical" href="https://atomicleap.com/research/cloud-finops-infrastructure/">
+    <meta property="og:image" content="https://atomicleap.com/og-image.jpg">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
 
     <title>Atomic Leap - Cloud FinOps & Infrastructure Architecture Case Study</title>
@@ -377,15 +379,15 @@
 
             <div class="nav-controls">
                 <a href="/" class="nav-link">Home</a>
-                <a href="/technologies" class="nav-link">Stack</a>
+                <a href="/technologies/" class="nav-link">Stack</a>
                 <button class="toggle-theme-btn" onclick="toggleTheme()" id="themeToggleBtn">
                     🌗
                 </button>
-                <a href="mailto:rr@atomicleap.com" class="contact-btn">ping_sandbox()</a>
+                <a href="mailto:rr@atomicleap.com" class="contact-btn">Contact</a>
             </div>
         </header>
 
-        <a href="/" class="back-link">← back_to_sandbox()</a>
+        <a href="/" class="back-link">← Back to Home</a>
 
         <!-- Main Article Header -->
         <div class="article-header">
@@ -475,7 +477,7 @@ spec:
             </div>
 
             <h4>4. Stress-Testing, Chaos Injection & Telemetry</h4>
-            <p>The FinOps cluster was validated by triggering artificial GCP and AWS spot preemption events across 100% of active compute node groups under peak simulated traffic loads. Resource scanners analyzed CPU and memory utilization trends to identify and eliminate waste. Telemetry results verified:</p>
+            <p>The FinOps cluster was validated by triggering artificial AWS spot preemption events across 100% of active compute node groups under peak simulated traffic loads. Resource scanners analyzed CPU and memory utilization trends to identify and eliminate waste. Telemetry results verified:</p>
             <ul>
                 <li><strong>50% Budget Optimization:</strong> Utilizing dynamic GKE Spot VMs, Karpenter right-sizing, and tiered storage pipelines cut monthly AWS cloud expenditures by exactly 50% for high-throughput container clusters.</li>
                 <li><strong>Zero-Downtime Eviction:</strong> Custom Spot Termination Handlers successfully drained and migrated container pods to warm backup nodes in under 90 seconds, resulting in zero dropped requests or user-perceived downtime.</li>
@@ -486,7 +488,7 @@ spec:
             <p>While the proposed spot-optimized architecture achieves substantial cost savings, several operational limitations must be accounted for:</p>
             <ul>
                 <li><strong>Private IP Address Exhaustion:</strong> Dynamic, rapid recycling and consolidation of nodes can quickly exhaust private IP address allocation pools within VPC subnets if CIDR ranges are not oversized.</li>
-                <li><strong>Cloud Provider Manifest Divergence:</strong> Karpenter is heavily coupled to AWS APIs. Replicating similar node-less scheduling efficiency on other providers requires alternative cloud-specific architectures (such as GCP GKE Autopilot), increasing operational overhead.</li>
+                <li><strong>Cloud Provider Manifest Divergence:</strong> Karpenter is heavily coupled to AWS APIs. Replicating similar node-less scheduling efficiency on other providers requires alternative cloud-specific architectures , increasing operational overhead.</li>
                 <li><strong>Pod Disruption Budget Gridlocks:</strong> Aggressive cluster consolidation is bounded by Kubernetes Pod Disruption Budgets (PDBs). Misconfigured PDBs can permanently block Karpenter from terminating or consolidating underutilized nodes.</li>
             </ul>
 

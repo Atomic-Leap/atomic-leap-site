@@ -22,7 +22,7 @@ Operations are guided under the core doctrine of **sovereign software architectu
 
 Atomic Leap operates as an experimental playground validating software systems across three primary operational models:
 
-1. **Venture Prototyping (`01. RESEARCH`):** Conceptualizing, designing, and engineering proprietary B2B software products (BearAudit, Audit-Bay).
+1. **Venture Prototyping (`01. RESEARCH`):** Conceptualizing, designing, and engineering proprietary B2B software products (BearAudit).
 2. **Stress-Testing & Scale (`02. STRESS-TEST`):** Simulating peak load scenarios on distributed microservices, benchmarking database performance, and validating high-throughput message buses.
 3. **Deterministic AI & Infrastructure (`03. RE-ENGINEER`):** Benchmarking production-grade RAG pipelines, fine-tuned LLM execution environments, vector databases, and FinOps cloud cost reduction.
 
@@ -50,7 +50,7 @@ Atomic Leap operates as an experimental playground validating software systems a
 
 ### Pillar 04: Cloud Infrastructure & FinOps
 - **Infrastructure as Code (IaC):** AWS CDK (TypeScript/Python), Terraform, OpenTofu, CloudFormation.
-- **Cloud Providers:** Amazon Web Services (AWS), Google Cloud Platform (GCP), Hetzner Bare Metal.
+- **Cloud Providers:** Amazon Web Services (AWS), Hetzner Bare Metal.
 - **Container Orchestration:** Kubernetes (EKS/GKE), AWS ECS/Fargate, Docker Compose, s6-overlay container supervision.
 - **FinOps & Cost Optimization:** Systematic architectural audits reducing cloud compute/storage spend through reserved instances, spot instances, graviton arm processing, and serverless auto-scaling.
 
@@ -69,19 +69,6 @@ Atomic Leap develops and runs proprietary software ventures spawned directly fro
 - **Domain:** [https://bearaudit.com](https://bearaudit.com)
 - **Description:** AI-powered automated code review, static security analysis, dependency vulnerability scanning, and automated pull-request remediation.
 - **Key Capabilities:** Integrates into CI/CD pipelines (GitHub Actions, GitLab CI), scans codebases for OWASP Top 10 vulnerabilities, enforces code style standards, and suggests automated refactoring diffs.
-
-### 2. Audit-Bay
-- **Domain:** [https://audit-bay.com](https://audit-bay.com)
-- **Description:** Automated web accessibility (WCAG 2.2 AA / AAA) and legal compliance testing platform for modern web applications.
-- **Key Capabilities:** Continuous accessibility audits, automated ARIA state checking, keyboard navigation simulation, screen reader compatibility validation, and automated compliance risk reporting.
-
-### 3. Subjct
-- **Role:** Sandboxed Prototype & Core Co-engineered Infrastructure
-- **Description:** Enterprise AI content ingestion, automated classification, and RAG vector orchestration platform built on Google Cloud Platform (GCP) and dense vector search.
-
----
-
-## 5. Architectural Case Studies & Production Proofs
 
 ### Case Study A: Santander UK Payment Hub & Double-Entry Ledger
 - **Scale:** Processing £50M+ in daily transaction volume across Faster Payments and core banking rails.
