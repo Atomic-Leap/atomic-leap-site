@@ -532,15 +532,16 @@
                 <button class="toggle-theme-btn" onclick="toggleTheme()" id="themeToggleBtn">
                     🌗
                 </button>
-                <a href="mailto:rr@atomicleap.com" class="contact-btn">ping_sandbox()</a>
+                <a href="mailto:rr@atomicleap.com" class="contact-btn">Contact</a>
             </div>
         </header>
 
         <!-- Main Overarching Proposition Hero -->
+        <main>
         <section class="hero">
-            <div class="hero-headline">
+            <h1 class="hero-headline">
                 Atomic Leap exists to explore engineering problems that are too interesting to leave theoretical-and turn the solutions into software people can actually use. We prototype hard infrastructure problems-distributed systems, AI, search, streaming and data-and commercialise the validated survivors.
-            </div>
+            </h1>
 
             <div class="capabilities-list">
                 <div class="capability-item">
@@ -557,14 +558,7 @@
                 </div>
             </div>
 
-            <div class="stack-bar">
-                <span class="stack-pill">Live Streaming (HLS, RTMP, SRT)</span>
-                <span class="stack-pill">Cloud Cost Reduction (FinOps)</span>
-                <span class="stack-pill">AWS CDK & Terraform (IaC)</span>
-                <span class="stack-pill">PostgreSQL Ledgers</span>
-                <span class="stack-pill">Go & Python Microservices</span>
-                <span class="stack-pill">RAG & Vector Search</span>
-            </div>
+            
 
             <div class="sub-tag">
                 Atomic Leap Ltd • Product R&D Lab & Engineering Sandbox<br>
@@ -572,32 +566,19 @@
             </div>
         </section>
 
-        <!-- Handwritten Pad Codex -->
-        <div class="pad-card">
+        <!-- Architectural Principles -->
+        <div class="pad-card" style="margin-bottom: 50px;">
             <div class="pad-header">
-                <span class="pad-title">// THE ATOMIC LEAP CODEX</span>
-                <span class="pad-title">EST. 2019</span>
+                <span class="pad-title">// ENGINEERING PRINCIPLES</span>
             </div>
-
             <div class="codex-grid">
-                <div class="codex-intro">
+                <div class="codex-intro" style="border-bottom: none; padding-bottom: 0;">
                     Math over marketing. Architecture over hype. Sovereign tech validated in extreme sandboxes.
                 </div>
-
-                <div class="codex-item">
-                    <strong>I. Chaos Testing & Media Sandboxes:</strong> PostgreSQL double-entry ledgers are benchmarked under extreme loads, achieving zero-reconciliation drift under simulated load, and real-time video syndication pipelines are stress-tested using HLS, RTMP, and SRT under network degradation.
-                </div>
-
-                <div class="codex-item">
-                    <strong>II. Infrastructure & FinOps Experiments:</strong> Performance trade-offs in distributed Go & Python microservices are simulated, prototyping automated AWS and GCP spot fleet optimization to isolate compute costs.
-                </div>
-
-                <div class="codex-item">
-                    <strong>III. Bounded AI Validation:</strong> Sandboxes are constructed to research deterministic AI behavior. By severely constraining the context limits, generation outputs, and vector scopes, we force LLMs into testable, predictable components rather than unpredictable agents.
-                </div>
-
-                <div class="codex-outro">
-                    Sovereign software: infrastructure under your control, portable self-hosted components, and data ownership by design.
+                <div class="codex-outro" style="padding-top: 12px; margin-top: 12px; border-top: 1px dashed var(--border-color); font-size: 18px; line-height: 1.6; font-family: var(--sans-font);">
+                    <strong>1. Build Sovereign Software.</strong> Keep core state, compute, and data ownership under your direct control. External SaaS and AI models should be optional integrations, never structural dependencies.<br><br>
+                    <strong>2. Exploit Constraints.</strong> Force complex systems (especially LLMs) into strictly bounded environments. Deterministic, measurable behavior always beats unpredictable agentic scaling.<br><br>
+                    <strong>3. Local-First Auditing.</strong> Products like BearAudit ensure that sensitive proprietary data (like complete site crawls and structural mappings) never leave the operator's machine.
                 </div>
             </div>
         </div>
@@ -605,7 +586,7 @@
         <!-- Portfolio Showcase (Differentiating VENTURES vs CLIENT PARTNERS) -->
         <section class="portfolio-section">
             <!-- Section 1: Ventures -->
-            <div class="portfolio-category-title">// VENTURES - Proprietary software systems spawned in the sandbox</div>
+            <div class="portfolio-category-title" id="ventures">// LIVE PRODUCTS - Software engineered in the lab</div>
             <div class="ventures-grid">
                 <!-- BearAudit -->
                 <div class="venture-card">
@@ -702,6 +683,7 @@
         </section>
 
         <!-- Footer -->
+        </main>
         <footer>
             <div>
                 © 2026 Atomic Leap Ltd. All rights reserved. Registered in England & Wales (Co. No. 16987076).
