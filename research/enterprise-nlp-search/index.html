@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atomic Leap — Enterprise NLP & Search Architecture Case Study</title>
+    <title>Atomic Leap - Enterprise NLP & Search Architecture Case Study</title>
     <!-- Vercel Analytics Insights -->
     <script defer src="/_vercel/insights/script.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -442,7 +442,7 @@
             </table>
 
             <h4>3. Architectural Selection Rationale</h4>
-            <p>Option C was selected as the optimal architecture. Option A (pure BM25) was rejected because it lacks conceptual intelligence, returning zero matches for semantic queries. Option B (pure vector search) was rejected because editorial newsrooms depend heavily on exact-match names, codes, and proper nouns—which vector models frequently fail to match due to out-of-vocabulary constraints. In addition, pure vector index queries suffered from latency spikes under highly concurrent traffic loads.</p>
+            <p>Option C was selected as the optimal architecture. Option A (pure BM25) was rejected because it lacks conceptual intelligence, returning zero matches for semantic queries. Option B (pure vector search) was rejected because editorial newsrooms depend heavily on exact-match names, codes, and proper nouns-which vector models frequently fail to match due to out-of-vocabulary constraints. In addition, pure vector index queries suffered from latency spikes under highly concurrent traffic loads.</p>
             
             <p>By implementing Option C, lexical search (BM25) and dense vector search are executed in parallel on a distributed Elasticsearch cluster deployed on Google Kubernetes Engine (GKE). To merge the search results cleanly, a Reciprocal Rank Fusion (RRF) pipeline was implemented. RRF mathematically merges the rank positions of documents from both retrieval runs, avoiding the need for complex and slow score normalization. This hybrid engine was integrated directly with custom Microsoft Word (Office.js) and Chrome extensions, providing real-time, context-aware semantic recommendations directly inside newsroom editor environments.</p>
 

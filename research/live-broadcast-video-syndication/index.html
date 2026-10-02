@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atomic Leap — Live Broadcast & Video Syndication Architecture Case Study</title>
+    <title>Atomic Leap - Live Broadcast & Video Syndication Architecture Case Study</title>
     <!-- Vercel Analytics Insights -->
     <script defer src="/_vercel/insights/script.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -442,7 +442,7 @@
             </table>
 
             <h4>3. Architectural Selection Rationale</h4>
-            <p>Option C was engineered as the optimal architecture. Option A (RTMP) was rejected because it is fundamentally limited by TCP's congestion-control behavior. Under 5% packet loss, RTMP's buffer queue spirals out of control, introducing seconds of latency and leading to complete feed failure. Option B (WebRTC) was rejected due to its lack of scaling unit economics—operating peer-to-peer SFUs for 25,000+ viewers requires astronomical server compute costs and cannot easily map to traditional linear television satellite/cable receivers.</p>
+            <p>Option C was engineered as the optimal architecture. Option A (RTMP) was rejected because it is fundamentally limited by TCP's congestion-control behavior. Under 5% packet loss, RTMP's buffer queue spirals out of control, introducing seconds of latency and leading to complete feed failure. Option B (WebRTC) was rejected due to its lack of scaling unit economics-operating peer-to-peer SFUs for 25,000+ viewers requires astronomical server compute costs and cannot easily map to traditional linear television satellite/cable receivers.</p>
             
             <p>By implementing Option C, Secure Reliable Transport (SRT) is used for the contribution feed. SRT, open-sourced by Haivision in 2017 and maintained by the SRT Alliance, utilizes UDP with selective ARQ (Automatic Repeat reQuest). It isolates packet loss recovery within a configured latency budget, preventing network retransmission delays from blocking subsequent frames. The ingest layer is backed by Go-based streaming managers running on AWS ECS (Fargate) with containerized FFmpeg pipelines, transcoding SRT feeds into multi-bitrate HTTP Live Streaming (HLS) and LL-HLS targets distributed globally via AWS CloudFront with Origin Shield.</p>
 
