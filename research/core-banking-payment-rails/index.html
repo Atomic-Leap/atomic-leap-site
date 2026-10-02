@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atomic Leap - Core Banking & Payment Rails Architecture Case Study</title>
     <!-- Vercel Analytics Insights -->
-    <script defer src="/_vercel/insights/script.js"></script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -462,7 +462,7 @@ CREATE UNIQUE INDEX idx_linear_accounts ON ledger_entries (account_id, transacti
             </div>
 
             <h4>4. Stress-Testing, Chaos Injection & Telemetry</h4>
-            <p>The transaction clearing prototype was validated by flooding the payment API with 15,000 concurrent payment deposit and withdrawal events per second, representing a simulated transaction volume of £50M+ per day. To test robustness under failure states, active connection pools were saturated, and dockerized Go container nodes were randomly restarted mid-commit. The telemetry recorded:</p>
+            <p>The transaction clearing prototype was validated by flooding the payment API with a throughput of 15,000 payment deposit and withdrawal events per second, representing a simulated transaction volume of £50M+ per day. To test robustness under failure states, active connection pools were saturated, and dockerized Go container nodes were randomly restarted mid-commit. The telemetry recorded:</p>
             <ul>
                 <li><strong>Reconciliation Correctness:</strong> Zero balance sheet drift (0.00% ledger drift) was maintained across all test runs. PostgreSQL ACID transactional rollbacks cleanly isolated all aborted database sessions during container crashes.</li>
                 <li><strong>Lock Performance:</strong> The Redis-based distributed pre-locking layer successfully deflected 94% of duplicate lock requests before they hit the database, preventing row lock contention and maintaining an average commit latency of just 18ms under concurrent load.</li>

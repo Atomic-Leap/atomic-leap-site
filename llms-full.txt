@@ -1,7 +1,7 @@
 # Atomic Leap Ltd — Comprehensive Technical Specification & Engineering Codex
 
 > Experimental Engineering Sandbox & Product R&D Lab based in London, United Kingdom.
-> Atomic Leap researches, benchmarks, and validates next-generation sovereign software systems.
+> Atomic Leap researches, benchmarks, and validates hard infrastructure problems and commercializes the validated survivors.
 
 ---
 

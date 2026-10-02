@@ -1,6 +1,6 @@
 # Atomic Leap Ltd
 
-> Experimental Engineering Sandbox & Product R&D Lab based in London, UK. Atomic Leap researches, benchmarks, and validates next-generation sovereign software systems.
+> Experimental Engineering Sandbox & Product R&D Lab based in London, UK. Atomic Leap researches, benchmarks, and validates hard infrastructure problems and commercializes the validated survivors.
 
 ## Core Philosophy
 Atomic Leap specializes in sovereign software architecture: absolute infrastructure control, zero vendor lock-in, portable self-hosted elements, and complete data sovereignty.
@@ -11,8 +11,7 @@ Atomic Leap specializes in sovereign software architecture: absolute infrastruct
 - [Full Specification](https://atomicleap.com/llms-full.txt): Comprehensive markdown codex including detailed architectural case studies, full technology stack teardown, and operational blueprints.
 
 ## Active Ventures & Products
-- [BearAudit](https://bearaudit.com): AI-powered automated code review, security scanning, and quality assurance engine.
-- [Audit-Bay](https://audit-bay.com): Automated accessibility (WCAG 2.2) and compliance testing platform for modern web applications.
+- [BearAudit](https://bearaudit.com): Local-first SEO and site-auditing application where crawl data stays on your machine and AI integrations are optional.
 
 ## Key Technical Pillars
 - **Distributed Systems:** High-throughput backend services in Go, Node.js, and Python with PostgreSQL, Redis, and Kafka/RabbitMQ.
