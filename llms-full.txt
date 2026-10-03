@@ -67,8 +67,7 @@ Atomic Leap develops and runs proprietary software ventures spawned directly fro
 
 ### 1. BearAudit
 - **Domain:** [https://bearaudit.com](https://bearaudit.com)
-- **Description:** AI-powered automated code review, static security analysis, dependency vulnerability scanning, and automated pull-request remediation.
-- **Key Capabilities:** Integrates into CI/CD pipelines (GitHub Actions, GitLab CI), scans codebases for OWASP Top 10 vulnerabilities, enforces code style standards, and suggests automated refactoring diffs.
+- **Description:** Local-first SEO and site-auditing application where crawl data stays on your machine and AI integrations are optional.
 
 ### Case Study A: Santander UK Payment Hub & Double-Entry Ledger
 - **Scale:** Processing £50M+ in daily transaction volume across Faster Payments and core banking rails.
